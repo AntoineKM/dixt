@@ -1,0 +1,32 @@
+{
+  "name": "@dnext/root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "turbo start",
+    "build": "turbo build",
+    "dev": "turbo dev"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.25.2",
+    "@manypkg/cli": "^0.19.2",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
+    "eslint-config-next": "^13.0.2",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "prettier": "^2.7.1",
+    "tsup": "^6.7.0",
+    "turbo": "^1.8.3"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "packageManager": "pnpm@8.1.0"
+}

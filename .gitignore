@@ -1,0 +1,11 @@
+*.log
+.DS_Store
+node_modules/
+dist/
+build/
+yarn-error.log
+.pnpm-debug.log
+.idea/
+.next/
+.store/
+.turbo
