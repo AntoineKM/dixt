@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import dnext from "../dnext";
 
 export type LogType = keyof typeof Log;
 
@@ -14,9 +13,8 @@ export const prefixes: {
   event: chalk.magenta("event") + " -",
 };
 
-const logger = (type: string, ...message: any[]) => {
+const logger = (type: LogType, ...message: any[]) => {
   console.log(prefixes[type], ...message);
-  dnext.emit("log", { type, message });
 };
 
 const Log = {
