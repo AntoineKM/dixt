@@ -32,9 +32,9 @@ export const dixtDefaults = {
     intents: [],
   },
   application: {
-    id: process.env.dixt_APPLICATION_ID || "",
+    id: process.env.DIXT_APPLICATION_ID || "",
     bot: {
-      token: process.env.dixt_BOT_TOKEN || "",
+      token: process.env.DIXT_BOT_TOKEN || "",
     },
   },
   plugins: [],
