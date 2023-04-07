@@ -1,5 +1,0 @@
----
-"dnext": major
----
-
-Add basics
