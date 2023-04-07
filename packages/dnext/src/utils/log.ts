@@ -1,11 +1,12 @@
 import chalk from "chalk";
+import dnext from "..";
 
 export type LogType = keyof typeof Log;
 
 export const prefixes: {
   [K in LogType]: string;
 } = {
-  wait: chalk.cyan("wait") + "  -",
+  wait: chalk.yellow("wait") + "  -",
   error: chalk.red("error") + " -",
   warn: chalk.yellow("warn") + "  -",
   ready: chalk.green("ready") + " -",
@@ -15,6 +16,7 @@ export const prefixes: {
 
 const logger = (type: LogType, ...message: any[]) => {
   console.log(prefixes[type], ...message);
+  dnext.events.emit("log", { type, message });
 };
 
 const Log = {

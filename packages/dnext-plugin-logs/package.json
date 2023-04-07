@@ -1,7 +1,7 @@
 {
-  "name": "dnext",
+  "name": "dnext-plugin-logs",
   "version": "0.0.0",
-  "description": "Discord bot framework",
+  "description": "Discord bot framework - logs plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -9,11 +9,10 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "chalk": "~4.1.1",
+    "discord-webhook-node": "^1.1.8",
     "discord.js": "^14.9.0",
-    "dotenv-flow": "^3.2.0",
-    "fs": "0.0.1-security",
-    "path": "^0.12.7"
+    "dnext": "workspace:*",
+    "dotenv-flow": "^3.2.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
