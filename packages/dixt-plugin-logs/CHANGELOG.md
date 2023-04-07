@@ -1,4 +1,4 @@
-# dnext-plugin-logs
+# dixt-plugin-logs
 
 ## 1.0.0
 
@@ -10,4 +10,4 @@
 
 - Updated dependencies [3b2f267]
 - Updated dependencies [07d435a]
-  - dnext@1.0.0
+  - dixt@1.0.0

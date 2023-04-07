@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import chalk from "chalk";
-import dnext from "..";
+import dixt from "..";
 
 export type LogType = keyof typeof Log;
 
@@ -17,7 +17,7 @@ export const prefixes: {
 
 const logger = (type: LogType, ...message: any[]) => {
   console.log(prefixes[type], ...message);
-  dnext.events.emit("log", { type, message });
+  dixt.events.emit("log", { type, message });
 };
 
 const Log = {

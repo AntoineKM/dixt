@@ -1,5 +1,5 @@
 {
-  "name": "@dnext/root",
+  "name": "@dixt/root",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -7,8 +7,8 @@
   "scripts": {
     "start": "turbo start",
     "build": "turbo build",
-    "build:core": "turbo run build --filter=dnext",
-    "build:plugins": "turbo run build --filter='dnext-plugin-*'",
+    "build:core": "turbo run build --filter=dixt",
+    "build:plugins": "turbo run build --filter='dixt-plugin-*'",
     "dev": "turbo dev",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

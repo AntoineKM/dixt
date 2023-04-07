@@ -9,14 +9,14 @@ dotenv.config({
 
 export type ClientOptions = Options;
 
-export type dnextPlugin = (
-  dnext: dnext,
+export type dixtPlugin = (
+  dixt: dixt,
   options?: object
 ) => {
   name: string;
 };
 
-export type dnextOptions = {
+export type dixtOptions = {
   clientOptions?: ClientOptions;
   application?: {
     id: string;
@@ -24,34 +24,34 @@ export type dnextOptions = {
       token: string;
     };
   };
-  plugins?: (dnextPlugin | [dnextPlugin, object])[];
+  plugins?: (dixtPlugin | [dixtPlugin, object])[];
 };
 
-export const dnextDefaults = {
+export const dixtDefaults = {
   clientOptions: {
     intents: [],
   },
   application: {
-    id: process.env.DNEXT_APPLICATION_ID || "",
+    id: process.env.dixt_APPLICATION_ID || "",
     bot: {
-      token: process.env.DNEXT_BOT_TOKEN || "",
+      token: process.env.dixt_BOT_TOKEN || "",
     },
   },
   plugins: [],
 };
 
-class dnext {
+class dixt {
   public client: Client;
-  public application: dnextOptions["application"];
-  public plugins: dnextOptions["plugins"];
+  public application: dixtOptions["application"];
+  public plugins: dixtOptions["plugins"];
   public static events = new EventEmiter();
 
-  constructor(public options: dnextOptions = dnextDefaults) {
+  constructor(public options: dixtOptions = dixtDefaults) {
     this.client = new Client({
-      ...dnextDefaults.clientOptions,
+      ...dixtDefaults.clientOptions,
       ...options.clientOptions,
     });
-    this.application = { ...dnextDefaults.application, ...options.application };
+    this.application = { ...dixtDefaults.application, ...options.application };
     this.plugins = options.plugins || [];
   }
 
@@ -97,4 +97,4 @@ class dnext {
 
 export { default as reduceString } from "./utils/reduceString";
 export { default as Log, prefixes, type LogType } from "./utils/log";
-export default dnext;
+export default dixt;

@@ -1,22 +1,22 @@
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors } from "discord.js";
-import dnext, { dnextPlugin, reduceString, Log, LogType } from "dnext";
+import dixt, { dixtPlugin, reduceString, Log, LogType } from "dixt";
 import dotenv from "dotenv-flow";
 
-export const name = "dnext-plugin-logs";
+export const name = "dixt-plugin-logs";
 
 dotenv.config({
   silent: true,
 });
 
-export type dnextPluginLogsOptions = {
+export type dixtPluginLogsOptions = {
   webhookUrl?: string;
   name?: string;
   avatarUrl?: string;
 };
 
-export const dnextPluginLogsDefaults = {
-  webhookUrl: process.env.DNEXT_PLUGIN_LOGS_WEBHOOK_URL || "",
+export const dixtPluginLogsDefaults = {
+  webhookUrl: process.env.dixt_PLUGIN_LOGS_WEBHOOK_URL || "",
   name,
 };
 
@@ -42,11 +42,11 @@ const embedColors: {
   event: Colors.Purple,
 };
 
-const dnextPluginLogs: dnextPlugin = (
+const dixtPluginLogs: dixtPlugin = (
   _,
-  optionsValue?: dnextPluginLogsOptions
+  optionsValue?: dixtPluginLogsOptions
 ) => {
-  const options = { ...dnextPluginLogsDefaults, ...optionsValue };
+  const options = { ...dixtPluginLogsDefaults, ...optionsValue };
   if (!options.webhookUrl) Log.error("No webhook url provided");
 
   const hook = new Webhook(options.webhookUrl);
@@ -56,7 +56,7 @@ const dnextPluginLogs: dnextPlugin = (
   const embed = new MessageBuilder();
   embed.setTimestamp();
 
-  dnext.events.on("log", (log) => {
+  dixt.events.on("log", (log) => {
     try {
       embed.setDescription(reduceString(log.message.toString(), 4096));
       embed.setFooter(embedEmojis[log.type as LogType]);
@@ -73,4 +73,4 @@ const dnextPluginLogs: dnextPlugin = (
   };
 };
 
-export default dnextPluginLogs;
+export default dixtPluginLogs;

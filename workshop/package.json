@@ -5,8 +5,8 @@
     "dev": "nodemon --exec ts-node src/index"
   },
   "dependencies": {
-    "dnext": "workspace:*",
-    "dnext-plugin-logs": "workspace:*"
+    "dixt": "workspace:*",
+    "dixt-plugin-logs": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

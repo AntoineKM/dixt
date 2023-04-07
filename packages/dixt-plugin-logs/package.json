@@ -1,5 +1,5 @@
 {
-  "name": "dnext-plugin-logs",
+  "name": "dixt-plugin-logs",
   "version": "1.0.0",
   "description": "Discord bot framework - logs plugin",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
   "dependencies": {
     "discord-webhook-node": "^1.1.8",
     "discord.js": "^14.9.0",
-    "dnext": "workspace:*",
+    "dixt": "workspace:*",
     "dotenv-flow": "^3.2.0"
   },
   "devDependencies": {

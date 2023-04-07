@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    if: github.repository == 'antoinekm/dnext'
+    if: github.repository == 'antoinekm/dixt'
 
     runs-on: ubuntu-latest
 

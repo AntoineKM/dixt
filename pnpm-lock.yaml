@@ -35,7 +35,7 @@ importers:
         specifier: ^1.8.3
         version: 1.8.3
 
-  packages/dnext:
+  packages/dixt:
     dependencies:
       chalk:
         specifier: ~4.1.1
@@ -63,7 +63,7 @@ importers:
         specifier: ^4.9.3
         version: 4.9.3
 
-  packages/dnext-plugin-logs:
+  packages/dixt-plugin-logs:
     dependencies:
       discord-webhook-node:
         specifier: ^1.1.8
@@ -71,9 +71,9 @@ importers:
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
-      dnext:
+      dixt:
         specifier: workspace:*
-        version: link:../dnext
+        version: link:../dixt
       dotenv-flow:
         specifier: ^3.2.0
         version: 3.2.0
@@ -90,12 +90,12 @@ importers:
 
   workshop:
     dependencies:
-      dnext:
+      dixt:
         specifier: workspace:*
-        version: link:../packages/dnext
-      dnext-plugin-logs:
+        version: link:../packages/dixt
+      dixt-plugin-logs:
         specifier: workspace:*
-        version: link:../packages/dnext-plugin-logs
+        version: link:../packages/dixt-plugin-logs
     devDependencies:
       '@types/node':
         specifier: ^18.15.11

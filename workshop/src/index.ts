@@ -1,8 +1,8 @@
-import dnext from "dnext";
-import dnextPluginLogs from "dnext-plugin-logs";
+import dixt from "dixt";
+import dixtPluginLogs from "dixt-plugin-logs";
 
-const client = new dnext({
-  plugins: [[dnextPluginLogs, {}]],
+const client = new dixt({
+  plugins: [[dixtPluginLogs, {}]],
 });
 
 client.start();
