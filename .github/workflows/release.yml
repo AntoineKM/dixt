@@ -31,8 +31,11 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Build
-        run: pnpm build
+      - name: Build Core
+        run: pnpm build:core
+
+      - name: Build Plugins
+        run: pnpm build:plugins
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
