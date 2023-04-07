@@ -9,7 +9,9 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "dependencies": {
     "@changesets/cli": "^2.25.2",
