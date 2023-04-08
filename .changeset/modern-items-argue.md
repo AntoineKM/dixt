@@ -1,8 +1,8 @@
 ---
-"dixt-plugin-join": major
-"dixt-plugin-logs": major
-"dixt": major
-"dixt-plugin-react": major
+"dixt-plugin-join": minor
+"dixt-plugin-logs": minor
+"dixt": minor
+"dixt-plugin-react": minor
 ---
 
 Add react plugin and improve errors message
