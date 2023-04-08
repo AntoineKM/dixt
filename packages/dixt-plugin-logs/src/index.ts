@@ -47,7 +47,7 @@ const dixtPluginLogs: dixtPlugin = (
   optionsValue?: dixtPluginLogsOptions
 ) => {
   const options = { ...dixtPluginLogsDefaults, ...optionsValue };
-  if (!options.webhookUrl) Log.error("No webhook url provided");
+  if (!options.webhookUrl) Log.error(`${name} - webhookUrl is required`);
 
   const hook = new Webhook(options.webhookUrl);
   hook.setUsername(options.name);
