@@ -1,5 +1,5 @@
 import dotenv from "dotenv-flow";
-import { Client, Options } from "discord.js";
+import { Client, Events, GatewayIntentBits, Options } from "discord.js";
 import EventEmiter from "events";
 import Log from "./utils/log";
 
@@ -29,7 +29,7 @@ export type dixtOptions = {
 
 export const dixtDefaults = {
   clientOptions: {
-    intents: [],
+    intents: Object.values(GatewayIntentBits) as GatewayIntentBits[],
   },
   application: {
     id: process.env.DIXT_APPLICATION_ID || "",
@@ -55,7 +55,7 @@ class dixt {
     this.plugins = options.plugins || [];
   }
 
-  public start() {
+  public async start() {
     Log.wait("loading env files");
     dotenv
       .listDotenvFiles(".", {
@@ -84,10 +84,11 @@ class dixt {
       });
     }
 
-    this.client.login(this.application.bot.token);
-    this.client.on("ready", () => {
+    this.client.on(Events.ClientReady, () => {
       Log.ready("client is ready");
     });
+
+    await this.client.login(this.application.bot.token);
   }
 
   public stop() {

@@ -16,7 +16,7 @@ export const prefixes: {
 };
 
 const logger = (type: LogType, ...message: any[]) => {
-  console.log(prefixes[type], ...message);
+  console.log(`${prefixes[type]} ${message.join(" ")}`);
   dixt.events.emit("log", { type, message });
 };
 

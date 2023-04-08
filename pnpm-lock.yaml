@@ -90,6 +90,9 @@ importers:
 
   workshop:
     dependencies:
+      discord.js:
+        specifier: ^14.9.0
+        version: 14.9.0
       dixt:
         specifier: workspace:*
         version: link:../packages/dixt

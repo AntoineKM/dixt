@@ -5,6 +5,7 @@
     "dev": "nodemon --exec ts-node src/index"
   },
   "dependencies": {
+    "discord.js": "^14.9.0",
     "dixt": "workspace:*",
     "dixt-plugin-logs": "workspace:*"
   },

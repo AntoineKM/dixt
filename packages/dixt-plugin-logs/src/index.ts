@@ -58,7 +58,9 @@ const dixtPluginLogs: dixtPlugin = (
 
   dixt.events.on("log", (log) => {
     try {
-      embed.setDescription(reduceString(log.message.toString(), 4096));
+      embed.setDescription(
+        reduceString(log.message.join(" ").toString(), 4096)
+      );
       embed.setFooter(embedEmojis[log.type as LogType]);
       embed.setColor(embedColors[log.type as LogType]);
 
@@ -71,10 +73,8 @@ const dixtPluginLogs: dixtPlugin = (
   // handle when a guild member delete a message
   instance.client.on(Events.MessageDelete, (message) => {
     if (message.author?.bot) return;
-    console.log("delete");
     Log.warn(
-      `**${message.guild?.name}**`,
-      `message de **${message.author?.username}#${message.author?.discriminator}** dans <#${message.channel.id}> supprimé:\n${message.cleanContent}`
+      `**${message.guild}** - ${message.author} deleted a message in ${message.channel}:\n${message.cleanContent}`
     );
   });
 
@@ -84,19 +84,18 @@ const dixtPluginLogs: dixtPlugin = (
 
     if ((oldMessage.channel as TextChannel)?.name.startsWith("access")) return;
     Log.warn(
-      `**${oldMessage.guild?.name}**`,
-      `message édité par **${oldMessage.author?.username}#${oldMessage.author?.discriminator}** dans <#${oldMessage.channel.id}>:\n${oldMessage.cleanContent}\n⬇️\n${newMessage.cleanContent}`
+      `**${oldMessage.guild}** - **${oldMessage.author}** edited a message in <#${oldMessage.channel.id}>:\n${oldMessage.cleanContent}\n⬇️\n${newMessage.cleanContent}`
     );
   });
 
   // handle when a guild member join the server
   instance.client.on(Events.GuildMemberAdd, (member) => {
-    Log.info(`**${member.guild.name}**`, `${member} a rejoint le serveur`);
+    Log.info(`**${member.guild}** - ${member} has joined the server`);
   });
 
   // handle when a guild member leave the server
   instance.client.on(Events.GuildMemberRemove, (member) => {
-    Log.info(`**${member.guild.name}**`, `${member} a quitté le serveur`);
+    Log.info(`**${member.guild}** - ${member} has left the server`);
   });
 
   // handle when a member join a voice channel
@@ -104,18 +103,15 @@ const dixtPluginLogs: dixtPlugin = (
     if (oldState.channelId === newState.channelId) return;
     if (oldState.channelId === null) {
       Log.info(
-        `**${newState.guild.name}**`,
-        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** a rejoint le salon vocal <#${newState.channelId}>`
+        `**${newState.guild}** - ${newState.member} has joined <#${newState.channelId}>`
       );
     } else if (newState.channelId === null) {
       Log.info(
-        `**${oldState.guild.name}**`,
-        `**${oldState.member?.user.username}#${oldState.member?.user.discriminator}** a quitté le salon vocal <#${oldState.channelId}>`
+        `**${oldState.guild}** - ${oldState.member} has left <#${oldState.channelId}>`
       );
     } else {
       Log.info(
-        `**${newState.guild.name}**`,
-        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** est passé du salon vocal <#${oldState.channelId}> au salon vocal <#${newState.channelId}>`
+        `**${newState.guild}** - ${newState.member} switch from <#${oldState.channelId}> to <#${newState.channelId}>`
       );
     }
   });
@@ -128,16 +124,14 @@ const dixtPluginLogs: dixtPlugin = (
         (role) => !newMember.roles.cache.has(role.id)
       );
       Log.info(
-        `**${newMember.guild.name}**`,
-        `**${newMember.user.username}#${newMember.user.discriminator}** a perdu le rôle **${role?.name}**`
+        `**${newMember.guild}** - ${newMember.user} lost the role ${role}`
       );
     } else {
       const role = newMember.roles.cache.find(
         (role) => !oldMember.roles.cache.has(role.id)
       );
       Log.info(
-        `**${newMember.guild.name}**`,
-        `**${newMember.user.username}#${newMember.user.discriminator}** a gagné le rôle **${role?.name}**`
+        `**${newMember.guild}** - ${newMember.user} got the role ${role}`
       );
     }
   });
@@ -146,8 +140,9 @@ const dixtPluginLogs: dixtPlugin = (
   instance.client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
     if (oldMember.nickname === newMember.nickname) return;
     Log.info(
-      `**${newMember.guild.name}**`,
-      `**${newMember.user.username}#${newMember.user.discriminator}** a changé son pseudo de **${oldMember.nickname}** à **${newMember.nickname}**`
+      `**${newMember.guild}** - ${newMember.user} changed his nickname from ${
+        oldMember.nickname || oldMember.user.username
+      } to ${newMember.nickname || newMember.user.username}`
     );
   });
 
@@ -155,8 +150,11 @@ const dixtPluginLogs: dixtPlugin = (
   instance.client.on(Events.MessageReactionAdd, (reaction, user) => {
     if (user.bot) return;
     Log.info(
-      `**${reaction.message.guild?.name}**`,
-      `**${user.username}#${user.discriminator}** a réagi à un message dans <#${reaction.message.channel.id}> avec ${reaction.emoji}`
+      `**${
+        reaction.message.guild
+      }** - **${user}** reacted to ${`https://discord.com/channels/${reaction.message.guild?.id}/${reaction.message.channel.id}/${reaction.message.id}`} with ${
+        reaction.emoji
+      }`
     );
   });
 
@@ -164,8 +162,11 @@ const dixtPluginLogs: dixtPlugin = (
   instance.client.on(Events.MessageReactionRemove, (reaction, user) => {
     if (user.bot) return;
     Log.info(
-      `**${reaction.message.guild?.name}**`,
-      `**${user.username}#${user.discriminator}** a retiré une réaction à un message dans <#${reaction.message.channel.id}> avec ${reaction.emoji}`
+      `**${
+        reaction.message.guild
+      }** - **${user}** removed his reaction to ${`https://discord.com/channels/${reaction.message.guild?.id}/${reaction.message.channel.id}/${reaction.message.id}`} with ${
+        reaction.emoji
+      }`
     );
   });
 
@@ -173,13 +174,13 @@ const dixtPluginLogs: dixtPlugin = (
   instance.client.on(Events.InteractionCreate, (interaction) => {
     if (interaction.isCommand()) {
       Log.info(
-        `**${interaction.guild?.name ?? "DM"}**`,
+        `**${interaction.guild ?? "DM"}**`,
         `member **${interaction.user.username}#${interaction.user.discriminator}** excuted the command ` +
-          "``" +
+          "`" +
           `/${interaction.commandName} ${interaction.options.data
             .map((option) => option.name + ":" + option.value)
             .join(" ")}` +
-          "``"
+          "`"
       );
     }
   });

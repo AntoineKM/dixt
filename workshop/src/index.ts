@@ -1,8 +1,10 @@
 import dixt from "dixt";
 import dixtPluginLogs from "dixt-plugin-logs";
 
-const client = new dixt({
-  plugins: [[dixtPluginLogs, {}]],
-});
+(async () => {
+  const instance = new dixt({
+    plugins: [dixtPluginLogs],
+  });
 
-client.start();
+  await instance.start();
+})();
