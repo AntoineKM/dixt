@@ -1,5 +1,11 @@
 # dixt
 
+## 2.0.1
+
+### Patch Changes
+
+- b005c68: Add join plugin
+
 ## 2.0.0
 
 ### Major Changes
