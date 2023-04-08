@@ -10,6 +10,8 @@
     "build:core": "turbo run build --filter=dixt",
     "build:plugins": "turbo run build --filter='dixt-plugin-*'",
     "dev": "turbo dev",
+    "dev:core": "turbo run dev --filter=dixt",
+    "dev:plugins": "turbo run dev --filter='dixt-plugin-*'",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "version": "changeset version",

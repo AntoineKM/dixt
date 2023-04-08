@@ -7,7 +7,8 @@
   "dependencies": {
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
-    "dixt-plugin-logs": "workspace:*"
+    "dixt-plugin-logs": "workspace:*",
+    "dixt-plugin-join": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

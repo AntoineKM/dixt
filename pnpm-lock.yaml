@@ -63,6 +63,28 @@ importers:
         specifier: ^4.9.3
         version: 4.9.3
 
+  packages/dixt-plugin-join:
+    dependencies:
+      discord.js:
+        specifier: ^14.9.0
+        version: 14.9.0
+      dixt:
+        specifier: workspace:*
+        version: link:../dixt
+      dotenv-flow:
+        specifier: ^3.2.0
+        version: 3.2.0
+    devDependencies:
+      '@types/dotenv-flow':
+        specifier: ^3.2.0
+        version: 3.2.0
+      '@types/node':
+        specifier: ^18.15.11
+        version: 18.15.11
+      typescript:
+        specifier: ^4.9.3
+        version: 4.9.3
+
   packages/dixt-plugin-logs:
     dependencies:
       discord-webhook-node:
@@ -96,6 +118,9 @@ importers:
       dixt:
         specifier: workspace:*
         version: link:../packages/dixt
+      dixt-plugin-join:
+        specifier: workspace:*
+        version: link:../packages/dixt-plugin-join
       dixt-plugin-logs:
         specifier: workspace:*
         version: link:../packages/dixt-plugin-logs
