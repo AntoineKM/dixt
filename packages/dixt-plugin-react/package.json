@@ -1,0 +1,22 @@
+{
+  "name": "dixt-plugin-react",
+  "version": "2.0.1",
+  "description": "Discord bot framework - react plugin",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "discord.js": "^14.9.0",
+    "dixt": "workspace:*",
+    "dotenv-flow": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/node": "^18.15.11",
+    "typescript": "^4.9.3"
+  }
+}

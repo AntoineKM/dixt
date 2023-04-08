@@ -6,7 +6,8 @@
     [
       "dixt",
       "dixt-plugin-logs",
-      "dixt-plugin-join"
+      "dixt-plugin-join",
+      "dixt-plugin-react"
     ]
   ],
   "linked": [],

@@ -15,7 +15,7 @@ export type dixtPluginLogsOptions = {
   avatarUrl?: string;
 };
 
-export const dixtPluginLogsDefaults = {
+export const optionsDefaults = {
   webhookUrl: process.env.DIXT_PLUGIN_LOGS_WEBHOOK_URL || "",
   name,
 };
@@ -46,8 +46,11 @@ const dixtPluginLogs: dixtPlugin = (
   instance,
   optionsValue?: dixtPluginLogsOptions
 ) => {
-  const options = { ...dixtPluginLogsDefaults, ...optionsValue };
-  if (!options.webhookUrl) Log.error(`${name} - webhookUrl is required`);
+  const options = { ...optionsDefaults, ...optionsValue };
+  if (!options.webhookUrl) {
+    Log.error(`${name} - webhookUrl is required`);
+    throw new Error(`${name} - webhookUrl is required`);
+  }
 
   const hook = new Webhook(options.webhookUrl);
   hook.setUsername(options.name);

@@ -14,7 +14,7 @@ export type dixtPluginJoinOptions = {
   message?: string;
 };
 
-export const dixtPluginJoinDefaults = {
+export const optionsDefaults = {
   channelId: process.env.DIXT_PLUGIN_JOIN_CHANNEL_ID || "",
   emoji: "🆕",
   message: "has joined the server !",
@@ -24,8 +24,11 @@ const dixtPluginJoin: dixtPlugin = (
   instance,
   optionsValue?: dixtPluginJoinOptions
 ) => {
-  const options = { ...dixtPluginJoinDefaults, ...optionsValue };
-  if (!options.channelId) Log.error(`${name} - channelId is required`);
+  const options = { ...optionsDefaults, ...optionsValue };
+  if (!options.channelId) {
+    Log.error(`${name} - channelId is required`);
+    throw new Error(`${name} - channelId is required`);
+  }
 
   instance.client.on(Events.GuildMemberAdd, async (member) => {
     const channel = (await member.guild.channels.fetch(
