@@ -1,5 +1,16 @@
 # dixt-plugin-logs
 
+## 2.0.0
+
+### Major Changes
+
+- 13de855: Improve dixt with intents, plugins, async and better logs format
+
+### Patch Changes
+
+- Updated dependencies [13de855]
+  - dixt@2.0.0
+
 ## 1.0.0
 
 ### Major Changes
