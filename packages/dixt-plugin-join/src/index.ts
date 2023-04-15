@@ -10,14 +10,16 @@ dotenv.config({
 
 export type DixtPluginJoinOptions = {
   channel?: string;
-  emoji?: string;
-  message?: string;
+  messages?: {
+    join?: string;
+  };
 };
 
 export const optionsDefaults = {
   channel: process.env.DIXT_PLUGIN_JOIN_CHANNEL_ID || "",
-  emoji: "🆕",
-  message: "has joined the server !",
+  messages: {
+    join: "🆕 %member% has joined the server !",
+  },
 };
 
 const dixtPluginJoin: DixtPlugin = (
@@ -36,7 +38,10 @@ const dixtPluginJoin: DixtPlugin = (
     )) as TextChannel;
 
     const embed: APIEmbed = {
-      description: `${options.emoji} **${member.user.username}#${member.user.discriminator}** ${options.message}`,
+      description: options.messages?.join?.replace(
+        /%member%/g,
+        `${member.user.username}#${member.user.discriminator}`
+      ),
     };
 
     channel.send({ embeds: [embed] });
