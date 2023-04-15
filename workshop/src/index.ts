@@ -2,9 +2,11 @@ import dixt from "dixt";
 import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginJoin from "dixt-plugin-join";
 import dixtPluginReact from "dixt-plugin-react";
+import dixtPluginTwitch from "dixt-plugin-twitch";
 import dixtPluginWorktime from "dixt-plugin-worktime";
 import dixtPluginJoinOptions from "./options/join";
 import dixtPluginReactOptions from "./options/react";
+import dixtPluginTwitchOptions from "./options/twitch";
 import dixtPluginWorktimeOptions from "./options/worktime";
 
 const main = async () => {
@@ -17,6 +19,7 @@ const main = async () => {
       dixtPluginLogs,
       [dixtPluginJoin, dixtPluginJoinOptions],
       [dixtPluginReact, dixtPluginReactOptions],
+      [dixtPluginTwitch, dixtPluginTwitchOptions],
       [dixtPluginWorktime, dixtPluginWorktimeOptions],
     ],
   });
