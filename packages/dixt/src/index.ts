@@ -132,6 +132,9 @@ class dixt {
   }
 }
 
-export { default as reduceString } from "./utils/reduceString";
+export { default as formatDuration } from "./utils/formatDuration";
 export { default as Log, prefixes, type LogType } from "./utils/log";
+export { default as pad } from "./utils/pad";
+export { default as progressIndicator } from "./utils/progressIndicator";
+export { default as reduceString } from "./utils/reduceString";
 export default dixt;
