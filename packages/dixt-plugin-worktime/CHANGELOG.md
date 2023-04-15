@@ -1,5 +1,13 @@
 # dixt-plugin-worktime
 
+## 2.1.1
+
+### Patch Changes
+
+- f95992f: Improve worktime end and messages customization
+- Updated dependencies [f95992f]
+  - dixt@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

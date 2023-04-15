@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.1
+
+### Patch Changes
+
+- f95992f: Improve worktime end and messages customization
+
 ## 2.1.0
 
 ### Minor Changes

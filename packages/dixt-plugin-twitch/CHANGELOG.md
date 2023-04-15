@@ -1,5 +1,12 @@
 # dixt-plugin-twitch
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [f95992f]
+  - dixt@2.1.1
+
 ## 1.1.3
 
 ### Patch Changes
