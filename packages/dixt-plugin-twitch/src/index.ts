@@ -19,11 +19,21 @@ dotenv.config({
 export type DixtPluginTwitchOptions = {
   channel?: string;
   roles?: string[];
+  messages?: {
+    isStreaming?: string;
+    gameLabel?: string;
+    watchButton?: string;
+  };
 };
 
 export const optionsDefaults = {
   channel: process.env.DIXT_PLUGIN_TWITCH_CHANNEL || "",
   roles: [],
+  messages: {
+    isStreaming: "%name% is now live on %platform%!",
+    gameLabel: "Game",
+    watchButton: "Watch",
+  },
 };
 
 export const onlineStreamers: string[] = [];
@@ -99,9 +109,18 @@ const dixtPluginTwitch: DixtPlugin = (
             title: activity.details || "",
             url: activity.url || "",
             author: {
-              name: `${
-                newPresence.member?.nickname || newPresence.user?.username
-              } is now live on ${activity.name}`,
+              // name: `${
+              //   newPresence.member?.nickname || newPresence.user?.username
+              // } is now live on ${activity.name}`,
+              name:
+                options.messages?.isStreaming
+                  ?.replace(
+                    /%name%/g,
+                    newPresence.member?.nickname ||
+                      newPresence.user?.username ||
+                      ""
+                  )
+                  .replace(/%platform%/g, activity.name) || "",
               icon_url: newPresence.user?.avatarURL() || undefined,
               url: activity.url || "",
             },
@@ -113,7 +132,7 @@ const dixtPluginTwitch: DixtPlugin = (
             },
             fields: [
               {
-                name: "Game",
+                name: options.messages?.gameLabel || "",
                 value: activity.state || "",
                 inline: true,
               },
@@ -133,7 +152,7 @@ const dixtPluginTwitch: DixtPlugin = (
                   components: [
                     {
                       type: 2,
-                      label: "Watch",
+                      label: options.messages?.watchButton || "",
                       style: ButtonStyle.Link,
                       url: activity.url || "",
                     },
