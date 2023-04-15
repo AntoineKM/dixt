@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.2
+
+### Patch Changes
+
+- 7a39877: Fix logs spam from twitch plugin
+
 ## 1.1.1
 
 ### Patch Changes
