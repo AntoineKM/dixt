@@ -42,6 +42,18 @@ const dixtPluginTwitch: DixtPlugin = (
   instance.client.on(
     Events.PresenceUpdate,
     async (oldPresence, newPresence) => {
+      // if newpresence is not streaming anymore and was in the onlineStreamers array before remove it
+      if (
+        newPresence.activities.every(
+          (activity) => activity.type !== ActivityType.Streaming
+        )
+      ) {
+        const index = onlineStreamers.indexOf(newPresence.userId);
+        if (index > -1) {
+          onlineStreamers.splice(index, 1);
+        }
+      }
+
       if (
         !newPresence?.activities ||
         newPresence?.activities.length === 0 ||
@@ -128,18 +140,6 @@ const dixtPluginTwitch: DixtPlugin = (
           }
         }
       });
-
-      // if newpresence is not streaming anymore and was in the onlineStreamers array before remove it
-      if (
-        newPresence.activities.every(
-          (activity) => activity.type !== ActivityType.Streaming
-        )
-      ) {
-        const index = onlineStreamers.indexOf(newPresence.userId);
-        if (index > -1) {
-          onlineStreamers.splice(index, 1);
-        }
-      }
     }
   );
 
