@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.1
+
+### Patch Changes
+
+- 8c6f660: Add footer signature to embeds
+
 ## 1.1.0
 
 ### Minor Changes
