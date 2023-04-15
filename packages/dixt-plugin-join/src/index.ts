@@ -9,13 +9,13 @@ dotenv.config({
 });
 
 export type DixtPluginJoinOptions = {
-  channelId?: string;
+  channel?: string;
   emoji?: string;
   message?: string;
 };
 
 export const optionsDefaults = {
-  channelId: process.env.DIXT_PLUGIN_JOIN_CHANNEL_ID || "",
+  channel: process.env.DIXT_PLUGIN_JOIN_CHANNEL_ID || "",
   emoji: "🆕",
   message: "has joined the server !",
 };
@@ -25,14 +25,14 @@ const dixtPluginJoin: DixtPlugin = (
   optionsValue?: DixtPluginJoinOptions
 ) => {
   const options = { ...optionsDefaults, ...optionsValue };
-  if (!options.channelId) {
-    Log.error(`${name} - channelId is required`);
-    throw new Error(`${name} - channelId is required`);
+  if (!options.channel) {
+    Log.error(`${name} - channel is required`);
+    throw new Error(`${name} - channel is required`);
   }
 
   instance.client.on(Events.GuildMemberAdd, async (member) => {
     const channel = (await member.guild.channels.fetch(
-      options.channelId
+      options.channel
     )) as TextChannel;
 
     const embed: APIEmbed = {
