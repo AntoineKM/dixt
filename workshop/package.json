@@ -10,7 +10,8 @@
     "dixt": "workspace:*",
     "dixt-plugin-logs": "workspace:*",
     "dixt-plugin-join": "workspace:*",
-    "dixt-plugin-react": "workspace:*"
+    "dixt-plugin-react": "workspace:*",
+    "dixt-plugin-worktime": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
