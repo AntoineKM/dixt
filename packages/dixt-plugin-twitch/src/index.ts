@@ -118,6 +118,10 @@ const dixtPluginTwitch: DixtPlugin = (
                 inline: true,
               },
             ],
+            footer: {
+              text: instance.application?.name || "",
+              icon_url: instance.application?.logo || "",
+            },
           };
 
           if (channel) {
