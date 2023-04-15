@@ -1,5 +1,11 @@
 # dixt-plugin-join
 
+## 2.1.1
+
+### Patch Changes
+
+- 80c29d8: Update join plugin message option
+
 ## 2.1.0
 
 ### Minor Changes
