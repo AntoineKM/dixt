@@ -67,10 +67,6 @@ const dixtPluginTwitch: DixtPlugin = (
       await newPresence.member?.fetch();
       newPresence.activities.forEach((activity) => {
         if (activity.type === ActivityType.Streaming) {
-          Log.info(
-            `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
-          );
-
           // check if roles are set
           if (options.roles && options.roles.length > 0) {
             // check if member has roles
@@ -90,6 +86,10 @@ const dixtPluginTwitch: DixtPlugin = (
               }
             }
           }
+
+          Log.info(
+            `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
+          );
 
           const channel = instance.client.channels.cache.get(
             options.channel
