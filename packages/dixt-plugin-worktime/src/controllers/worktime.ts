@@ -8,15 +8,16 @@ import {
   GuildChannel,
   GuildMember,
   NonThreadGuildBasedChannel,
+  Role,
   User,
 } from "discord.js";
-import dixt, { Log } from "dixt";
-import { DixtPluginWorktimeOptions } from ".";
-import Worktime from "./models/Worktime";
+import dixt, { Log, formatDuration, progressIndicator } from "dixt";
+import { DixtPluginWorktimeOptions } from "..";
+import Worktime from "../models/Worktime";
 
 class WorktimeController {
   public static baseEmbed = {
-    title: "Pointeuse",
+    title: "",
     color: Colors.White,
     footer: {
       text: "",
@@ -31,6 +32,7 @@ class WorktimeController {
     this.instance = instance;
     this.options = options;
 
+    WorktimeController.baseEmbed.title = this.options.title || "";
     WorktimeController.baseEmbed.footer.text =
       this.instance.application?.name || "";
     WorktimeController.baseEmbed.footer.icon_url =
@@ -42,14 +44,7 @@ class WorktimeController {
 
     const instructionEmbed: APIEmbed = {
       ...WorktimeController.baseEmbed,
-      description:
-        "Pointage des heures des membres de l'équipe.\n\n" +
-        "**Prise de service**\n" +
-        "Appuyez sur le bouton **Prise de service** pour pointer votre arrivée.\n\n" +
-        "**Fin de service**\n" +
-        "Appuyez sur le bouton **Fin de service** pour pointer votre départ.\n\n" +
-        "**Attention**\n" +
-        "Veillez à bien vous connecter à un salon vocal **Fréquence** pour que votre prise de service soit bien prise en compte.",
+      description: this.options.messages?.main?.instructions || "",
     };
 
     const messages = await channel.messages.fetch();
@@ -77,13 +72,13 @@ class WorktimeController {
               {
                 type: 2,
                 style: ButtonStyle.Primary,
-                label: "✨ Prise de service",
+                label: this.options.messages?.main?.startButton || "",
                 custom_id: "worktime_start",
               },
               {
                 type: 2,
                 style: ButtonStyle.Danger,
-                label: "🚪 Fin de service",
+                label: this.options.messages?.main?.endButton || "",
                 custom_id: "worktime_end",
               },
             ],
@@ -107,9 +102,11 @@ class WorktimeController {
       embed = {
         ...WorktimeController.baseEmbed,
         color: Colors.Red,
-        description: `Vous avez déjà commencé votre service <t:${Math.floor(
-          currentWorktime.startAt.getTime() / 1000
-        )}:R>`,
+        description:
+          this.options.messages?.start?.alreadyStarted?.replace(
+            /%time%/g,
+            `<t:${Math.floor(currentWorktime.startAt.getTime() / 1000)}:t>`
+          ) || "",
       };
 
       user
@@ -134,9 +131,11 @@ class WorktimeController {
       embed = {
         ...WorktimeController.baseEmbed,
         color: Colors.Green,
-        description: `Votre prise de service a été validée à <t:${Math.floor(
-          Date.now() / 1000
-        )}:t>`,
+        description:
+          this.options.messages?.start?.success?.replace(
+            /%time%/g,
+            `<t:${Math.floor(Date.now() / 1000)}:t>`
+          ) || "",
       };
 
       user
@@ -169,7 +168,7 @@ class WorktimeController {
       embed = {
         ...WorktimeController.baseEmbed,
         color: Colors.Red,
-        description: "Vous n'avez pas commencé votre service aujourd'hui",
+        description: this.options.messages?.end?.notStarted || "",
       };
       user
         .send({
@@ -197,7 +196,53 @@ class WorktimeController {
         }
       });
 
+      const higherRoleWithQuota = await this.getHigherRoleWithQuota(user);
       const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
+      const percentage =
+        higherRoleWithQuota && this.options.quotas
+          ? (totalWorktimeInHours /
+              this.options.quotas[higherRoleWithQuota.id]) *
+            100
+          : 0;
+
+      embed = {
+        ...WorktimeController.baseEmbed,
+        color: Colors.Green,
+        description: this.options.messages?.end?.success
+          ?.replace(/%time%/g, `<t:${Math.floor(Date.now() / 1000)}:t>`)
+          .replace(/%total_time%/g, formatDuration(totalWorktime))
+          .replace(
+            /%progress%/g,
+            `${
+              higherRoleWithQuota !== undefined
+                ? higherRoleWithQuota !== null
+                  ? this.options.messages?.end?.progress?.replace(
+                      /%progress%/g,
+                      progressIndicator(percentage)
+                    )
+                  : this.options.messages?.end?.noQuota || ""
+                : ""
+            }`
+          ),
+      };
+
+      user
+        .send({
+          embeds: [embed],
+        })
+        .catch((e) => Log.error(user, e));
+
+      Log.info(
+        `${user} validated his end of service at <t:${Math.floor(
+          Date.now() / 1000
+        )}:t> - ${formatDuration(totalWorktime)} - ${
+          higherRoleWithQuota !== undefined
+            ? higherRoleWithQuota !== null
+              ? progressIndicator(percentage)
+              : "no quota"
+            : ""
+        }`
+      );
     }
 
     return embed;
@@ -272,6 +317,51 @@ class WorktimeController {
     );
 
     return channels;
+  }
+
+  // undefined = no quota in options
+  // null = no role with quota
+  // Role = role with quota
+  public async getHigherRoleWithQuota(
+    user: User
+  ): Promise<Role | null | undefined> {
+    const { client } = user;
+    await client.guilds.fetch();
+    const guilds = client.guilds.cache;
+    let result: Role | null | undefined = undefined;
+    if (!this.options.quotas) return result;
+    await Promise.all(
+      guilds.map(async (guild) => {
+        const member = await guild.members.fetch(user.id);
+        if (!member) return;
+        const roles = member.roles.cache;
+        await user.client.guilds.fetch();
+        const rolesWithQuota = roles.filter((r) => {
+          if (!r) return false;
+          if (!this.options.quotas) return false;
+          if (this.options.quotas[r.id]) return true;
+          return false;
+        });
+        if (!rolesWithQuota || rolesWithQuota.size === 0) {
+          result = null;
+          return;
+        }
+        const sortedRoles = rolesWithQuota.sort((a, b) => {
+          if (!a || !b) return 0;
+          return b.position - a.position;
+        });
+        if (!sortedRoles) return;
+        const higherRole = sortedRoles.first();
+        if (!higherRole) return;
+        if (!result) {
+          result = higherRole;
+          return;
+        } else {
+          result = null;
+        }
+      })
+    );
+    return result;
   }
 }
 

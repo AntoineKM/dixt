@@ -1,10 +1,13 @@
 import { DixtPluginWorktimeOptions } from "dixt-plugin-worktime";
-import { CHANNELS } from "../constants";
+import { CHANNELS, ROLES } from "../constants";
 
 const dixtPluginWorktimeOptions: DixtPluginWorktimeOptions = {
   channels: {
-    timeClock: [CHANNELS.DIXT_PLUGIN_WORKTIME.TIME_CLOCK],
+    main: [CHANNELS.DIXT_PLUGIN_WORKTIME.MAIN],
     workChannelNames: ["work"],
+  },
+  quotas: {
+    [ROLES.CONTRIBUTOR]: 1,
   },
 };
 
