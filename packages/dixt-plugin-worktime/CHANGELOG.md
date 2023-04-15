@@ -1,4 +1,4 @@
-# dixt-plugin-join
+# dixt-plugin-worktime
 
 ## 2.1.0
 
@@ -7,18 +7,9 @@
 - 5f63963: Add Twitch Plugin
   Add Worktime Plugin (under construction)
   Update Join config
-- c1f14d4: Add react plugin and improve errors message
 
 ### Patch Changes
 
 - Updated dependencies [5f63963]
 - Updated dependencies [c1f14d4]
   - dixt@2.1.0
-
-## 2.0.1
-
-### Patch Changes
-
-- b005c68: Add join plugin
-- Updated dependencies [b005c68]
-  - dixt@2.0.1
