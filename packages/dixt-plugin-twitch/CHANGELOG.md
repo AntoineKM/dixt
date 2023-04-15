@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.3
+
+### Patch Changes
+
+- c5c4d95: Improve twitch plugin with custom messages
+
 ## 1.1.2
 
 ### Patch Changes
