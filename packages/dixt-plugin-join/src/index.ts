@@ -1,5 +1,5 @@
 import { APIEmbed, Events, TextChannel } from "discord.js";
-import { dixtPlugin, Log } from "dixt";
+import { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
 
 export const name = "dixt-plugin-join";
@@ -8,7 +8,7 @@ dotenv.config({
   silent: true,
 });
 
-export type dixtPluginJoinOptions = {
+export type DixtPluginJoinOptions = {
   channelId?: string;
   emoji?: string;
   message?: string;
@@ -20,9 +20,9 @@ export const optionsDefaults = {
   message: "has joined the server !",
 };
 
-const dixtPluginJoin: dixtPlugin = (
+const dixtPluginJoin: DixtPlugin = (
   instance,
-  optionsValue?: dixtPluginJoinOptions
+  optionsValue?: DixtPluginJoinOptions
 ) => {
   const options = { ...optionsDefaults, ...optionsValue };
   if (!options.channelId) {

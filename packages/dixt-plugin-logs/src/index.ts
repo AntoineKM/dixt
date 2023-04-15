@@ -1,6 +1,6 @@
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors, Events, TextChannel } from "discord.js";
-import dixt, { dixtPlugin, reduceString, Log, LogType } from "dixt";
+import dixt, { DixtPlugin, reduceString, Log, LogType } from "dixt";
 import dotenv from "dotenv-flow";
 
 export const name = "dixt-plugin-logs";
@@ -9,7 +9,7 @@ dotenv.config({
   silent: true,
 });
 
-export type dixtPluginLogsOptions = {
+export type DixtPluginLogsOptions = {
   webhookUrl?: string;
   name?: string;
   avatarUrl?: string;
@@ -42,9 +42,9 @@ const embedColors: {
   event: Colors.Purple,
 };
 
-const dixtPluginLogs: dixtPlugin = (
+const dixtPluginLogs: DixtPlugin = (
   instance,
-  optionsValue?: dixtPluginLogsOptions
+  optionsValue?: DixtPluginLogsOptions
 ) => {
   const options = { ...optionsDefaults, ...optionsValue };
   if (!options.webhookUrl) {

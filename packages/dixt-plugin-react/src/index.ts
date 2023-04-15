@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { dixtPlugin, Log } from "dixt";
+import { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
 
 export const name = "dixt-plugin-react";
@@ -8,7 +8,7 @@ dotenv.config({
   silent: true,
 });
 
-export type dixtPluginReactOptions = {
+export type DixtPluginReactOptions = {
   channels?: {
     id: string;
     emoji: string;
@@ -20,9 +20,9 @@ export const optionsDefaults = {
   channels: [],
 };
 
-const dixtPluginReact: dixtPlugin = (
+const dixtPluginReact: DixtPlugin = (
   instance,
-  optionsValue?: dixtPluginReactOptions
+  optionsValue?: DixtPluginReactOptions
 ) => {
   const options = { ...optionsDefaults, ...optionsValue };
   if (options.channels.length === 0) {
