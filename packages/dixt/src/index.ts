@@ -132,6 +132,7 @@ class dixt {
   }
 }
 
+export { default as capitalize } from "./utils/capitalize";
 export { default as formatDuration } from "./utils/formatDuration";
 export { default as Log, prefixes, type LogType } from "./utils/log";
 export { default as pad } from "./utils/pad";
