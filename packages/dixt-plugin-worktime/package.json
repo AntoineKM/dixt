@@ -9,13 +9,18 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
+    "chart.js": "^4.2.1",
+    "chartjs-to-image": "^1.1.0",
+    "dayjs": "^1.11.7",
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^3.2.0",
+    "node-schedule": "^2.1.1"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
     "@types/node": "^18.15.11",
+    "@types/node-schedule": "^2.1.0",
     "typescript": "^4.9.3"
   }
 }
