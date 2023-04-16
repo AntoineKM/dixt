@@ -10,6 +10,7 @@ import {
 import { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
 import WorktimeController from "./controllers/worktime";
+import worktimeLeaderboardTask from "./tasks/leaderboard";
 
 export const name = "dixt-plugin-worktime";
 
@@ -27,6 +28,10 @@ export type DixtPluginWorktimeOptions = {
   quotas?: {
     [x: string]: number;
   };
+  tasks?: {
+    end?: string;
+    leaderboard?: string;
+  };
   messages?: {
     main?: {
       instructions?: string;
@@ -43,6 +48,10 @@ export type DixtPluginWorktimeOptions = {
       progress?: string;
       noQuota?: string;
     };
+    leaderboard?: {
+      title?: string;
+      description?: string;
+    };
   };
 };
 
@@ -52,7 +61,12 @@ export const optionsDefaults = {
     main: process.env.DIXT_PLUGIN_WORKTIME_MAIN_CHANNEL_ID || "",
     leaderboard: process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_CHANNEL_ID || "",
     workChannelNames:
-      process.env.DIXT_PLUGIN_WORKTIME_WORK_CHANNEL_NAMES?.split(",") || [],
+      process.env.DIXT_PLUGIN_WORKTIME_WORKTIME_CHANNEL_NAMES?.split(",") || [],
+  },
+  tasks: {
+    end: process.env.DIXT_PLUGIN_WORKTIME_END_TASK || "*/10 * * * *",
+    leaderboard:
+      process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "*/10 * * * *",
   },
   messages: {
     main: {
@@ -77,6 +91,9 @@ export const optionsDefaults = {
         "Your end of service has been validated at %time%. \n\n**Time worked this week:** %total_time%.%progress%",
       progress: "\n**Progression:** %progress%",
       noQuota: "You don't have a quota.",
+    },
+    leaderboard: {
+      title: "Leaderboard",
     },
   },
 };
@@ -204,6 +221,9 @@ const dixtPluginWorktime: DixtPlugin = (
       }
     }
   );
+
+  // tasks
+  worktimeLeaderboardTask(instance, controller);
 
   return {
     name,

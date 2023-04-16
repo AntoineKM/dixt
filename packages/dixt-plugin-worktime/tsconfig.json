@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "esnext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
