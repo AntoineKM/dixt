@@ -1,5 +1,13 @@
 # dixt-plugin-worktime
 
+## 2.1.2
+
+### Patch Changes
+
+- 9d7d1bb: Improve worktime with leaderboard task
+- Updated dependencies [9d7d1bb]
+  - dixt@2.1.2
+
 ## 2.1.1
 
 ### Patch Changes

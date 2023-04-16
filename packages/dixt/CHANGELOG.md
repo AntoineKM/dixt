@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.2
+
+### Patch Changes
+
+- 9d7d1bb: Add capitalize utils to dixt
+
 ## 2.1.1
 
 ### Patch Changes

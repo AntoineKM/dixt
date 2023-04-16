@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-react",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Discord bot framework - react plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
