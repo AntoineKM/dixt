@@ -2,8 +2,9 @@ import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors, Events, TextChannel } from "discord.js";
 import dixt, { DixtPlugin, reduceString, Log, LogType } from "dixt";
 import dotenv from "dotenv-flow";
+import packageJson from "../package.json";
 
-export const name = "dixt-plugin-logs";
+export const name = packageJson.name;
 
 dotenv.config({
   silent: true,
