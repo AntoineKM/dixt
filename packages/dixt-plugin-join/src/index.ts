@@ -18,7 +18,7 @@ export type DixtPluginJoinOptions = {
 export const optionsDefaults = {
   channel: process.env.DIXT_PLUGIN_JOIN_CHANNEL_ID || "",
   messages: {
-    join: "🆕 %member% has joined the server !",
+    join: "🆕 **%member%** has joined the server !",
   },
 };
 
