@@ -66,7 +66,7 @@ export const optionsDefaults = {
   tasks: {
     end: process.env.DIXT_PLUGIN_WORKTIME_END_TASK || "*/10 * * * *",
     leaderboard:
-      process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "*/10 * * * *",
+      process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "0 12 * * 0",
   },
   messages: {
     main: {
