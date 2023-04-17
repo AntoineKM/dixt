@@ -78,6 +78,16 @@ const dixtPluginTwitch: DixtPlugin = (
       await newPresence.member?.fetch();
       newPresence.activities.forEach((activity) => {
         if (activity.type === ActivityType.Streaming) {
+          // check if games are set
+          if (options.games && options.games.length > 0) {
+            if (
+              !options.games
+                .map((game) => game.toLowerCase())
+                .includes(activity.name.toLowerCase())
+            ) {
+              return;
+            }
+          }
           // check if roles are set
           if (options.roles && options.roles.length > 0) {
             // check if member has roles
@@ -96,16 +106,6 @@ const dixtPluginTwitch: DixtPlugin = (
             onlineStreamers.push(newPresence.userId);
           }
 
-          // check if games are set
-          if (options.games && options.games.length > 0) {
-            if (
-              !options.games
-                .map((game) => game.toLowerCase())
-                .includes(activity.name.toLowerCase())
-            ) {
-              return;
-            }
-          }
 
           Log.info(
             `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
