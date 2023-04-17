@@ -23,7 +23,6 @@ import Worktime from "../models/Worktime";
 import dayjs from "dayjs";
 import ChartJsImage from "chartjs-to-image";
 import { ChartOptions, ChartData } from "chart.js";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 
 class WorktimeController {
   public static baseEmbed = {

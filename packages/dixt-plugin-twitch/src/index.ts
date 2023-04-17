@@ -88,6 +88,7 @@ const dixtPluginTwitch: DixtPlugin = (
               return;
             }
           }
+
           // check if roles are set
           if (options.roles && options.roles.length > 0) {
             // check if member has roles
@@ -105,7 +106,6 @@ const dixtPluginTwitch: DixtPlugin = (
           } else {
             onlineStreamers.push(newPresence.userId);
           }
-
 
           Log.info(
             `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
