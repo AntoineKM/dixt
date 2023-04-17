@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.6
+
+### Patch Changes
+
+- 34e373a: Improve twitch plugin with games options
+
 ## 1.1.5
 
 ### Patch Changes
