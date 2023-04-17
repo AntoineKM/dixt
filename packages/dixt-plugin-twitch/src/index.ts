@@ -19,6 +19,7 @@ dotenv.config({
 export type DixtPluginTwitchOptions = {
   channel?: string;
   roles?: string[];
+  games?: string[];
   messages?: {
     isStreaming?: string;
     gameLabel?: string;
@@ -82,18 +83,27 @@ const dixtPluginTwitch: DixtPlugin = (
             // check if member has roles
             if (
               newPresence.member?.roles &&
-              newPresence.member?.roles.cache.size > 0
+              newPresence.member?.roles.cache.size > 0 &&
+              newPresence.member?.roles.cache.some((role) =>
+                options.roles?.includes(role.id)
+              )
             ) {
-              // check if member has any of the roles
-              if (
-                newPresence.member?.roles.cache.some((role) =>
-                  options.roles?.includes(role.id)
-                )
-              ) {
-                onlineStreamers.push(newPresence.userId);
-              } else {
-                return;
-              }
+              onlineStreamers.push(newPresence.userId);
+            } else {
+              return;
+            }
+          } else {
+            onlineStreamers.push(newPresence.userId);
+          }
+
+          // check if games are set
+          if (options.games && options.games.length > 0) {
+            if (
+              !options.games
+                .map((game) => game.toLowerCase())
+                .includes(activity.name.toLowerCase())
+            ) {
+              return;
             }
           }
 
@@ -109,9 +119,6 @@ const dixtPluginTwitch: DixtPlugin = (
             title: activity.details || "",
             url: activity.url || "",
             author: {
-              // name: `${
-              //   newPresence.member?.nickname || newPresence.user?.username
-              // } is now live on ${activity.name}`,
               name:
                 options.messages?.isStreaming
                   ?.replace(
