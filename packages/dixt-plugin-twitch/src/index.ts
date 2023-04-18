@@ -79,11 +79,11 @@ const dixtPluginTwitch: DixtPlugin = (
       newPresence.activities.forEach((activity) => {
         if (activity.type === ActivityType.Streaming) {
           // check if games are set
-          if (options.games && options.games.length > 0) {
+          if (options.games && options.games.length > 0 && activity.state) {
             if (
               !options.games
                 .map((game) => game.toLowerCase())
-                .includes(activity.name.toLowerCase())
+                .includes(activity.state.toLowerCase())
             ) {
               return;
             }
