@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.7
+
+### Patch Changes
+
+- 901eb22: Fix games filter of twitch plugin
+
 ## 1.1.6
 
 ### Patch Changes
