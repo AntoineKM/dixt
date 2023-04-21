@@ -113,6 +113,34 @@ importers:
         specifier: ^4.9.3
         version: 4.9.3
 
+  packages/dixt-plugin-presence:
+    dependencies:
+      '@types/node-schedule':
+        specifier: ^2.1.0
+        version: 2.1.0
+      discord.js:
+        specifier: ^14.9.0
+        version: 14.9.0
+      dixt:
+        specifier: workspace:*
+        version: link:../dixt
+      dotenv-flow:
+        specifier: ^3.2.0
+        version: 3.2.0
+      node-schedule:
+        specifier: ^2.1.1
+        version: 2.1.1
+    devDependencies:
+      '@types/dotenv-flow':
+        specifier: ^3.2.0
+        version: 3.2.0
+      '@types/node':
+        specifier: ^18.15.11
+        version: 18.15.11
+      typescript:
+        specifier: ^4.9.3
+        version: 4.9.3
+
   packages/dixt-plugin-react:
     dependencies:
       discord-webhook-node:
@@ -211,6 +239,9 @@ importers:
       dixt-plugin-logs:
         specifier: workspace:*
         version: link:../packages/dixt-plugin-logs
+      dixt-plugin-presence:
+        specifier: workspace:*
+        version: link:../packages/dixt-plugin-presence
       dixt-plugin-react:
         specifier: workspace:*
         version: link:../packages/dixt-plugin-react
@@ -919,7 +950,6 @@ packages:
     resolution: {integrity: sha512-NiTwl8YN3v/1YCKrDFSmCTkVxFDylueEqsOFdgF+vPsm+AlyJKGAo5yzX1FiOxPsZiN6/r8gJitYx2EaSuBmmg==}
     dependencies:
       '@types/node': 18.15.11
-    dev: true
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}

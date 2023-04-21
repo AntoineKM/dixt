@@ -1,6 +1,7 @@
 import dixt from "dixt";
 import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginJoin from "dixt-plugin-join";
+import dixtPluginPresence from "dixt-plugin-presence";
 import dixtPluginReact from "dixt-plugin-react";
 import dixtPluginTwitch from "dixt-plugin-twitch";
 import dixtPluginWorktime from "dixt-plugin-worktime";
@@ -19,6 +20,7 @@ const main = async () => {
       dixtPluginLogs,
       [dixtPluginJoin, dixtPluginJoinOptions],
       [dixtPluginReact, dixtPluginReactOptions],
+      dixtPluginPresence,
       [dixtPluginTwitch, dixtPluginTwitchOptions],
       [dixtPluginWorktime, dixtPluginWorktimeOptions],
     ],
