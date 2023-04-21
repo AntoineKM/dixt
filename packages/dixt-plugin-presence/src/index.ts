@@ -51,8 +51,6 @@ const DixtPluginPresence: DixtPlugin = (
         options.presences[presenceIndex] as PresenceData
       );
 
-      console.log("presence changed", options.presences[presenceIndex]);
-
       presenceIndex =
         presenceIndex === options.presences.length - 1 ? 0 : presenceIndex + 1;
     }, 1000 * (options.interval >= 15 ? options.interval : 15));
