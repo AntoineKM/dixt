@@ -1,11 +1,6 @@
-import { ActivitiesOptions, ActivityType, PresenceData } from "discord.js";
+import { ActivityType, PresenceData } from "discord.js";
 import { DixtPlugin } from "dixt";
-import dotenv from "dotenv-flow";
 import { name } from "../package.json";
-
-dotenv.config({
-  silent: true,
-});
 
 export type DixtPluginPresenceOptions = {
   interval?: number;
