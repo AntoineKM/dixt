@@ -26,7 +26,7 @@ export type DixtPluginWorktimeOptions = {
     workChannelNames?: string[];
   };
   quotas?: {
-    [x: string]: number;
+    [roleId: string]: number;
   };
   tasks?: {
     end?: string;
