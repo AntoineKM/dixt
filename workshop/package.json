@@ -9,6 +9,7 @@
   "dependencies": {
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
+    "dixt-plugin-affix": "workspace:*",
     "dixt-plugin-logs": "workspace:*",
     "dixt-plugin-join": "workspace:*",
     "dixt-plugin-presence": "workspace:*",

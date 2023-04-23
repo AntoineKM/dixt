@@ -1,0 +1,20 @@
+{
+  "name": "dixt-plugin-affix",
+  "version": "0.0.0",
+  "description": "Discord bot framework - presence plugin",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "discord.js": "^14.9.0",
+    "dixt": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/node": "^18.15.11",
+    "typescript": "^4.9.3"
+  }
+}
