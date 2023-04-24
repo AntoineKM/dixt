@@ -80,8 +80,6 @@ const DixtPluginAffix: DixtPlugin = (
         `${newMember} could not be renamed to ${nickname}, an error occured: ${error}`
       );
     }
-
-    console.log("Nickname changed");
   });
 
   return {
