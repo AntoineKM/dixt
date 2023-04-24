@@ -10,10 +10,14 @@ export type DixtPluginAffixOptions = {
   suffix?: {
     [roleId: string]: string;
   };
+  prefixPattern?: RegExp;
+  suffixPattern?: RegExp;
 };
 
 export const optionsDefaults = {
   pattern: "[%prefix%] %name% [%suffix%]",
+  prefixPattern: /\[(\S+)\]/,
+  suffixPattern: /\[(\S+)\]$/,
 };
 
 const DixtPluginAffix: DixtPlugin = (
@@ -23,34 +27,57 @@ const DixtPluginAffix: DixtPlugin = (
   const options = { ...optionsDefaults, ...optionsValue };
 
   instance.client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
-    console.log("GuildMemberUpdate");
     if (oldMember.roles.cache.size === newMember.roles.cache.size) return;
 
     const roles = newMember.roles.cache;
-    let name = newMember.nickname || newMember.user.username;
+    const name = newMember.nickname || newMember.user.username;
+    let nickname = name;
 
-    const prefix = roles
-      .filter((role) => options.prefix?.[role.id])
-      .map((role) => options.prefix?.[role.id])
-      .join(" ");
+    // remove affixes
+    const prefixMatch = name.match(options.prefixPattern);
+    const suffixMatch = name.match(options.suffixPattern);
 
-    const suffix = roles
-      .filter((role) => options.suffix?.[role.id])
-      .map((role) => options.suffix?.[role.id])
-      .join(" ");
+    if (prefixMatch) {
+      nickname = nickname.replace(prefixMatch[0], "").trim();
+    }
+    if (suffixMatch) {
+      nickname = nickname.replace(suffixMatch[0], "").trim();
+    }
 
-    name = options.pattern.replace(
-      /%prefix%/g,
-      prefix ? reduceString(prefix, 32) : ""
-    );
-    name = name.replace(/%name%/g, reduceString(name, 32));
-    name = name.replace(/%suffix%/g, suffix ? reduceString(suffix, 32) : "");
+    // add affixes if needed
+    nickname = options.pattern.replace(/%name%/g, nickname);
+
+    const prefixRole = roles
+      .sort((a, b) => b.position - a.position)
+      .find((r) => Object.keys(options.prefix || {}).includes(r.id));
+
+    if (prefixRole && options.prefix) {
+      nickname = nickname.replace(
+        /%prefix%/g,
+        options.prefix[prefixRole.id] || ""
+      );
+    } else {
+      nickname = nickname.replace(options.prefixPattern, "");
+    }
+
+    const suffixRole = roles
+      .sort((a, b) => a.position - b.position)
+      .find((r) => Object.keys(options.suffix || {}).includes(r.id));
+
+    if (suffixRole && options.suffix) {
+      nickname = nickname.replace(
+        /%suffix%/g,
+        options.suffix[suffixRole.id] || ""
+      );
+    } else {
+      nickname = nickname.replace(options.suffixPattern, "");
+    }
 
     try {
-      await newMember.setNickname(reduceString(name, 32));
+      await newMember.setNickname(reduceString(nickname, 32));
     } catch (error) {
       Log.error(
-        `${newMember} could not be renamed to ${name}, an error occured: ${error}`
+        `${newMember} could not be renamed to ${nickname}, an error occured: ${error}`
       );
     }
 
