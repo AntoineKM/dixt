@@ -20,12 +20,8 @@
   "dependencies": {
     "@changesets/cli": "^2.25.2",
     "@manypkg/cli": "^0.19.2",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.26.0",
-    "eslint-config-antoine": "^1.0.2",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-config-antoine": "^1.0.3",
     "prettier": "^2.7.1",
     "tsup": "^6.7.0",
     "turbo": "^1.8.3"
