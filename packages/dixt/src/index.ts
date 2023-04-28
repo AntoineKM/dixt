@@ -1,8 +1,12 @@
-import dotenv from "dotenv-flow";
 import { Client, Events, GatewayIntentBits, Options } from "discord.js";
+import dotenv from "dotenv-flow";
 import EventEmiter from "events";
-import Log from "./utils/log";
+import fs from "fs";
 import mongoose, { Mongoose } from "mongoose";
+import path from "path";
+
+import { DixtClient, DixtSlashCommandBuilder } from "./types";
+import Log from "./utils/log";
 
 dotenv.config({
   silent: true,
@@ -11,10 +15,11 @@ dotenv.config({
 export type ClientOptions = Options;
 
 export type DixtPlugin = (
-  dixt: dixt,
-  options?: object
+  _dixt: dixt,
+  _options?: object
 ) => {
   name: string;
+  commands?: DixtSlashCommandBuilder[];
 };
 
 export type DixtOptions = {
@@ -58,8 +63,25 @@ export const dixtDefaults = {
   },
 };
 
+export const loadCommands = (instance: dixt, dir = __dirname) => {
+  if (instance.client.commands && instance.client.commands.size > 0) {
+    fs.readdirSync(path.join(__dirname, "commands"))
+      .filter((file) => file.endsWith(".ts") || file.endsWith(".js"))
+      .forEach((file) => {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          const command = require(path.join(dir, "commands", file)).default;
+          instance.client.commands?.set(command.data.name, command(instance));
+          Log.ready(`loaded command ${file}`);
+        } catch (error) {
+          Log.error(`failed to load command ${file}`, error);
+        }
+      });
+  }
+};
+
 class dixt {
-  public client: Client;
+  public client: DixtClient;
   public application: DixtOptions["application"];
   public plugins: DixtOptions["plugins"];
   public databaseUri: DixtOptions["databaseUri"];
@@ -80,6 +102,8 @@ class dixt {
   }
 
   public async start() {
+    const projectDirectory = path.join(__dirname, "../../");
+
     Log.wait("loading env files");
     dotenv
       .listDotenvFiles(".", {
@@ -120,6 +144,51 @@ class dixt {
       });
     }
 
+    Log.wait("loading commands");
+    loadCommands(this);
+    loadCommands(this, projectDirectory);
+
+    this.client.on(Events.InteractionCreate, async (interaction) => {
+      if (!interaction.isChatInputCommand()) return;
+
+      const command = this.client.commands?.get(interaction.commandName);
+
+      if (!command) return;
+
+      try {
+        await (command as DixtSlashCommandBuilder).execute(interaction);
+      } catch (error) {
+        Log.error(error);
+        await interaction.reply({
+          content: "There was an error while executing this command!",
+          ephemeral: true,
+        });
+      }
+    });
+
+    this.client.on(Events.InteractionCreate, async (interaction) => {
+      if (interaction.isChatInputCommand()) {
+        // command handling
+      } else if (interaction.isAutocomplete()) {
+        const command = (interaction.client as DixtClient).commands?.get(
+          interaction.commandName
+        );
+
+        if (!command) {
+          Log.error(
+            `No command matching ${interaction.commandName} was found.`
+          );
+          return;
+        }
+
+        try {
+          await (command as DixtSlashCommandBuilder).autocomplete(interaction);
+        } catch (error) {
+          Log.error(error);
+        }
+      }
+    });
+
     this.client.on(Events.ClientReady, () => {
       Log.ready("client is ready");
     });
@@ -138,4 +207,7 @@ export { default as Log, prefixes, type LogType } from "./utils/log";
 export { default as pad } from "./utils/pad";
 export { default as progressIndicator } from "./utils/progressIndicator";
 export { default as reduceString } from "./utils/reduceString";
+
+export { type DixtClient, type DixtSlashCommandBuilder } from "./types";
+
 export default dixt;

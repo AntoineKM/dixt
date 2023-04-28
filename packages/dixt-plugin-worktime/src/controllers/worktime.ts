@@ -1,3 +1,6 @@
+import { ChartOptions, ChartData } from "chart.js";
+import ChartJsImage from "chartjs-to-image";
+import dayjs from "dayjs";
 import {
   APIEmbed,
   ButtonStyle,
@@ -18,11 +21,9 @@ import dixt, {
   progressIndicator,
   pad,
 } from "dixt";
+
 import { DixtPluginWorktimeOptions } from "..";
 import Worktime from "../models/Worktime";
-import dayjs from "dayjs";
-import ChartJsImage from "chartjs-to-image";
-import { ChartOptions, ChartData } from "chart.js";
 
 class WorktimeController {
   public static baseEmbed = {
@@ -396,7 +397,6 @@ class WorktimeController {
         if (!higherRole) return;
         if (!result) {
           result = higherRole;
-          return;
         } else {
           result = null;
         }

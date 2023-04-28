@@ -1,7 +1,8 @@
-import dixt, { Log } from "dixt";
-import WorktimeController from "../controllers/worktime";
-import schedule from "node-schedule";
 import { ChannelType, TextChannel } from "discord.js";
+import dixt, { Log } from "dixt";
+import schedule from "node-schedule";
+
+import WorktimeController from "../controllers/worktime";
 import Worktime from "../models/Worktime";
 
 const worktimeLeaderboardTask = (

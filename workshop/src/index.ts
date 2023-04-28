@@ -1,11 +1,12 @@
 import dixt from "dixt";
-import dixtPluginLogs from "dixt-plugin-logs";
-import dixtPluginJoin from "dixt-plugin-join";
 import dixtPluginAffix from "dixt-plugin-affix";
+import dixtPluginJoin from "dixt-plugin-join";
+import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginPresence from "dixt-plugin-presence";
 import dixtPluginReact from "dixt-plugin-react";
 import dixtPluginTwitch from "dixt-plugin-twitch";
 import dixtPluginWorktime from "dixt-plugin-worktime";
+
 import dixtPluginAffixOptions from "./options/affix";
 import dixtPluginJoinOptions from "./options/join";
 import dixtPluginReactOptions from "./options/react";

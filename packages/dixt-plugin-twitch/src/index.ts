@@ -8,6 +8,7 @@ import {
 } from "discord.js";
 import { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
+
 import packageJson from "../package.json";
 
 export const name = packageJson.name;

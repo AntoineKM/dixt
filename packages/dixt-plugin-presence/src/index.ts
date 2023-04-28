@@ -1,5 +1,6 @@
 import { ActivityType, PresenceData } from "discord.js";
 import { DixtPlugin } from "dixt";
+
 import { name } from "../package.json";
 
 export type DixtPluginPresenceOptions = {

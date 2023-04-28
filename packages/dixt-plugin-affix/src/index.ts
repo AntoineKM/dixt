@@ -1,5 +1,6 @@
 import { Events } from "discord.js";
 import { DixtPlugin, Log, reduceString } from "dixt";
+
 import { name } from "../package.json";
 
 export type DixtPluginAffixOptions = {

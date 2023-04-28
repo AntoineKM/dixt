@@ -9,6 +9,7 @@ import {
 } from "discord.js";
 import { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
+
 import WorktimeController from "./controllers/worktime";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
 

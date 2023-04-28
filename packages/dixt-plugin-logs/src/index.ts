@@ -2,6 +2,7 @@ import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors, Events, TextChannel } from "discord.js";
 import dixt, { DixtPlugin, reduceString, Log, LogType } from "dixt";
 import dotenv from "dotenv-flow";
+
 import packageJson from "../package.json";
 
 export const name = packageJson.name;
@@ -22,7 +23,7 @@ export const optionsDefaults = {
 };
 
 const embedEmojis: {
-  [K in LogType]: string;
+  [_K in LogType]: string;
 } = {
   wait: "⏳",
   error: "❌",
@@ -33,7 +34,7 @@ const embedEmojis: {
 };
 
 const embedColors: {
-  [K in LogType]: typeof Colors[keyof typeof Colors];
+  [_K in LogType]: typeof Colors[keyof typeof Colors];
 } = {
   wait: Colors.Yellow,
   error: Colors.Red,

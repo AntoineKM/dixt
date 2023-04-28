@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import chalk from "chalk";
+
 import dixt from "..";
 
 export type LogType = keyof typeof Log;
 
 export const prefixes: {
-  [K in LogType]: string;
+  [_K in LogType]: string;
 } = {
   wait: chalk.yellow("wait") + "  -",
   error: chalk.red("error") + " -",

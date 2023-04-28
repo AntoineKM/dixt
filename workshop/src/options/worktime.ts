@@ -1,4 +1,5 @@
 import { DixtPluginWorktimeOptions } from "dixt-plugin-worktime";
+
 import { CHANNELS, ROLES } from "../constants";
 
 const dixtPluginWorktimeOptions: DixtPluginWorktimeOptions = {
