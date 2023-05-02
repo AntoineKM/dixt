@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.3
+
+### Patch Changes
+
+- a820ce8: Fix leaderboard crashes
+
 ## 2.1.2
 
 ### Patch Changes
