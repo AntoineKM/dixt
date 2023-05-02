@@ -420,237 +420,256 @@ class WorktimeController {
       return worktime;
     });
 
-    const firstWorktime = worktimes.sort(
-      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
-    )[0];
-    const firstWorktimeTimestamp = new Date(firstWorktime.startAt).getTime();
-
-    // create a map with the total worktime of each user
-    const worktimeMap = new Map<string, number>();
-    // dont use forEach because it's async and we need to wait for the result, so use map
-    await Promise.all(
-      endWorktimes.map(async (worktime) => {
-        const totalWorktime = worktimeMap.get(worktime.userId) || 0;
-        worktimeMap.set(
-          worktime.userId,
-          totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt))
-        );
-      })
-    );
-
-    // sort the map by total worktime
-    const sortedWorktimeMap = new Map(
-      [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
-    );
-
-    // calculate additional statistics
-    const statsWorktimesCount = worktimes.length;
-    const statsWorktimesDuration = [...worktimeMap.values()].reduce(
-      (a, b) => a + b,
-      0
-    );
-
-    // create a map of the number of users working at each hour
-    const hourMap = new Map<string, number>();
-    endWorktimes.forEach((worktime) => {
-      const startHour = dayjs(worktime.startAt).hour();
-      const endHour = worktime.endAt
-        ? dayjs(worktime.endAt).hour()
-        : dayjs().hour();
-
-      for (let i = startHour; i < endHour; i++) {
-        hourMap.set(i.toString(), (hourMap.get(i.toString()) || 0) + 1);
-      }
-    });
-
-    // find the busiest and quietest hour
-    const statsBusiestHour =
-      hourMap.size > 0
-        ? dayjs(
-            `1970-01-01T${
-              [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-            }:00.000`
-          ).format("HH:mm")
-        : "N/A";
-    const statsQuietestHour =
-      hourMap.size > 0
-        ? dayjs(
-            `1970-01-01T${
-              [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-            }:00.000`
-          ).format("HH:mm")
-        : "N/A";
-
-    // create a map of the number of users working on each day
-    const dayMap = new Map<string, number>();
-    endWorktimes.forEach((worktime) => {
-      const day = dayjs(worktime.startAt).format("YYYY-MM-DD");
-      dayMap.set(day, (dayMap.get(day) || 0) + 1);
-    });
-
-    // find the busiest and quietest day
-    const statsBusiestDay = dayjs(
-      [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-    ).format("dddd");
-    const statsQuietestDay = dayjs(
-      [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-    ).format("dddd");
-
-    const totalHours =
-      (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
-    const totalUsers = [...sortedWorktimeMap.keys()].length;
-    const statsAverageUserCountPerHour = totalHours / totalUsers;
-
-    const dayAndHourMap = new Map<string, number>();
-    endWorktimes.forEach((worktime) => {
-      for (
-        let i =
-          Math.floor(new Date(worktime.startAt).getTime() / (3600 * 1000)) *
-          3600 *
-          1000;
-        i <= new Date(worktime.endAt as Date).getTime();
-        i += 3600 * 1000
-      ) {
-        const dayAndHour = dayjs(i).format("DD/MM/YYYY HH");
-        dayAndHourMap.set(dayAndHour, (dayAndHourMap.get(dayAndHour) || 0) + 1);
-      }
-    });
-
-    const chart = new ChartJsImage();
-    const labels: string[] = [];
-    for (
-      let i = Math.floor(firstWorktimeTimestamp / (3600 * 1000)) * 3600 * 1000;
-      i <= nowTimestamp;
-      i += 3600 * 1000
-    ) {
-      labels.push(dayjs(i).format("DD/MM/YYYY HH"));
-    }
-    const chartData: ChartData = {
-      // 7 days and 24 hours
-      labels,
-      datasets: [
-        {
-          label: "EMS par heure",
-          data: labels.map((label) => {
-            return dayAndHourMap.get(label) || 0;
-          }),
-          borderColor: "rgb(88, 101, 242)",
-          tension: 0.8,
-          fill: false,
-          pointRadius: 0,
-          backgroundColor: "rgba(88, 101, 242, 0.2)",
-        },
-        {
-          label: "Moyenne d'EMS par heure",
-          data: labels.map(() => statsAverageUserCountPerHour),
-          borderColor: "rgb(235, 69, 158)",
-          pointRadius: 0,
-        },
-      ],
-    };
-    const chartOptions: ChartOptions = {
-      color: "white",
-      borderColor: "white",
-      // disable legend and enable title
-      plugins: {
-        legend: {
-          display: false,
-        },
-        title: {
-          display: true,
-          text: "EMS par heure",
-          color: "white",
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: "white",
-          },
-          grid: {
-            color: "rgba(255, 255, 255, 0.1)",
-          },
-        },
-        x: {
-          ticks: {
-            color: "white",
-          },
-          grid: {
-            color: "rgba(255, 255, 255, 0.1)",
-          },
-        },
-      },
-    };
-    const chartConfig = {
-      type: "line",
-      data: chartData,
-      options: chartOptions,
-    };
-    chart.setConfig(chartConfig);
-    chart.setBackgroundColor("rgb(47, 49, 54)");
-    chart.setChartJsVersion("4");
-
-    const leaderboardEmbed: APIEmbed = {
+    let leaderboardEmbed: APIEmbed = {
       ...WorktimeController.baseEmbed,
       title: "Classement",
-      description:
-        `Voici le classement des membres de l'équipe pour la semaine du ${dayjs()
-          .subtract(1, "week")
-          .format("DD/MM/YYYY")} au ${dayjs().format("DD/MM/YYYY")}\n\n` +
-        [...sortedWorktimeMap.entries()]
-          .map(
-            ([userId, totalWorktime], index) =>
-              `\`${pad(index + 1, 2)}. ${formatDuration(
-                totalWorktime
-              )}\` - <@${userId}>`
-          )
-          .join("\n") +
-        "\n\n**Statistiques**",
-      fields: [
-        {
-          name: "Nombre de prises de services",
-          value: `${statsWorktimesCount}`,
-          inline: true,
-        },
-        {
-          name: "Temps total de travail",
-          inline: true,
-          value: `${pad(
-            Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
-            2
-          )}h${pad(Math.floor((statsWorktimesDuration / 1000 / 60) % 60), 2)}`,
-        },
-        {
-          name: "Moyenne d'EMS par heure",
-          inline: true,
-          value: `${statsAverageUserCountPerHour.toFixed(2)}`,
-        },
-        {
-          name: "Heure d'affluence",
-          value: statsBusiestHour,
-          inline: true,
-        },
-        {
-          name: "Heure de carence",
-          value: statsQuietestHour,
-          inline: true,
-        },
-        {
-          name: "Jour d'affluence",
-          value: capitalize(statsBusiestDay),
-          inline: true,
-        },
-        {
-          name: "Jour de carence",
-          value: capitalize(statsQuietestDay),
-          inline: true,
-        },
-      ],
-      image: {
-        url: await chart.getShortUrl(),
-      },
     };
+
+    if (!endWorktimes || endWorktimes.length === 0) {
+      const firstWorktime = endWorktimes.sort(
+        (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
+      )[0];
+      const firstWorktimeTimestamp = new Date(firstWorktime.startAt).getTime();
+
+      // create a map with the total worktime of each user
+      const worktimeMap = new Map<string, number>();
+      // dont use forEach because it's async and we need to wait for the result, so use map
+      await Promise.all(
+        endWorktimes.map(async (worktime) => {
+          const totalWorktime = worktimeMap.get(worktime.userId) || 0;
+          worktimeMap.set(
+            worktime.userId,
+            totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt))
+          );
+        })
+      );
+
+      // sort the map by total worktime
+      const sortedWorktimeMap = new Map(
+        [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
+      );
+
+      // calculate additional statistics
+      const statsWorktimesCount = worktimes.length;
+      const statsWorktimesDuration = [...worktimeMap.values()].reduce(
+        (a, b) => a + b,
+        0
+      );
+
+      // create a map of the number of users working at each hour
+      const hourMap = new Map<string, number>();
+      endWorktimes.forEach((worktime) => {
+        const startHour = dayjs(worktime.startAt).hour();
+        const endHour = worktime.endAt
+          ? dayjs(worktime.endAt).hour()
+          : dayjs().hour();
+
+        for (let i = startHour; i < endHour; i++) {
+          hourMap.set(i.toString(), (hourMap.get(i.toString()) || 0) + 1);
+        }
+      });
+
+      // find the busiest and quietest hour
+      const statsBusiestHour =
+        hourMap.size > 0
+          ? dayjs(
+              `1970-01-01T${
+                [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+              }:00.000`
+            ).format("HH:mm")
+          : "N/A";
+      const statsQuietestHour =
+        hourMap.size > 0
+          ? dayjs(
+              `1970-01-01T${
+                [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+              }:00.000`
+            ).format("HH:mm")
+          : "N/A";
+
+      // create a map of the number of users working on each day
+      const dayMap = new Map<string, number>();
+      endWorktimes.forEach((worktime) => {
+        const day = dayjs(worktime.startAt).format("YYYY-MM-DD");
+        dayMap.set(day, (dayMap.get(day) || 0) + 1);
+      });
+
+      // find the busiest and quietest day
+      const statsBusiestDay = dayjs(
+        [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+      ).format("dddd");
+      const statsQuietestDay = dayjs(
+        [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+      ).format("dddd");
+
+      const totalHours =
+        (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
+      const totalUsers = [...sortedWorktimeMap.keys()].length;
+      const statsAverageUserCountPerHour = totalHours / totalUsers;
+
+      const dayAndHourMap = new Map<string, number>();
+      endWorktimes.forEach((worktime) => {
+        for (
+          let i =
+            Math.floor(new Date(worktime.startAt).getTime() / (3600 * 1000)) *
+            3600 *
+            1000;
+          i <= new Date(worktime.endAt as Date).getTime();
+          i += 3600 * 1000
+        ) {
+          const dayAndHour = dayjs(i).format("DD/MM/YYYY HH");
+          dayAndHourMap.set(
+            dayAndHour,
+            (dayAndHourMap.get(dayAndHour) || 0) + 1
+          );
+        }
+      });
+
+      const chart = new ChartJsImage();
+      const labels: string[] = [];
+      for (
+        let i =
+          Math.floor(firstWorktimeTimestamp / (3600 * 1000)) * 3600 * 1000;
+        i <= nowTimestamp;
+        i += 3600 * 1000
+      ) {
+        labels.push(dayjs(i).format("DD/MM/YYYY HH"));
+      }
+      const chartData: ChartData = {
+        // 7 days and 24 hours
+        labels,
+        datasets: [
+          {
+            label: "EMS par heure",
+            data: labels.map((label) => {
+              return dayAndHourMap.get(label) || 0;
+            }),
+            borderColor: "rgb(88, 101, 242)",
+            tension: 0.8,
+            fill: false,
+            pointRadius: 0,
+            backgroundColor: "rgba(88, 101, 242, 0.2)",
+          },
+          {
+            label: "Moyenne d'EMS par heure",
+            data: labels.map(() => statsAverageUserCountPerHour),
+            borderColor: "rgb(235, 69, 158)",
+            pointRadius: 0,
+          },
+        ],
+      };
+      const chartOptions: ChartOptions = {
+        color: "white",
+        borderColor: "white",
+        // disable legend and enable title
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: "EMS par heure",
+            color: "white",
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: "white",
+            },
+            grid: {
+              color: "rgba(255, 255, 255, 0.1)",
+            },
+          },
+          x: {
+            ticks: {
+              color: "white",
+            },
+            grid: {
+              color: "rgba(255, 255, 255, 0.1)",
+            },
+          },
+        },
+      };
+      const chartConfig = {
+        type: "line",
+        data: chartData,
+        options: chartOptions,
+      };
+      chart.setConfig(chartConfig);
+      chart.setBackgroundColor("rgb(47, 49, 54)");
+      chart.setChartJsVersion("4");
+
+      leaderboardEmbed = {
+        ...leaderboardEmbed,
+        description:
+          `Voici le classement des membres de l'équipe pour la semaine du ${dayjs()
+            .subtract(1, "week")
+            .format("DD/MM/YYYY")} au ${dayjs().format("DD/MM/YYYY")}\n\n` +
+          [...sortedWorktimeMap.entries()]
+            .map(
+              ([userId, totalWorktime], index) =>
+                `\`${pad(index + 1, 2)}. ${formatDuration(
+                  totalWorktime
+                )}\` - <@${userId}>`
+            )
+            .join("\n") +
+          "\n\n**Statistiques**",
+        fields: [
+          {
+            name: "Nombre de prises de services",
+            value: `${statsWorktimesCount}`,
+            inline: true,
+          },
+          {
+            name: "Temps total de travail",
+            inline: true,
+            value: `${pad(
+              Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
+              2
+            )}h${pad(
+              Math.floor((statsWorktimesDuration / 1000 / 60) % 60),
+              2
+            )}`,
+          },
+          {
+            name: "Moyenne d'EMS par heure",
+            inline: true,
+            value: `${statsAverageUserCountPerHour.toFixed(2)}`,
+          },
+          {
+            name: "Heure d'affluence",
+            value: statsBusiestHour,
+            inline: true,
+          },
+          {
+            name: "Heure de carence",
+            value: statsQuietestHour,
+            inline: true,
+          },
+          {
+            name: "Jour d'affluence",
+            value: capitalize(statsBusiestDay),
+            inline: true,
+          },
+          {
+            name: "Jour de carence",
+            value: capitalize(statsQuietestDay),
+            inline: true,
+          },
+        ],
+        image: {
+          url: await chart.getShortUrl(),
+        },
+      };
+    } else {
+      leaderboardEmbed = {
+        ...leaderboardEmbed,
+        description:
+          "Il n'y a pas assez de données pour afficher le classement.",
+      };
+    }
 
     return leaderboardEmbed;
   }
