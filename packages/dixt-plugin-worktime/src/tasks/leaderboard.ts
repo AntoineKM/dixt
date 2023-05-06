@@ -12,7 +12,10 @@ const worktimeLeaderboardTask = (
   schedule.scheduleJob(
     controller.options.tasks?.leaderboard || "",
     async () => {
-      // send the leaderboard embed to CHANNELS.ONRUNTIME.TEAM.INFORMATION.LEADERBOARD
+      Log.event(
+        "leaderboard task has been started",
+        controller.options.tasks?.leaderboard
+      );
       const channel = instance.client.channels.cache.get(
         controller.options.channels?.leaderboard || ""
       );

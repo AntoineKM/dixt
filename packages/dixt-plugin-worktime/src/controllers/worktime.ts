@@ -343,7 +343,9 @@ class WorktimeController {
           (channel) =>
             (channel.type === ChannelType.GuildVoice ||
               channel.type === ChannelType.GuildStageVoice) &&
-            workChannels.some((name) => channel.name.includes(name))
+            this.options.channels?.workChannelNames?.some((name) =>
+              channel.name.includes(name)
+            )
         );
         if (!workChannels) return;
 
@@ -425,7 +427,7 @@ class WorktimeController {
       title: "Classement",
     };
 
-    if (!endWorktimes || endWorktimes.length === 0) {
+    if (endWorktimes && endWorktimes.length > 0) {
       const firstWorktime = endWorktimes.sort(
         (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
       )[0];
