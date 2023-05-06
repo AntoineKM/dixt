@@ -1,5 +1,5 @@
 import { ActivityType, PresenceData } from "discord.js";
-import { DixtPlugin } from "dixt";
+import { DixtPlugin, merge } from "dixt";
 
 import { name } from "../package.json";
 
@@ -36,7 +36,7 @@ const DixtPluginPresence: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginPresenceOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
 
   let presenceIndex = 0;
 

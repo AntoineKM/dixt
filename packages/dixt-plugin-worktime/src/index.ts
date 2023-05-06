@@ -7,13 +7,13 @@ import {
   Interaction,
   User,
 } from "discord.js";
-import { DixtPlugin, Log } from "dixt";
+import { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
 import WorktimeController from "./controllers/worktime";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
-
-export const name = "dixt-plugin-worktime";
+import worktimeReminderTask from "./tasks/reminder";
+import { name } from "../package.json";
 
 dotenv.config({
   silent: true,
@@ -31,6 +31,7 @@ export type DixtPluginWorktimeOptions = {
   };
   tasks?: {
     end?: string;
+    reminder?: string;
     leaderboard?: string;
   };
   messages?: {
@@ -66,6 +67,7 @@ export const optionsDefaults = {
   },
   tasks: {
     end: process.env.DIXT_PLUGIN_WORKTIME_END_TASK || "*/10 * * * *",
+    reminder: process.env.DIXT_PLUGIN_WORKTIME_REMINDER_TASK || "*/10 * * * *",
     leaderboard:
       process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "0 12 * * 0",
   },
@@ -103,7 +105,7 @@ const dixtPluginWorktime: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginWorktimeOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
   const controller = new WorktimeController(instance, options);
   if (!options.channels.main) {
     Log.error(`${name} - channels.main is required`);
@@ -225,6 +227,7 @@ const dixtPluginWorktime: DixtPlugin = (
 
   // tasks
   worktimeLeaderboardTask(instance, controller);
+  worktimeReminderTask(instance, controller);
 
   return {
     name,

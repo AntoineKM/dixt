@@ -1,11 +1,9 @@
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors, Events, TextChannel } from "discord.js";
-import dixt, { DixtPlugin, reduceString, Log, LogType } from "dixt";
+import dixt, { DixtPlugin, reduceString, Log, LogType, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
-import packageJson from "../package.json";
-
-export const name = packageJson.name;
+import { name } from "../package.json";
 
 dotenv.config({
   silent: true,
@@ -19,7 +17,6 @@ export type DixtPluginLogsOptions = {
 
 export const optionsDefaults = {
   webhookUrl: process.env.DIXT_PLUGIN_LOGS_WEBHOOK_URL || "",
-  name,
 };
 
 const embedEmojis: {
@@ -48,15 +45,17 @@ const dixtPluginLogs: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginLogsOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
   if (!options.webhookUrl) {
     Log.error(`${name} - webhookUrl is required`);
     throw new Error(`${name} - webhookUrl is required`);
   }
 
   const hook = new Webhook(options.webhookUrl);
-  hook.setUsername(options.name);
+  hook.setUsername(options.name || instance.application?.name || name);
   if (options.avatarUrl) hook.setAvatar(options.avatarUrl);
+  else if (instance.application?.logo)
+    hook.setAvatar(instance.application.logo);
 
   const embed = new MessageBuilder();
   embed.setTimestamp();

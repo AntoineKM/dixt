@@ -6,12 +6,10 @@ import {
   Events,
   TextChannel,
 } from "discord.js";
-import { DixtPlugin, Log } from "dixt";
+import { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
-import packageJson from "../package.json";
-
-export const name = packageJson.name;
+import { name } from "../package.json";
 
 dotenv.config({
   silent: true,
@@ -44,7 +42,7 @@ const dixtPluginTwitch: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginTwitchOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
 
   if (!options.channel) {
     Log.error(`${name} - channel is required`);

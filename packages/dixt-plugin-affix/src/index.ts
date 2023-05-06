@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { DixtPlugin, Log, reduceString } from "dixt";
+import { DixtPlugin, Log, reduceString, merge } from "dixt";
 
 import { name } from "../package.json";
 
@@ -25,7 +25,7 @@ const DixtPluginAffix: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginAffixOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
 
   instance.client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
     if (oldMember.roles.cache.size === newMember.roles.cache.size) return;

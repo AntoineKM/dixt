@@ -1,8 +1,8 @@
 import { APIEmbed, Events, TextChannel } from "discord.js";
-import { DixtPlugin, Log } from "dixt";
+import { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
-export const name = "dixt-plugin-join";
+import { name } from "../package.json";
 
 dotenv.config({
   silent: true,
@@ -26,7 +26,7 @@ const dixtPluginJoin: DixtPlugin = (
   instance,
   optionsValue?: DixtPluginJoinOptions
 ) => {
-  const options = { ...optionsDefaults, ...optionsValue };
+  const options = merge({}, optionsDefaults, optionsValue);
   if (!options.channel) {
     Log.error(`${name} - channel is required`);
     throw new Error(`${name} - channel is required`);

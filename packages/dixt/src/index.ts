@@ -2,6 +2,7 @@ import { Client, Events, GatewayIntentBits, Options } from "discord.js";
 import dotenv from "dotenv-flow";
 import EventEmiter from "events";
 import fs from "fs";
+import { merge } from "lodash";
 import mongoose, { Mongoose } from "mongoose";
 import path from "path";
 
@@ -91,14 +92,13 @@ class dixt {
   public static events = new EventEmiter();
 
   constructor(public options: DixtOptions = dixtDefaults) {
-    this.client = new Client({
-      ...dixtDefaults.clientOptions,
-      ...options.clientOptions,
-    });
-    this.application = { ...dixtDefaults.application, ...options.application };
+    this.client = new Client(
+      merge({}, dixtDefaults.clientOptions, options.clientOptions)
+    );
+    this.application = merge({}, dixtDefaults.application, options.application);
     this.plugins = options.plugins || [];
     this.databaseUri = options.databaseUri || dixtDefaults.databaseUri;
-    this.messages = { ...dixtDefaults.messages, ...options.messages };
+    this.messages = merge({}, dixtDefaults.messages, options.messages);
   }
 
   public async start() {
@@ -201,6 +201,7 @@ class dixt {
   }
 }
 
+export { merge };
 export { default as capitalize } from "./utils/capitalize";
 export { default as formatDuration } from "./utils/formatDuration";
 export { default as Log, prefixes, type LogType } from "./utils/log";
