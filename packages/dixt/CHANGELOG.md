@@ -1,5 +1,14 @@
 # dixt
 
+## 2.1.3
+
+### Patch Changes
+
+- 94fed6d: Add a better merge for options
+  Improve and fix worktime
+  Add worktime reminders
+  Add worktime auto end
+
 ## 2.1.2
 
 ### Patch Changes
