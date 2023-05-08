@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-presence",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Discord bot framework - presence plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
