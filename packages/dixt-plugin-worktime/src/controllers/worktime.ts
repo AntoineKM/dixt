@@ -8,7 +8,6 @@ import {
   ChannelType,
   Collection,
   Colors,
-  GuildChannel,
   GuildMember,
   NonThreadGuildBasedChannel,
   Role,
