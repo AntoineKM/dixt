@@ -12,7 +12,8 @@ const worktimeReminderTask = (_: dixt, controller: WorktimeController) => {
     await Promise.all(
       members.map(async (member) => {
         await member.fetch();
-        if (await controller.getHigherRoleWithQuota(member.user)) {
+        const higherRole = await controller.getHigherRoleWithQuota(member.user);
+        if (higherRole) {
           const worktime = await Worktime.findOne({
             userId: member.user.id,
             endAt: null,

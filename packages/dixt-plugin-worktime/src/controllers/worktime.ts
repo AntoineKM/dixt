@@ -259,27 +259,7 @@ class WorktimeController {
   }
 
   public async isInWorkChannel(member: GuildMember): Promise<boolean> {
-    const { guild } = member;
-    const channels = await guild.channels.fetch();
-    if (!channels) return false;
-    const workChannels = channels.filter((c) => {
-      if (!c) return false;
-      if (
-        c.type !== ChannelType.GuildVoice &&
-        c.type !== ChannelType.GuildStageVoice
-      )
-        return false;
-      if (
-        this.options.channels?.workChannelNames &&
-        this.options.channels.workChannelNames
-          .map((n) => c.name.includes(n))
-          .includes(true)
-      ) {
-        return true;
-      }
-      return false;
-    }) as Collection<string, GuildChannel>;
-
+    const workChannels = await this.getWorkChannels();
     if (!workChannels) return false;
 
     const results = await Promise.all(
@@ -313,7 +293,7 @@ class WorktimeController {
               if (
                 this.options.channels?.workChannelNames &&
                 this.options.channels.workChannelNames
-                  .map((n) => c.name.includes(n))
+                  .map((n) => c.name.toLowerCase().includes(n.toLowerCase()))
                   .includes(true)
               ) {
                 return true;
@@ -344,7 +324,7 @@ class WorktimeController {
             (channel.type === ChannelType.GuildVoice ||
               channel.type === ChannelType.GuildStageVoice) &&
             this.options.channels?.workChannelNames?.some((name) =>
-              channel.name.includes(name)
+              channel.name.toLowerCase().includes(name.toLowerCase())
             )
         );
         if (!workChannels) return;
@@ -376,6 +356,7 @@ class WorktimeController {
     if (!this.options.quotas) return result;
     await Promise.all(
       guilds.map(async (guild) => {
+        if (result) return;
         const member = await guild.members.fetch(user.id);
         if (!member) return;
         const roles = member.roles.cache;

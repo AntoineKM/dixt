@@ -11,6 +11,7 @@ import { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
 import WorktimeController from "./controllers/worktime";
+import worktimeEndTask from "./tasks/end";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
 import worktimeReminderTask from "./tasks/reminder";
 import { name } from "../package.json";
@@ -228,6 +229,7 @@ const dixtPluginWorktime: DixtPlugin = (
   // tasks
   worktimeLeaderboardTask(instance, controller);
   worktimeReminderTask(instance, controller);
+  worktimeEndTask(instance, controller);
 
   return {
     name,
