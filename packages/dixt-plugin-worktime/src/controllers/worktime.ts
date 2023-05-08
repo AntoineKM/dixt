@@ -34,6 +34,12 @@ class WorktimeController {
     },
   };
 
+  public static async getCurrentWorkersCount(): Promise<number> {
+    const worktimes = await Worktime.find({ endAt: null });
+    if (!worktimes) return 0;
+    return worktimes.length;
+  }
+
   constructor(
     public instance: dixt,
     public options: DixtPluginWorktimeOptions

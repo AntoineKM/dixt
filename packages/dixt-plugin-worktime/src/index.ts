@@ -236,4 +236,5 @@ const dixtPluginWorktime: DixtPlugin = (
   };
 };
 
+export { default as WorktimeController } from "./controllers/worktime";
 export default dixtPluginWorktime;
