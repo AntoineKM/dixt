@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.5
+
+### Patch Changes
+
+- 7071630: Improve worktime task and multi servers support
+
 ## 2.1.4
 
 ### Patch Changes
