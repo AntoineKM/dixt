@@ -203,9 +203,6 @@ importers:
       chart.js:
         specifier: ^4.2.1
         version: 4.2.1
-      chartjs-to-image:
-        specifier: ^1.1.0
-        version: 1.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
@@ -221,6 +218,9 @@ importers:
       node-schedule:
         specifier: ^2.1.1
         version: 2.1.1
+      quickchart-js:
+        specifier: ^3.1.2
+        version: 3.1.2
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -1329,14 +1329,6 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /axios@0.24.0:
-    resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
-    dependencies:
-      follow-redirects: 1.15.2
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
     dependencies:
@@ -1473,15 +1465,6 @@ packages:
       '@kurkle/color': 0.3.2
     dev: false
 
-  /chartjs-to-image@1.1.0:
-    resolution: {integrity: sha512-F20qRkAZA42XOU0Ipc/hUVmk06cO59pueeqbVSlJKSvTlTKR67HV8DUuZupCCyusQ9VkXIoiwg39iYIjzI+RcQ==}
-    dependencies:
-      axios: 0.24.0
-      javascript-stringify: 2.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -1574,6 +1557,14 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       luxon: 3.3.0
+    dev: false
+
+  /cross-fetch@3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
+    dependencies:
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /cross-spawn@5.1.0:
@@ -2540,16 +2531,6 @@ packages:
 
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
-    dev: false
-
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
     dev: false
 
   /for-each@0.3.3:
@@ -3522,6 +3503,18 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: false
 
+  /node-fetch@2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: false
+
   /node-fetch@2.6.9:
     resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}
     engines: {node: 4.x || >=6.0.0}
@@ -3934,6 +3927,15 @@ packages:
   /quick-lru@4.0.1:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
+    dev: false
+
+  /quickchart-js@3.1.2:
+    resolution: {integrity: sha512-UnKsrdfoC7sRNIIEA6VJn9zzrJXmN/hU6hb83VmjnSSOkOmQbUqdN4z+PhpGgzRHIOCbb1jwgvo7YZLrQMzfGw==}
+    dependencies:
+      cross-fetch: 3.1.5
+      javascript-stringify: 2.1.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /rc@1.2.8:

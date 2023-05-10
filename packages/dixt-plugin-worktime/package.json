@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "chart.js": "^4.2.1",
-    "chartjs-to-image": "^1.1.0",
     "dayjs": "^1.11.7",
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
     "dotenv-flow": "^3.2.0",
-    "node-schedule": "^2.1.1"
+    "node-schedule": "^2.1.1",
+    "quickchart-js": "^3.1.2"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
