@@ -1,5 +1,4 @@
-import { ChartOptions, ChartData } from "chart.js";
-import ChartJsImage from "chartjs-to-image";
+import { ChartOptions, ChartData, ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import {
   APIEmbed,
@@ -20,6 +19,7 @@ import dixt, {
   progressIndicator,
   pad,
 } from "dixt";
+import QuickChart from "quickchart-js";
 
 import { DixtPluginWorktimeOptions } from "..";
 import Worktime from "../models/Worktime";
@@ -513,7 +513,7 @@ class WorktimeController {
         }
       });
 
-      const chart = new ChartJsImage();
+      const chart = new QuickChart();
       const labels: string[] = [];
       for (
         let i =
@@ -580,14 +580,14 @@ class WorktimeController {
           },
         },
       };
-      const chartConfig = {
+      const chartConfig: ChartConfiguration = {
         type: "line",
         data: chartData,
         options: chartOptions,
       };
       chart.setConfig(chartConfig);
       chart.setBackgroundColor("rgb(47, 49, 54)");
-      chart.setChartJsVersion("4");
+      chart.setVersion("4");
 
       leaderboardEmbed = {
         ...leaderboardEmbed,
