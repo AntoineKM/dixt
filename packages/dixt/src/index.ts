@@ -204,6 +204,8 @@ class dixt {
 export { merge };
 export { default as capitalize } from "./utils/capitalize";
 export { default as formatDuration } from "./utils/formatDuration";
+export { default as isNumber } from "./utils/isNumber";
+export { default as isString } from "./utils/isString";
 export { default as Log, prefixes, type LogType } from "./utils/log";
 export { default as pad } from "./utils/pad";
 export { default as progressIndicator } from "./utils/progressIndicator";
