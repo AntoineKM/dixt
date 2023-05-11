@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.4
+
+### Patch Changes
+
+- 81266e6: Add isString and isNumber utils
+
 ## 2.1.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # dixt-plugin-worktime
 
+## 2.1.6
+
+### Patch Changes
+
+- 64f5f41: Add method to get current workers count
+- Updated dependencies [81266e6]
+  - dixt@2.1.4
+
 ## 2.1.5
 
 ### Patch Changes

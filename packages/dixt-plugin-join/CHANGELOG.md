@@ -1,5 +1,13 @@
 # dixt-plugin-join
 
+## 2.1.5
+
+### Patch Changes
+
+- 76ba49e: Add welcome cards
+- Updated dependencies [81266e6]
+  - dixt@2.1.4
+
 ## 2.1.4
 
 ### Patch Changes
