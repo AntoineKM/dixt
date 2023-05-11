@@ -11,7 +11,8 @@
   "dependencies": {
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^3.2.0",
+    "urlcat": "^3.1.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
