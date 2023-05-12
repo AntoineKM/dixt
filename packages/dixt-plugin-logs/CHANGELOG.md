@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.7
+
+### Patch Changes
+
+- b729ef2: Downgrade p-queue
+
 ## 2.1.6
 
 ### Patch Changes
