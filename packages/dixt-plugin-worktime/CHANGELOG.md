@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.8
+
+### Patch Changes
+
+- bda68e3: Improve worktime plugin with defer reply
+
 ## 2.1.7
 
 ### Patch Changes
