@@ -12,10 +12,8 @@
     "chalk": "~4.1.1",
     "discord.js": "^14.9.0",
     "dotenv-flow": "^3.2.0",
-    "fs": "0.0.1-security",
     "lodash": "^4.17.21",
-    "mongoose": "^7.0.3",
-    "path": "^0.12.7"
+    "mongoose": "^7.0.3"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
