@@ -1,10 +1,8 @@
 import { Client, Events, GatewayIntentBits, Options } from "discord.js";
 import dotenv from "dotenv-flow";
 import EventEmiter from "events";
-import fs from "fs";
 import { merge } from "lodash";
 import mongoose, { Mongoose } from "mongoose";
-import path from "path";
 
 import { DixtClient, DixtSlashCommandBuilder } from "./types";
 import Log from "./utils/log";
@@ -64,23 +62,6 @@ export const dixtDefaults = {
   },
 };
 
-export const loadCommands = (instance: dixt, dir = __dirname) => {
-  if (instance.client.commands && instance.client.commands.size > 0) {
-    fs.readdirSync(path.join(__dirname, "commands"))
-      .filter((file) => file.endsWith(".ts") || file.endsWith(".js"))
-      .forEach((file) => {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          const command = require(path.join(dir, "commands", file)).default;
-          instance.client.commands?.set(command.data.name, command(instance));
-          Log.ready(`loaded command ${file}`);
-        } catch (error) {
-          Log.error(`failed to load command ${file}`, error);
-        }
-      });
-  }
-};
-
 class dixt {
   public client: DixtClient;
   public application: DixtOptions["application"];
@@ -102,8 +83,6 @@ class dixt {
   }
 
   public async start() {
-    const projectDirectory = path.join(__dirname, "../../");
-
     Log.wait("loading env files");
     dotenv
       .listDotenvFiles(".", {
@@ -143,10 +122,6 @@ class dixt {
         }
       });
     }
-
-    Log.wait("loading commands");
-    loadCommands(this);
-    loadCommands(this, projectDirectory);
 
     this.client.on(Events.InteractionCreate, async (interaction) => {
       if (!interaction.isChatInputCommand()) return;
