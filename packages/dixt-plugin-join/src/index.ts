@@ -80,7 +80,7 @@ const dixtPluginJoin: DixtPlugin = (
         `${member.user.username}#${member.user.discriminator}`
       ),
       image: {
-        url: welcomeCard,
+        url: decodeURIComponent(welcomeCard),
       },
       footer: {
         text: instance.application?.name || "",
