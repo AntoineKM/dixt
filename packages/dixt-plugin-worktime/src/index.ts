@@ -152,6 +152,10 @@ const dixtPluginWorktime: DixtPlugin = (
 
       switch (interaction.customId) {
         case "worktime_start": {
+          await interaction.deferReply({
+            ephemeral: true,
+          });
+
           if (
             await controller.isInWorkChannel(interaction.member as GuildMember)
           ) {
@@ -159,12 +163,11 @@ const dixtPluginWorktime: DixtPlugin = (
               const embed = await controller.start(
                 interaction.member.user as User
               );
-              await interaction.reply({
+              await interaction.editReply({
                 embeds: [embed],
-                ephemeral: true,
               });
             } catch (e) {
-              await interaction.reply({
+              await interaction.editReply({
                 embeds: [
                   {
                     ...WorktimeController.baseEmbed,
@@ -172,7 +175,6 @@ const dixtPluginWorktime: DixtPlugin = (
                     description: `${interaction.member}, ${instance.messages?.error?.dmBlocked}`,
                   },
                 ],
-                ephemeral: true,
               });
               Log.error(`${interaction.member} - ${e}`);
             }
@@ -185,7 +187,7 @@ const dixtPluginWorktime: DixtPlugin = (
                 `**${interaction.guild}** - ${interaction.member} tried to start worktime but is not in a work channel`
               );
               const workChannels = await controller.getWorkChannels();
-              await interaction.reply({
+              await interaction.editReply({
                 embeds: [
                   {
                     ...WorktimeController.baseEmbed,
@@ -193,7 +195,6 @@ const dixtPluginWorktime: DixtPlugin = (
                     color: Colors.Red,
                   },
                 ],
-                ephemeral: true,
               });
             }
           }
@@ -201,14 +202,17 @@ const dixtPluginWorktime: DixtPlugin = (
         }
 
         case "worktime_end": {
+          await interaction.deferReply({
+            ephemeral: true,
+          });
+
           try {
             const embed = await controller.end(interaction.member.user as User);
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [embed],
-              ephemeral: true,
             });
           } catch (e) {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   ...WorktimeController.baseEmbed,
@@ -216,7 +220,6 @@ const dixtPluginWorktime: DixtPlugin = (
                   description: `${interaction.member}, ${instance.messages?.error?.dmBlocked}`,
                 },
               ],
-              ephemeral: true,
             });
             Log.error(`${interaction.member} - ${e}`);
           }

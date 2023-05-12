@@ -29,7 +29,11 @@ const worktimeReminderTask = (_: dixt, controller: WorktimeController) => {
                     {
                       ...WorktimeController.baseEmbed,
                       color: Colors.Red,
-                      description: `Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${controller.options.channels?.main}>)`,
+                      description: `Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${
+                        controller.options.channels?.main instanceof Array
+                          ? controller.options.channels?.main[0]
+                          : controller.options.channels?.main
+                      }>)`,
                     },
                   ],
                 })
