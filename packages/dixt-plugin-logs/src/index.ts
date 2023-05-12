@@ -2,6 +2,7 @@ import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { Colors, Events, TextChannel } from "discord.js";
 import dixt, { DixtPlugin, reduceString, Log, LogType, merge } from "dixt";
 import dotenv from "dotenv-flow";
+import PQueue from "p-queue";
 
 import { name } from "../package.json";
 
@@ -60,15 +61,22 @@ const dixtPluginLogs: DixtPlugin = (
   const embed = new MessageBuilder();
   embed.setTimestamp();
 
-  dixt.events.on("log", (log) => {
-    try {
-      embed.setDescription(
-        reduceString(log.message.join(" ").toString(), 4096)
-      );
-      embed.setFooter(embedEmojis[log.type as LogType]);
-      embed.setColor(embedColors[log.type as LogType]);
+  const queue = new PQueue({
+    concurrency: 1,
+    interval: 2100, // slightly above the 2 second limit to account for processing time
+  });
 
-      hook.send(embed);
+  dixt.events.on("log", async (log) => {
+    try {
+      await queue.add(async () => {
+        embed.setDescription(
+          reduceString(log.message.join(" ").toString(), 4096)
+        );
+        embed.setFooter(embedEmojis[log.type as LogType]);
+        embed.setColor(embedColors[log.type as LogType]);
+
+        await hook.send(embed);
+      });
     } catch (error) {
       console.error(error);
     }
