@@ -1,5 +1,11 @@
 # dixt-plugin-join
 
+## 2.1.6
+
+### Patch Changes
+
+- 45aa465: Decode welcomeCard URL in dixtPluginJoin to ensure proper rendering of image
+
 ## 2.1.5
 
 ### Patch Changes
