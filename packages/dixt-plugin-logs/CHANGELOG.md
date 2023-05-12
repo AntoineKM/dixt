@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.5
+
+### Patch Changes
+
+- 67a9da6: Add PQueue to handle log events in a sequential and rate-limited manner
+
 ## 2.1.4
 
 ### Patch Changes
