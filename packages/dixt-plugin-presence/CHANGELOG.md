@@ -1,5 +1,12 @@
 # dixt-plugin-presence
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [23a9b0f]
+  - dixt@2.1.5
+
 ## 1.0.4
 
 ### Patch Changes

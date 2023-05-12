@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.5
+
+### Patch Changes
+
+- 23a9b0f: Remove command support
+
 ## 2.1.4
 
 ### Patch Changes
