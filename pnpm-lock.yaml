@@ -121,6 +121,9 @@ importers:
       dotenv-flow:
         specifier: ^3.2.0
         version: 3.2.0
+      p-queue:
+        specifier: ^7.3.4
+        version: 7.3.4
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -867,8 +870,8 @@ packages:
       read-yaml-file: 1.1.0
     dev: false
 
-  /@next/eslint-plugin-next@13.4.1:
-    resolution: {integrity: sha512-tVPS/2FKlA3ANCRCYZVT5jdbUKasBU8LG6bYqcNhyORDFTlDYa4cAWQJjZ7msIgLwMQIbL8CAsxrOL8maa/4Lg==}
+  /@next/eslint-plugin-next@13.4.2:
+    resolution: {integrity: sha512-ZeFWgrxwckxTpYM+ANeUL9E7LOGPbZKmI94LJIjbDU69iEIgqd4WD0l2pVbOJMr/+vgoZmJ9Dx1m0WJ7WScXHA==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -1965,9 +1968,9 @@ packages:
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.59.1(@typescript-eslint/parser@5.59.1)(eslint@8.26.0)(typescript@4.9.3)
       '@typescript-eslint/parser': 5.59.1(eslint@8.26.0)(typescript@4.9.3)
-      eslint-config-next: 13.4.1(eslint@8.26.0)(typescript@4.9.3)
+      eslint-config-next: 13.4.2(eslint@8.26.0)(typescript@4.9.3)
       eslint-config-prettier: 8.8.0(eslint@8.26.0)
-      eslint-config-turbo: 1.9.3(eslint@8.26.0)
+      eslint-config-turbo: 1.9.4(eslint@8.26.0)
       eslint-config-universe: 11.2.0(eslint@8.26.0)(prettier@2.7.1)(typescript@4.9.3)
       eslint-plugin-prettier: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.26.0)(prettier@2.7.1)
       eslint-plugin-react: 7.29.4(eslint@8.26.0)
@@ -1980,8 +1983,8 @@ packages:
       - typescript
     dev: false
 
-  /eslint-config-next@13.4.1(eslint@8.26.0)(typescript@4.9.3):
-    resolution: {integrity: sha512-ajuxjCkW1hvirr0EQZb3/B/bFH52Z7CT89uCtTcICFL9l30i5c8hN4p0LXvTjdOXNPV5fEDcxBgGHgXdzTj1/A==}
+  /eslint-config-next@13.4.2(eslint@8.26.0)(typescript@4.9.3):
+    resolution: {integrity: sha512-zjLJ9B9bbeWSo5q+iHfdt8gVYyT+y2BpWDfjR6XMBtFRSMKRGjllDKxnuKBV1q2Y/QpwLM2PXHJTMRyblCmRAg==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -1989,7 +1992,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.4.1
+      '@next/eslint-plugin-next': 13.4.2
       '@rushstack/eslint-patch': 1.2.0
       '@typescript-eslint/parser': 5.59.1(eslint@8.26.0)(typescript@4.9.3)
       eslint: 8.26.0
@@ -2014,13 +2017,13 @@ packages:
       eslint: 8.26.0
     dev: false
 
-  /eslint-config-turbo@1.9.3(eslint@8.26.0):
-    resolution: {integrity: sha512-QG6jxFQkrGSpQqlFKefPdtgUfr20EbU0s4tGGIuGFOcPuJEdsY6VYZpZUxNJvmMcTGqPgMyOPjAFBKhy/DPHLA==}
+  /eslint-config-turbo@1.9.4(eslint@8.26.0):
+    resolution: {integrity: sha512-pB9Jg1Zn0Qo25LLxmvcMgjBmw8sEt6rwJO8oTKjO4DEQVUAMoNHcR7bdQCdIszHV3c1tYUjbJgm0L1B9qU81nw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.26.0
-      eslint-plugin-turbo: 1.9.3(eslint@8.26.0)
+      eslint-plugin-turbo: 1.9.4(eslint@8.26.0)
     dev: false
 
   /eslint-config-universe@11.2.0(eslint@8.26.0)(prettier@2.7.1)(typescript@4.9.3):
@@ -2270,8 +2273,8 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: false
 
-  /eslint-plugin-turbo@1.9.3(eslint@8.26.0):
-    resolution: {integrity: sha512-ZsRtksdzk3v+z5/I/K4E50E4lfZ7oYmLX395gkrUMBz4/spJlYbr+GC8hP9oVNLj9s5Pvnm9rLv/zoj5PVYaVw==}
+  /eslint-plugin-turbo@1.9.4(eslint@8.26.0):
+    resolution: {integrity: sha512-ySDJl63nIWa+j9WOAnblBWKDyaCTfGCYhSNSMCe0N5Jk01YWMEowFr2bGw31Zg0dOijioYo9ewwfLLKbJYOUmQ==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -2416,6 +2419,10 @@ packages:
   /esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /eventemitter3@4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
     dev: false
 
   /execa@5.1.1:
@@ -3740,6 +3747,19 @@ packages:
   /p-map@2.1.0:
     resolution: {integrity: sha512-y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw==}
     engines: {node: '>=6'}
+    dev: false
+
+  /p-queue@7.3.4:
+    resolution: {integrity: sha512-esox8CWt0j9EZECFvkFl2WNPat8LN4t7WWeXq73D9ha0V96qPRufApZi4ZhPwXAln1uVVal429HVVKPa2X0yQg==}
+    engines: {node: '>=12'}
+    dependencies:
+      eventemitter3: 4.0.7
+      p-timeout: 5.1.0
+    dev: false
+
+  /p-timeout@5.1.0:
+    resolution: {integrity: sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==}
+    engines: {node: '>=12'}
     dev: false
 
   /p-try@2.2.0:
