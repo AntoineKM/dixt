@@ -1,5 +1,12 @@
 # dixt-plugin-worktime
 
+## 2.1.7
+
+### Patch Changes
+
+- Updated dependencies [23a9b0f]
+  - dixt@2.1.5
+
 ## 2.1.6
 
 ### Patch Changes
