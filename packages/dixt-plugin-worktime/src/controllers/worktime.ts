@@ -358,38 +358,55 @@ class WorktimeController {
     await client.guilds.fetch();
     const guilds = client.guilds.cache;
     let result: Role | null | undefined = undefined;
-    if (!this.options.quotas) return result;
-    await Promise.all(
-      guilds.map(async (guild) => {
-        if (result) return;
-        const member = await guild.members.fetch(user.id);
-        if (!member) return;
-        const roles = member.roles.cache;
-        await user.client.guilds.fetch();
-        const rolesWithQuota = roles.filter((r) => {
-          if (!r) return false;
-          if (!this.options.quotas) return false;
-          if (this.options.quotas[r.id]) return true;
+
+    if (!this.options.quotas) {
+      return result;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const [_guildId, guild] of guilds) {
+      if (result) {
+        break;
+      }
+
+      const member = await guild.members.cache.get(user.id);
+
+      if (!member) {
+        continue;
+      }
+
+      const roles = member.roles.cache;
+      const rolesWithQuota = roles.filter((r) => {
+        if (!r) {
           return false;
-        });
-        if (!rolesWithQuota || rolesWithQuota.size === 0) {
-          result = null;
-          return;
         }
-        const sortedRoles = rolesWithQuota.sort((a, b) => {
-          if (!a || !b) return 0;
-          return b.position - a.position;
-        });
-        if (!sortedRoles) return;
-        const higherRole = sortedRoles.first();
-        if (!higherRole) return;
-        if (!result) {
-          result = higherRole;
-        } else {
-          result = null;
+        if (!this.options.quotas) {
+          return false;
         }
-      })
-    );
+        return Boolean(this.options.quotas[r.id]);
+      });
+
+      if (rolesWithQuota.size === 0) {
+        result = null;
+        continue;
+      }
+
+      const sortedRoles = rolesWithQuota.sort((a, b) => {
+        if (!a || !b) {
+          return 0;
+        }
+        return b.position - a.position;
+      });
+
+      const higherRole = sortedRoles.first();
+
+      if (!higherRole) {
+        continue;
+      }
+
+      result = higherRole;
+    }
+
     return result;
   }
 
