@@ -14,6 +14,7 @@
     "dixt-plugin-join": "workspace:*",
     "dixt-plugin-presence": "workspace:*",
     "dixt-plugin-react": "workspace:*",
+    "dixt-plugin-roles": "workspace:*",
     "dixt-plugin-twitch": "workspace:*",
     "dixt-plugin-worktime": "workspace:*"
   },
