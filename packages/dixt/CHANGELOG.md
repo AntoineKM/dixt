@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.6
+
+### Patch Changes
+
+- 752a395: Update DixtPluginOptions types
+
 ## 2.1.5
 
 ### Patch Changes

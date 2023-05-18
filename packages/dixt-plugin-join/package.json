@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-join",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Discord bot framework - join plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
