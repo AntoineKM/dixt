@@ -1,5 +1,13 @@
 # dixt-plugin-worktime
 
+## 2.1.10
+
+### Patch Changes
+
+- 752a395: Update DixtPluginOptions types
+- Updated dependencies [752a395]
+  - dixt@2.1.6
+
 ## 2.1.9
 
 ### Patch Changes
