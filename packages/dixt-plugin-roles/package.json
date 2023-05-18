@@ -1,7 +1,7 @@
 {
   "name": "dixt-plugin-roles",
   "version": "1.0.0",
-  "description": "Discord bot framework - template plugin",
+  "description": "Discord bot framework - roles plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
