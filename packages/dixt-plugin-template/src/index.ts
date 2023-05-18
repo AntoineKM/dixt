@@ -16,9 +16,9 @@ export const optionsDefaults = {
   channel: process.env.DIXT_PLUGIN_TEMPLATE_CHANNEL_ID || "",
 };
 
-const dixtPluginTemplate: DixtPlugin = (
+const dixtPluginTemplate: DixtPlugin<DixtPluginTemplateOptions> = (
   instance,
-  optionsValue?: DixtPluginTemplateOptions
+  optionsValue
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (!options.channel) {

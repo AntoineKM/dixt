@@ -13,9 +13,9 @@ dotenv.config({
 
 export type ClientOptions = Options;
 
-export type DixtPlugin = (
+export type DixtPlugin<DixtPluginOptions extends object = object> = (
   _dixt: dixt,
-  _options?: object
+  _options?: DixtPluginOptions
 ) => {
   name: string;
   commands?: DixtSlashCommandBuilder[];

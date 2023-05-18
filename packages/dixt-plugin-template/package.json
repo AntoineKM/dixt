@@ -9,6 +9,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
+    "discord.js": "^14.9.0",
     "dixt": "workspace:*",
     "dotenv-flow": "^3.2.0"
   },

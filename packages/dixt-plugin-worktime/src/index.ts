@@ -102,9 +102,9 @@ export const optionsDefaults = {
   },
 };
 
-const dixtPluginWorktime: DixtPlugin = (
+const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   instance,
-  optionsValue?: DixtPluginWorktimeOptions
+  optionsValue
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   const controller = new WorktimeController(instance, options);
