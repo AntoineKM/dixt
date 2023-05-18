@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.9
+
+### Patch Changes
+
+- bf165c7: Fix worktime hightestrole function
+
 ## 2.1.8
 
 ### Patch Changes
