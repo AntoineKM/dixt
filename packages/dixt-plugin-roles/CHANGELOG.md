@@ -1,5 +1,11 @@
 # dixt-plugin-roles
 
+## 1.0.1
+
+### Patch Changes
+
+- f19d0cd: Improve roles with DMs
+
 ## 1.0.0
 
 ### Major Changes
