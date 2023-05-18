@@ -1,0 +1,20 @@
+{
+  "name": "dixt-plugin-template",
+  "version": "0.0.0",
+  "description": "Discord bot framework - template plugin",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "dixt": "workspace:*",
+    "dotenv-flow": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/node": "^18.15.11",
+    "typescript": "^4.9.3"
+  }
+}
