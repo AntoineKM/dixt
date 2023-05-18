@@ -1,4 +1,4 @@
-import { CacheType, ChannelType, Events, Interaction } from "discord.js";
+import { CacheType, ChannelType, Events, Interaction, User } from "discord.js";
 import { DixtPlugin, Log, merge } from "dixt";
 
 import RolesController from "./controllers/roles";
@@ -67,6 +67,12 @@ const dixtPluginRoles: DixtPlugin<DixtPluginRolesOptions> = (
         await interaction.editReply({
           embeds: [embed],
         });
+
+        (interaction.member.user as User)
+          .send({
+            embeds: [embed],
+          })
+          .catch((e) => Log.error(interaction.member?.user, e));
       }
     }
   );
