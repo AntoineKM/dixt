@@ -6,7 +6,7 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 
-import dixt from "..";
+import dixt, { DixtClient } from "..";
 import capitalize from "../utils/capitalize";
 
 const HelpCommand = (instance: dixt) => {
@@ -43,7 +43,7 @@ const HelpCommand = (instance: dixt) => {
               slashCommand.data.description
             }\n\n${slashCommand.data.options
               .map(
-                (option) =>
+                (option: any) =>
                   `\`/${slashCommand.data.name} <${option.toJSON().name}>\` - ${
                     option.toJSON().description
                   }`
@@ -66,7 +66,7 @@ const HelpCommand = (instance: dixt) => {
         commands
           ? commands
               .map(
-                (command) =>
+                (command: any) =>
                   `\`/${(command as any).data.name}\` - ${
                     (command as any).data.description
                   }`
