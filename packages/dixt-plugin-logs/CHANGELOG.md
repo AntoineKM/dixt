@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.9
+
+### Patch Changes
+
+- 9314339: Fix logs footer timestamp
+
 ## 2.1.8
 
 ### Patch Changes
