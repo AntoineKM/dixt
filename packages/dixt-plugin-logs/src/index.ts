@@ -58,9 +58,6 @@ const dixtPluginLogs: DixtPlugin = (
   else if (instance.application?.logo)
     hook.setAvatar(instance.application.logo);
 
-  const embed = new MessageBuilder();
-  embed.setTimestamp();
-
   const queue = new PQueue({
     concurrency: 1,
     interval: 2100, // slightly above the 2 second limit to account for processing time
@@ -69,6 +66,8 @@ const dixtPluginLogs: DixtPlugin = (
   dixt.events.on("log", async (log) => {
     try {
       await queue.add(async () => {
+        const embed = new MessageBuilder();
+        embed.setTimestamp();
         embed.setDescription(
           reduceString(log.message.join(" ").toString(), 4096)
         );
