@@ -1,4 +1,3 @@
-import { Events, TextChannel } from "discord.js";
 import dixt, { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 

@@ -1,4 +1,4 @@
-import { Colors, TextChannel } from "discord.js";
+import { Colors } from "discord.js";
 import dixt, { getTextChannel } from "dixt";
 
 import { DixtPluginReportsOptions } from "..";

@@ -1,4 +1,3 @@
-import { ChannelType, TextChannel } from "discord.js";
 import dixt, { Log, getTextChannel } from "dixt";
 import schedule from "node-schedule";
 

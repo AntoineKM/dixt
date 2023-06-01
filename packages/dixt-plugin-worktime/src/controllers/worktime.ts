@@ -5,7 +5,6 @@ import {
   ButtonStyle,
   Channel,
   ChannelType,
-  Client,
   Collection,
   Colors,
   GuildMember,
