@@ -38,7 +38,7 @@ export type DixtPluginWorktimeOptions = {
   };
   reports?: {
     minimumTime?: number;
-    maximumDaysAbstent?: number;
+    maximumDaysAbsent?: number;
   };
   messages?: {
     main?: {
@@ -81,7 +81,7 @@ export const optionsDefaults = {
   },
   reports: {
     minimumTime: 30,
-    maximumDaysAbstent: 2,
+    maximumDaysAbsent: 2,
   },
   messages: {
     main: {

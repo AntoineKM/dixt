@@ -9,14 +9,14 @@ const worktimeAbsenteesTask = (
 ) => {
   schedule.scheduleJob(controller.options.tasks?.absentees || "", async () => {
     const absentees = await controller.getAbsentees(
-      controller.options.maximumDaysAbstent || 2
+      controller.options.reports?.maximumDaysAbsent || 2
     );
     if (!absentees || absentees.length === 0) return;
     absentees.forEach((absentee) => {
       console.log("absentee", absentee);
       dixt.events.emit("report", {
         message: `${absentee} is absent for more than ${
-          controller.options.maximumDaysAbstent || 2
+          controller.options.reports?.maximumDaysAbsent || 2
         } days.`,
       });
     });
