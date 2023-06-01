@@ -1,5 +1,12 @@
 # dixt-plugin-join
 
+## 2.1.9
+
+### Patch Changes
+
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
 ## 2.1.8
 
 ### Patch Changes
