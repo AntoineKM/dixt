@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.13
+
+### Patch Changes
+
+- 6734c8b: Remove useless console log
+
 ## 2.1.12
 
 ### Patch Changes
