@@ -178,6 +178,7 @@ class dixt {
 
 export { merge };
 export { default as capitalize } from "./utils/capitalize";
+export * from "./utils/discord";
 export { default as formatDuration } from "./utils/formatDuration";
 export { default as isNumber } from "./utils/isNumber";
 export { default as isString } from "./utils/isString";

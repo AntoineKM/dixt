@@ -196,6 +196,21 @@ const dixtPluginLogs: DixtPlugin = (
     }
   });
 
+  // handle when someone deafen
+  instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
+    if (oldState.deaf === newState.deaf) return;
+    if (newState.deaf) {
+      Log.info(`**${newState.guild}** - ${newState.member} has been deafened`);
+      dixt.events.emit("report", {
+        message: `${newState.member} has been deafened.`,
+      });
+    } else {
+      Log.info(
+        `**${newState.guild}** - ${newState.member} has been undeafened`
+      );
+    }
+  });
+
   return {
     name,
   };

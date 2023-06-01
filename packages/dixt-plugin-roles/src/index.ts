@@ -1,5 +1,5 @@
-import { CacheType, ChannelType, Events, Interaction, User } from "discord.js";
-import { DixtPlugin, Log, merge } from "dixt";
+import { CacheType, Events, Interaction, User } from "discord.js";
+import { DixtPlugin, Log, getTextChannel, merge } from "dixt";
 
 import RolesController from "./controllers/roles";
 import { name } from "../package.json";
@@ -41,12 +41,8 @@ const dixtPluginRoles: DixtPlugin<DixtPluginRolesOptions> = (
     }
 
     options.channels.forEach((c: DixtPluginRolesOptionsChannel) => {
-      const channel = instance.client.channels.cache.get(c.id);
-      if (channel?.type === ChannelType.GuildText) {
-        controller.initialize(channel, c);
-      } else {
-        Log.error(`${name} - channel with id ${c.id} is not a text channel`);
-      }
+      const channel = getTextChannel(instance.client, c.id);
+      controller.initialize(channel, c);
     });
   });
 
