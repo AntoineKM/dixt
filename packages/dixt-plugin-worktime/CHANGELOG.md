@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.12
+
+### Patch Changes
+
+- 78a0f5c: Fix maximumDaysAbsent typo
+
 ## 2.1.11
 
 ### Patch Changes
