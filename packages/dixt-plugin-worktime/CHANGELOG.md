@@ -1,5 +1,13 @@
 # dixt-plugin-worktime
 
+## 2.1.11
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
 ## 2.1.10
 
 ### Patch Changes

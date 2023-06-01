@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.7
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+
 ## 2.1.6
 
 ### Patch Changes
