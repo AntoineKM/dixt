@@ -1,5 +1,13 @@
 # dixt-plugin-roles
 
+## 1.0.2
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
 ## 1.0.1
 
 ### Patch Changes
