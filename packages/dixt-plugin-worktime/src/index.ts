@@ -1,16 +1,16 @@
 import {
   CacheType,
-  ChannelType,
   Colors,
   Events,
   GuildMember,
   Interaction,
   User,
 } from "discord.js";
-import { DixtPlugin, Log, merge } from "dixt";
+import dixt, { DixtPlugin, Log, merge, getTextChannel } from "dixt";
 import dotenv from "dotenv-flow";
 
 import WorktimeController from "./controllers/worktime";
+import worktimeAbsenteesTask from "./tasks/absentees";
 import worktimeEndTask from "./tasks/end";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
 import worktimeReminderTask from "./tasks/reminder";
@@ -31,9 +31,14 @@ export type DixtPluginWorktimeOptions = {
     [roleId: string]: number;
   };
   tasks?: {
+    absentees?: string;
     end?: string;
     reminder?: string;
     leaderboard?: string;
+  };
+  reports?: {
+    minimumTime?: number;
+    maximumDaysAbstent?: number;
   };
   messages?: {
     main?: {
@@ -67,10 +72,16 @@ export const optionsDefaults = {
       process.env.DIXT_PLUGIN_WORKTIME_WORKTIME_CHANNEL_NAMES?.split(",") || [],
   },
   tasks: {
+    absentees:
+      process.env.DIXT_PLUGIN_WORKTIME_ABSENTEES_TASK || "0 12 * * 2-7",
     end: process.env.DIXT_PLUGIN_WORKTIME_END_TASK || "*/10 * * * *",
     reminder: process.env.DIXT_PLUGIN_WORKTIME_REMINDER_TASK || "*/10 * * * *",
     leaderboard:
       process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "0 12 * * 0",
+  },
+  reports: {
+    minimumTime: 30,
+    maximumDaysAbstent: 2,
   },
   messages: {
     main: {
@@ -121,24 +132,12 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
 
     if (Array.isArray(options.channels.main)) {
       options.channels.main.forEach((channelId) => {
-        const channel = instance.client.channels.cache.get(channelId);
-        if (channel?.type === ChannelType.GuildText) {
-          controller.initialize(channel);
-        } else {
-          Log.error(
-            `${name} - channel with id ${channelId} is not a text channel`
-          );
-        }
+        const channel = getTextChannel(instance.client, channelId);
+        controller.initialize(channel);
       });
     } else {
-      const channel = instance.client.channels.cache.get(options.channels.main);
-      if (channel?.type === ChannelType.GuildText) {
-        controller.initialize(channel);
-      } else {
-        Log.error(
-          `${name} - channel with id ${options.channels.main} is not a text channel`
-        );
-      }
+      const channel = getTextChannel(instance.client, options.channels.main);
+      controller.initialize(channel);
     }
   });
 
@@ -229,10 +228,20 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
     }
   );
 
+  instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
+    if (oldState.deaf === newState.deaf) return;
+    if (newState.deaf) {
+      dixt.events.emit("report", {
+        message: `${newState.member} has been deafened.`,
+      });
+    }
+  });
+
   // tasks
+  worktimeAbsenteesTask(instance, controller);
+  worktimeEndTask(instance, controller);
   worktimeLeaderboardTask(instance, controller);
   worktimeReminderTask(instance, controller);
-  worktimeEndTask(instance, controller);
 
   return {
     name,

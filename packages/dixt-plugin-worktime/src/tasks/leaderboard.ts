@@ -1,5 +1,5 @@
 import { ChannelType, TextChannel } from "discord.js";
-import dixt, { Log } from "dixt";
+import dixt, { Log, getTextChannel } from "dixt";
 import schedule from "node-schedule";
 
 import WorktimeController from "../controllers/worktime";
@@ -12,20 +12,14 @@ const worktimeLeaderboardTask = (
   schedule.scheduleJob(
     controller.options.tasks?.leaderboard || "",
     async () => {
-      const channel = instance.client.channels.cache.get(
+      const channel = getTextChannel(
+        instance.client,
         controller.options.channels?.leaderboard || ""
       );
 
-      if (!channel) return;
-      // if channel is guildtext channel
-      if (channel.type === ChannelType.GuildText) {
-        const textChannel = channel as TextChannel;
-
-        // send the leaderboard embed
-        textChannel.send({
-          embeds: [await controller.getLeaderboardEmbed()],
-        });
-      }
+      channel.send({
+        embeds: [await controller.getLeaderboardEmbed()],
+      });
 
       // get worktimes from current working users
       const currentWorktimes = await Worktime.find({

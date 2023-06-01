@@ -180,6 +180,28 @@ importers:
         specifier: ^5.0.0
         version: 5.0.2
 
+  packages/dixt-plugin-reports:
+    dependencies:
+      discord.js:
+        specifier: ^14.9.0
+        version: 14.9.0
+      dixt:
+        specifier: workspace:*
+        version: link:../dixt
+      dotenv-flow:
+        specifier: ^3.2.0
+        version: 3.2.0
+    devDependencies:
+      '@types/dotenv-flow':
+        specifier: ^3.2.0
+        version: 3.2.0
+      '@types/node':
+        specifier: ^18.15.11
+        version: 18.15.11
+      typescript:
+        specifier: ^5.0.0
+        version: 5.0.2
+
   packages/dixt-plugin-roles:
     dependencies:
       discord.js:
@@ -306,6 +328,9 @@ importers:
       dixt-plugin-react:
         specifier: workspace:*
         version: link:../packages/dixt-plugin-react
+      dixt-plugin-reports:
+        specifier: workspace:*
+        version: link:../packages/dixt-plugin-reports
       dixt-plugin-roles:
         specifier: workspace:*
         version: link:../packages/dixt-plugin-roles
