@@ -13,7 +13,6 @@ const worktimeAbsenteesTask = (
     );
     if (!absentees || absentees.length === 0) return;
     absentees.forEach((absentee) => {
-      console.log("absentee", absentee);
       dixt.events.emit("report", {
         message: `${absentee} is absent for more than ${
           controller.options.reports?.maximumDaysAbsent || 2
