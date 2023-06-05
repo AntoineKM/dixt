@@ -1,0 +1,55 @@
+---
+title: "discord.js Essentials"
+description: "An overview of essential discord.js features for building bot"
+---
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Discord.js Essentials
+
+To build bot with dixt, it helps to be familiar with discord.js features such as client or shards. This page will give you a brief overview of these features.
+
+If you"re new to discord.js, we also recommend reffering to the [discord.js Documentation](https://discord.js.org/#/docs/main/stable/general/welcome). Here are some great resources for learning:
+- [discord.js Guide](https://discordjs.guide)
+- [discord.js Rapid Tutorial](https://ravbug.com/tutorials/discordjs)
+- [discord.js freeCodeCamp Tutorial](https://www.freecodecamp.org/news/create-a-discord-bot-with-javascript-nodejs)
+
+## Client
+
+The client is the main interface for interacting with the Discord API, and the starting point for any bot. It is the main class in discord.js.
+
+<Tabs items={["without dixt", "with dixt"]}>
+<Tab>
+```js
+const { Client } = require("discord.js");
+
+const client = new Client();
+
+client.on("ready", () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.login("your_bot_token");
+```
+</Tab>
+<Tab>
+```js
+const { default: dixt } = require("dixt");
+
+const instance = new dixt({
+  application: {
+    id: "your_application_id",
+    bot: {
+      token: "your_bot_token",
+    }
+  }
+});
+
+instance.client.on("ready", () => {
+  console.log(`Logged in as ${instance.client.user.tag}!`);
+});
+
+instance.start();
+```
+</Tab>
+</Tabs>
