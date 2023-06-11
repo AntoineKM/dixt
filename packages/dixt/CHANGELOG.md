@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.8
+
+### Patch Changes
+
+- 3cdb21f: Remove commands support until it isnt ready
+
 ## 2.1.7
 
 ### Patch Changes
