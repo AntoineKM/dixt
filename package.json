@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@changesets/cli": "^2.25.2",
-    "@manypkg/cli": "^0.20.0",
+    "@manypkg/cli": "^0.21.0",
     "eslint": "^8.26.0",
     "eslint-config-antoine": "^1.0.3",
     "prettier": "^2.7.1",
@@ -31,5 +31,5 @@
       "packages/*"
     ]
   },
-  "packageManager": "pnpm@8.6.0"
+  "packageManager": "pnpm@8.6.1"
 }
