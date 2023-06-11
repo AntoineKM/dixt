@@ -1,6 +1,6 @@
 {
   "name": "dixt",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Discord bot framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
