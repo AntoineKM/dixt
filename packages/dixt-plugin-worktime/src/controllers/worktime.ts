@@ -258,6 +258,15 @@ class WorktimeController {
             : ""
         }`
       );
+
+      if (
+        currentWorktime.endAt.getTime() - currentWorktime.startAt.getTime() <
+        (this.options.reports?.minimumTime || 30) * 60 * 1000
+      ) {
+        dixt.events.emit("report", {
+          message: `${user} service was less than 30 minutes.`,
+        });
+      }
     }
 
     return embed;
@@ -408,6 +417,45 @@ class WorktimeController {
     }
 
     return result;
+  }
+
+  public async getUsersWithQuota(): Promise<User[]> {
+    const { client } = this.instance;
+    await client.guilds.fetch();
+    const guilds = client.guilds.cache;
+    const results: User[] = [];
+
+    if (!this.options.quotas) {
+      return results;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const [_guildId, guild] of guilds) {
+      const members = await guild.members.fetch();
+      const membersWithQuota = members.filter((m) => {
+        if (!m) {
+          return false;
+        }
+        const roles = m.roles.cache;
+        const rolesWithQuota = roles.filter((r) => {
+          if (!r) {
+            return false;
+          }
+          if (!this.options.quotas) {
+            return false;
+          }
+          return Boolean(this.options.quotas[r.id]);
+        });
+        return rolesWithQuota.size > 0;
+      });
+      membersWithQuota.map((m) => {
+        if (!results.includes(m.user)) {
+          results.push(m.user);
+        }
+      });
+    }
+
+    return results;
   }
 
   public async getLeaderboardEmbed(): Promise<APIEmbed> {
@@ -677,6 +725,37 @@ class WorktimeController {
     }
 
     return leaderboardEmbed;
+  }
+
+  public async getAbsentees(days = 2): Promise<User[]> {
+    const users = await this.getUsersWithQuota();
+
+    const absentees = await Promise.all(
+      users.map(async (user) => {
+        const lastWorktime = await Worktime.findOne({
+          userId: user.id,
+        }).sort({ startAt: -1 });
+
+        if (!lastWorktime) {
+          return user;
+        }
+
+        const lastWorktimeTimestamp = new Date(lastWorktime.startAt).getTime();
+        const nowTimestamp = new Date().getTime();
+
+        const daysSinceLastWorktime =
+          (nowTimestamp - lastWorktimeTimestamp) / (1000 * 60 * 60 * 24);
+
+        if (daysSinceLastWorktime > days) {
+          return user;
+        }
+
+        return null;
+      })
+    );
+
+    const result = absentees.filter((absentee) => absentee !== null) as User[];
+    return result;
   }
 }
 

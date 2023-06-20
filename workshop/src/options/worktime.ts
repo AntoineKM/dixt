@@ -5,7 +5,7 @@ import { CHANNELS, ROLES } from "../constants";
 const dixtPluginWorktimeOptions: DixtPluginWorktimeOptions = {
   channels: {
     leaderboard: CHANNELS.DIXT_PLUGIN_WORKTIME.LEADERBOARD,
-    main: [CHANNELS.DIXT_PLUGIN_WORKTIME.MAIN, "1106660583366991973"],
+    main: [CHANNELS.DIXT_PLUGIN_WORKTIME.MAIN],
     workChannelNames: ["work"],
   },
   quotas: {

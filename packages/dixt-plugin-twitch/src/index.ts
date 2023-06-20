@@ -4,9 +4,8 @@ import {
   ButtonStyle,
   Colors,
   Events,
-  TextChannel,
 } from "discord.js";
-import { DixtPlugin, Log, merge } from "dixt";
+import { DixtPlugin, getTextChannel, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
 import { name } from "../package.json";
@@ -110,9 +109,10 @@ const dixtPluginTwitch: DixtPlugin = (
             `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
           );
 
-          const channel = instance.client.channels.cache.get(
-            options.channel
-          ) as TextChannel;
+          const channel = getTextChannel(
+            instance.client,
+            options.channel || ""
+          );
 
           const embed: APIEmbed = {
             title: activity.details || "",

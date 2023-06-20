@@ -14,6 +14,7 @@
     "dixt-plugin-join": "workspace:*",
     "dixt-plugin-presence": "workspace:*",
     "dixt-plugin-react": "workspace:*",
+    "dixt-plugin-reports": "workspace:*",
     "dixt-plugin-roles": "workspace:*",
     "dixt-plugin-twitch": "workspace:*",
     "dixt-plugin-worktime": "workspace:*"
@@ -22,6 +23,6 @@
     "@types/node": "^18.15.11",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^5.0.0"
   }
 }

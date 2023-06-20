@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-logs",
-  "version": "2.1.8",
+  "version": "2.1.11",
   "description": "Discord bot framework - logs plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,6 +18,6 @@
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
     "@types/node": "^18.15.11",
-    "typescript": "^4.9.3"
+    "typescript": "^5.0.0"
   }
 }

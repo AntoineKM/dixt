@@ -1,5 +1,26 @@
 # dixt-plugin-logs
 
+## 2.1.11
+
+### Patch Changes
+
+- Updated dependencies [3cdb21f]
+  - dixt@2.1.8
+
+## 2.1.10
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
+## 2.1.9
+
+### Patch Changes
+
+- 9314339: Fix logs footer timestamp
+
 ## 2.1.8
 
 ### Patch Changes

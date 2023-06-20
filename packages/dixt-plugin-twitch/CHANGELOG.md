@@ -1,5 +1,20 @@
 # dixt-plugin-twitch
 
+## 1.1.13
+
+### Patch Changes
+
+- Updated dependencies [3cdb21f]
+  - dixt@2.1.8
+
+## 1.1.12
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
 ## 1.1.11
 
 ### Patch Changes

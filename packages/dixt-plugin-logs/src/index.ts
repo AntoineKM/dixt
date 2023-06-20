@@ -58,9 +58,6 @@ const dixtPluginLogs: DixtPlugin = (
   else if (instance.application?.logo)
     hook.setAvatar(instance.application.logo);
 
-  const embed = new MessageBuilder();
-  embed.setTimestamp();
-
   const queue = new PQueue({
     concurrency: 1,
     interval: 2100, // slightly above the 2 second limit to account for processing time
@@ -69,6 +66,8 @@ const dixtPluginLogs: DixtPlugin = (
   dixt.events.on("log", async (log) => {
     try {
       await queue.add(async () => {
+        const embed = new MessageBuilder();
+        embed.setTimestamp();
         embed.setDescription(
           reduceString(log.message.join(" ").toString(), 4096)
         );
@@ -193,6 +192,21 @@ const dixtPluginLogs: DixtPlugin = (
             .map((option) => option.name + ":" + option.value)
             .join(" ")}` +
           "`"
+      );
+    }
+  });
+
+  // handle when someone deafen
+  instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
+    if (oldState.deaf === newState.deaf) return;
+    if (newState.deaf) {
+      Log.info(`**${newState.guild}** - ${newState.member} has been deafened`);
+      dixt.events.emit("report", {
+        message: `${newState.member} has been deafened.`,
+      });
+    } else {
+      Log.info(
+        `**${newState.guild}** - ${newState.member} has been undeafened`
       );
     }
   });

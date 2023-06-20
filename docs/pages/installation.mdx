@@ -1,0 +1,169 @@
+---
+title: "Installation"
+description: "Create a new dixt bot"
+---
+
+import { Callout, Tab, Tabs, Card, Cards } from "nextra-theme-docs";
+
+# Installation
+
+System Requirements:
+
+- [Node.js 16](https://nodejs.org/) or later.
+- macOS, Windows (including WSL), and Linux are supported.
+
+## Manual Installation
+
+To manually create a new dixt bot, install the required package:
+
+<Tabs items={["npm", "yarn", "pnpm"]}>
+  <Tab>
+    dixt is available as a [npm package](https://npmjs.com/package/dixt).
+
+    ```bash
+    npm i dixt --save
+    ```
+  </Tab>
+  <Tab>
+    dixt is available as a [yarn package](https://yarnpkg.com/package/dixt).
+
+    ```bash
+    yarn add dixt
+    ```
+  </Tab>
+  <Tab>
+    dixt is available as a [npm package](https://npmjs.com/package/dixt).
+
+    ```bash
+    pnpm i dixt
+    ```
+  </Tab>
+</Tabs>
+
+Open `package.json` and add the following `scripts`:
+  
+```json
+{
+  "scripts": {
+    "dev": "dixt dev",
+    "build": "dixt build",
+    "start": "dixt start"
+  }
+}
+```
+
+These scripts refer to the different stages of developing an application:
+
+- `dev`: runs `dixt dev` to start dixt in development mode.
+- `build`: runs `dixt build` to build the application for production usage.
+- `start`: runs `dixt start` to start a dixt production bot.
+
+### Create the `index.js` file
+
+Next, create a `index.js` file with some initial content:
+
+```js
+const { default: dixt } = require('dixt');
+
+const main = async () => {
+  const instance = new dixt();
+  await instance.start();
+};
+
+main();
+```
+
+### Setting up your environment
+
+#### Environment Variables
+
+Create a `.env` file in the root of your project and add the following:
+
+```env
+DIXT_APPLICATION_ID=your_application_id
+DIXT_BOT_TOKEN=your_bot_token
+```
+
+If you don't know where to find thoses informations:
+- `DIXT_APPLICATION_ID`: [Discord Developer Portal](https://discord.com/developers/applications) -> Select the application -> General Information -> Application ID
+- `DIXT_BOT_TOKEN`: [Discord Developer Portal](https://discord.com/developers/applications) -> Select the application -> Bot -> Token
+
+##### Alternative to environment variables
+
+If you don't want to use environment variables, you can use the following code:
+
+
+```js
+const { default: dixt } = require('dixt');
+ 
+const main = async () => {
+  const options = {
+    application: {
+      id: 'your_application_id',
+      bot: {
+        token: 'your_bot_token',
+      }
+    }
+  };
+  const instance = new dixt(options);
+  await instance.start();
+};
+ 
+main();
+```
+
+<Callout type="warning">
+  This method is not recommended, because it can cause some security issues, especially if you are using a public repository.
+</Callout>
+
+
+#### Discord Bot Configuration
+
+To ensure that the bot is working properly, you need be sure the following options are like this on [Discord Developer Portal](https://discord.com/developers/applications) -> Select the application -> Bot:
+
+##### Authorization Flow
+- **Public Bot**: We recommend to disable this option, because it can cause some security issues if your bot isn't ready to be public.
+- **Require OAuth2 Code Grant**: We recommend to disable this option, if you don't know what you are doing.
+
+##### Privileged Gateway Intents
+- **Presence Intent**: We recommend to enable this option, because it's required to get the presence of users.
+- **Server Members Intent**: Enable this option, because it's required to get the list of members of guilds.
+- **Message Content Intent**: We recommend to enable this option, because it's required to get the content of messages.
+
+##### Bot Permissions
+
+To ensure that the bot has all the required permissions, invite your bot to your server using the following link: `https://discord.com/oauth2/authorize?client_id=your_application_id&scope=bot&permissions=8`.
+
+<Callout>
+  Do not forget to replace `your_application_id` by your application id.
+</Callout>
+
+Otherwise if you want to customize the permissions (which is not recommended), you can use a [Discord Permissions Calculator](https://discordapi.com/permissions.html).
+
+### Run the Development Bot
+
+
+<Tabs items={["npm", "yarn", "pnpm"]}>
+  <Tab>
+    Run `npm run dev` to start the development server.
+  </Tab>
+  <Tab>
+    Run `yarn run dev` to start the development server.
+  </Tab>
+  <Tab>
+    Run `pnpm run dev` to start the development server.
+  </Tab>
+</Tabs>
+
+### Next Steps
+
+For more information on what to do next, we recommend the following sections:
+
+<Cards>
+  <Card
+    title="Configuration"
+    href="/docs/configuration"
+  >
+    Learn how to configure your bot.
+  </Card>
+</Cards>

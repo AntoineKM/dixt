@@ -3,7 +3,17 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": [
+        "dist/**",
+        "dist/**/*.d.ts",
+        "dist/**/*.mjs",
+        "dist/**/*.js",
+        "dist/**/*.css",
+        ".next/**",
+        "index.js",
+        "ssg.js",
+        "loader.js"
+      ]
     },
     "dev": {
       "cache": false,

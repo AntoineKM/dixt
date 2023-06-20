@@ -1,0 +1,22 @@
+{
+  "name": "docs",
+  "private": true,
+  "scripts": {
+    "dev": "next -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "@fontsource/figtree": "^5.0.2",
+    "next": "^13.4.4",
+    "next-themes": "^0.2.1",
+    "nextra": "^2.7.0",
+    "nextra-theme-docs": "^2.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^5.0.3"
+  }
+}

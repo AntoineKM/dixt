@@ -1,0 +1,12 @@
+{
+  "index": "",
+  "installation": "",
+  "project-structure": "",
+  "discordjs-essentials": "Discord.js Essentials",
+  "-- Themes": {
+    "type": "separator",
+    "title": "Building your bot"
+  },
+  "plugins": "Plugins",
+  "sharding": "Sharding"
+}

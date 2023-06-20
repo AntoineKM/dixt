@@ -123,47 +123,6 @@ class dixt {
       });
     }
 
-    this.client.on(Events.InteractionCreate, async (interaction) => {
-      if (!interaction.isChatInputCommand()) return;
-
-      const command = this.client.commands?.get(interaction.commandName);
-
-      if (!command) return;
-
-      try {
-        await (command as DixtSlashCommandBuilder).execute(interaction);
-      } catch (error) {
-        Log.error(error);
-        await interaction.reply({
-          content: "There was an error while executing this command!",
-          ephemeral: true,
-        });
-      }
-    });
-
-    this.client.on(Events.InteractionCreate, async (interaction) => {
-      if (interaction.isChatInputCommand()) {
-        // command handling
-      } else if (interaction.isAutocomplete()) {
-        const command = (interaction.client as DixtClient).commands?.get(
-          interaction.commandName
-        );
-
-        if (!command) {
-          Log.error(
-            `No command matching ${interaction.commandName} was found.`
-          );
-          return;
-        }
-
-        try {
-          await (command as DixtSlashCommandBuilder).autocomplete(interaction);
-        } catch (error) {
-          Log.error(error);
-        }
-      }
-    });
-
     this.client.on(Events.ClientReady, () => {
       Log.ready("client is ready");
     });
@@ -178,6 +137,7 @@ class dixt {
 
 export { merge };
 export { default as capitalize } from "./utils/capitalize";
+export * from "./utils/discord";
 export { default as formatDuration } from "./utils/formatDuration";
 export { default as isNumber } from "./utils/isNumber";
 export { default as isString } from "./utils/isString";

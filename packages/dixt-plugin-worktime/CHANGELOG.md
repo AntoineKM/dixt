@@ -1,5 +1,32 @@
 # dixt-plugin-worktime
 
+## 2.1.14
+
+### Patch Changes
+
+- Updated dependencies [3cdb21f]
+  - dixt@2.1.8
+
+## 2.1.13
+
+### Patch Changes
+
+- 6734c8b: Remove useless console log
+
+## 2.1.12
+
+### Patch Changes
+
+- 78a0f5c: Fix maximumDaysAbsent typo
+
+## 2.1.11
+
+### Patch Changes
+
+- c91ac30: Add discord utils
+- Updated dependencies [c91ac30]
+  - dixt@2.1.7
+
 ## 2.1.10
 
 ### Patch Changes
