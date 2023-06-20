@@ -2,9 +2,9 @@
   "name": "workshop",
   "private": true,
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index",
-    "start": "node dist/index",
-    "build": "tsc"
+    "dev": "dixt dev",
+    "start": "dixt start",
+    "build": "dixt build"
   },
   "dependencies": {
     "discord.js": "^14.9.0",

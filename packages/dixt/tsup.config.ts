@@ -1,7 +1,7 @@
 import { defineConfig, Options } from "tsup";
 
 const config: Options = {
-  entry: ["src/**/*.ts"],
+  entry: ["src/**/*.ts", "src/**/*.js"],
   splitting: true,
   sourcemap: true,
   clean: true,
