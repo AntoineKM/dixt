@@ -3,6 +3,7 @@ import dotenv from "dotenv-flow";
 import EventEmiter from "events";
 import { merge } from "lodash";
 import mongoose, { Mongoose } from "mongoose";
+import process from "process";
 
 import { DixtClient, DixtSlashCommandBuilder } from "./types";
 import Log from "./utils/log";
@@ -134,6 +135,18 @@ class dixt {
     this.client.destroy();
   }
 }
+
+process.on("unhandledRejection", async (reason, promise) => {
+  Log.error("unhandled promise rejection", promise, "reason:", reason);
+});
+
+process.on("uncaughtException", async (error) => {
+  Log.error("uncaught exception", error);
+});
+
+process.on("uncaughtExceptionMonitor", async (error, origin) => {
+  Log.error("uncaught exception monitor", error, "origin:", origin);
+});
 
 export { merge };
 export { default as capitalize } from "./utils/capitalize";
