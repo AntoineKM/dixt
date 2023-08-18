@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.9
+
+### Patch Changes
+
+- b778b55: Add anti process exit
+
 ## 2.1.8
 
 ### Patch Changes
