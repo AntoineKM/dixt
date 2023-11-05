@@ -42,7 +42,7 @@ class WorktimeController {
 
   constructor(
     public instance: dixt,
-    public options: DixtPluginWorktimeOptions
+    public options: DixtPluginWorktimeOptions,
   ) {
     this.instance = instance;
     this.options = options;
@@ -70,12 +70,13 @@ class WorktimeController {
         message.embeds[0]?.title === instructionEmbed.title &&
         message.embeds[0]?.color === instructionEmbed.color &&
         message.embeds[0]?.footer?.text === instructionEmbed.footer?.text &&
-        message.embeds[0]?.footer?.iconURL === instructionEmbed.footer?.icon_url
+        message.embeds[0]?.footer?.iconURL ===
+          instructionEmbed.footer?.icon_url,
     );
 
     if (messagesWithSameContent.size === 0) {
       await Promise.all(
-        messages.map(async (message) => await message.delete())
+        messages.map(async (message) => await message.delete()),
       );
 
       await channel.send({
@@ -120,7 +121,7 @@ class WorktimeController {
         description:
           this.options.messages?.start?.alreadyStarted?.replace(
             /%time%/g,
-            `<t:${Math.floor(currentWorktime.startAt.getTime() / 1000)}:t>`
+            `<t:${Math.floor(currentWorktime.startAt.getTime() / 1000)}:t>`,
           ) || "",
       };
 
@@ -132,10 +133,10 @@ class WorktimeController {
 
       Log.info(
         `${user} tried to start his service twice at <t:${Math.floor(
-          Date.now() / 1000
+          Date.now() / 1000,
         )}:t> but he already started his service at <t:${Math.floor(
-          currentWorktime.startAt.getTime() / 1000
-        )}:t>`
+          currentWorktime.startAt.getTime() / 1000,
+        )}:t>`,
       );
     } else {
       await Worktime.create({
@@ -149,7 +150,7 @@ class WorktimeController {
         description:
           this.options.messages?.start?.success?.replace(
             /%time%/g,
-            `<t:${Math.floor(Date.now() / 1000)}:t>`
+            `<t:${Math.floor(Date.now() / 1000)}:t>`,
           ) || "",
       };
 
@@ -161,8 +162,8 @@ class WorktimeController {
 
       Log.info(
         `${user} validated his service at <t:${Math.floor(
-          Date.now() / 1000
-        )}:t>`
+          Date.now() / 1000,
+        )}:t>`,
       );
     }
 
@@ -192,8 +193,8 @@ class WorktimeController {
         .catch((e) => Log.error(user, e));
       Log.info(
         `${user} tried to end his service at <t:${Math.floor(
-          Date.now() / 1000
-        )}:t> but he didn't start his service`
+          Date.now() / 1000,
+        )}:t> but he didn't start his service`,
       );
     } else {
       currentWorktime.endAt = new Date();
@@ -233,11 +234,11 @@ class WorktimeController {
                 ? higherRoleWithQuota !== null
                   ? this.options.messages?.end?.progress?.replace(
                       /%progress%/g,
-                      progressIndicator(percentage)
+                      progressIndicator(percentage),
                     )
                   : this.options.messages?.end?.noQuota || ""
                 : ""
-            }`
+            }`,
           ),
       };
 
@@ -249,14 +250,14 @@ class WorktimeController {
 
       Log.info(
         `${user} validated his end of service at <t:${Math.floor(
-          Date.now() / 1000
+          Date.now() / 1000,
         )}:t> - ${formatDuration(totalWorktime)} - ${
           higherRoleWithQuota !== undefined
             ? higherRoleWithQuota !== null
               ? progressIndicator(percentage)
               : "no quota"
             : ""
-        }`
+        }`,
       );
 
       if (
@@ -283,7 +284,7 @@ class WorktimeController {
         const m = members.get(member.id);
         if (m) return true;
         return false;
-      })
+      }),
     );
     return results.includes(true);
   }
@@ -314,10 +315,10 @@ class WorktimeController {
               }
               return false;
             })
-            .values()
+            .values(),
         ).filter((c): c is NonThreadGuildBasedChannel => c !== null);
         channels.push(...workChannels);
-      })
+      }),
     );
 
     return channels;
@@ -338,8 +339,8 @@ class WorktimeController {
             (channel.type === ChannelType.GuildVoice ||
               channel.type === ChannelType.GuildStageVoice) &&
             this.options.channels?.workChannelNames?.some((name) =>
-              channel.name.toLowerCase().includes(name.toLowerCase())
-            )
+              channel.name.toLowerCase().includes(name.toLowerCase()),
+            ),
         );
         if (!workChannels) return;
 
@@ -349,9 +350,9 @@ class WorktimeController {
             members.map((member) => {
               if (!results.includes(member)) results.push(member);
             });
-          })
+          }),
         );
-      })
+      }),
     );
 
     return results;
@@ -361,7 +362,7 @@ class WorktimeController {
   // null = no role with quota
   // Role = role with quota
   public async getHigherRoleWithQuota(
-    user: User
+    user: User,
   ): Promise<Role | null | undefined> {
     const { client } = user;
     await client.guilds.fetch();
@@ -480,7 +481,7 @@ class WorktimeController {
 
     if (endWorktimes && endWorktimes.length > 0) {
       const firstWorktime = endWorktimes.sort(
-        (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
+        (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
       )[0];
       const firstWorktimeTimestamp = new Date(firstWorktime.startAt).getTime();
 
@@ -492,21 +493,21 @@ class WorktimeController {
           const totalWorktime = worktimeMap.get(worktime.userId) || 0;
           worktimeMap.set(
             worktime.userId,
-            totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt))
+            totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt)),
           );
-        })
+        }),
       );
 
       // sort the map by total worktime
       const sortedWorktimeMap = new Map(
-        [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
+        [...worktimeMap.entries()].sort((a, b) => b[1] - a[1]),
       );
 
       // calculate additional statistics
       const statsWorktimesCount = worktimes.length;
       const statsWorktimesDuration = [...worktimeMap.values()].reduce(
         (a, b) => a + b,
-        0
+        0,
       );
 
       // create a map of the number of users working at each hour
@@ -528,7 +529,7 @@ class WorktimeController {
           ? dayjs(
               `1970-01-01T${
                 [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-              }:00.000`
+              }:00.000`,
             ).format("HH:mm")
           : "N/A";
       const statsQuietestHour =
@@ -536,7 +537,7 @@ class WorktimeController {
           ? dayjs(
               `1970-01-01T${
                 [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-              }:00.000`
+              }:00.000`,
             ).format("HH:mm")
           : "N/A";
 
@@ -549,10 +550,10 @@ class WorktimeController {
 
       // find the busiest and quietest day
       const statsBusiestDay = dayjs(
-        [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+        [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0],
       ).format("dddd");
       const statsQuietestDay = dayjs(
-        [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+        [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0],
       ).format("dddd");
 
       const totalHours =
@@ -573,7 +574,7 @@ class WorktimeController {
           const dayAndHour = dayjs(i).format("DD/MM/YYYY HH");
           dayAndHourMap.set(
             dayAndHour,
-            (dayAndHourMap.get(dayAndHour) || 0) + 1
+            (dayAndHourMap.get(dayAndHour) || 0) + 1,
           );
         }
       });
@@ -664,8 +665,8 @@ class WorktimeController {
             .map(
               ([userId, totalWorktime], index) =>
                 `\`${pad(index + 1, 2)}. ${formatDuration(
-                  totalWorktime
-                )}\` - <@${userId}>`
+                  totalWorktime,
+                )}\` - <@${userId}>`,
             )
             .join("\n") +
           "\n\n**Statistiques**",
@@ -680,10 +681,10 @@ class WorktimeController {
             inline: true,
             value: `${pad(
               Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
-              2
+              2,
             )}h${pad(
               Math.floor((statsWorktimesDuration / 1000 / 60) % 60),
-              2
+              2,
             )}`,
           },
           {
@@ -751,7 +752,7 @@ class WorktimeController {
         }
 
         return null;
-      })
+      }),
     );
 
     const result = absentees.filter((absentee) => absentee !== null) as User[];

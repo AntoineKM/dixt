@@ -42,7 +42,7 @@ export const optionsDefaults = {
 
 const dixtPluginJoin: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginJoinOptions
+  optionsValue?: DixtPluginJoinOptions,
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (!options.channel) {
@@ -52,7 +52,7 @@ const dixtPluginJoin: DixtPlugin = (
 
   instance.client.on(Events.GuildMemberAdd, async (member) => {
     const channel = (await member.guild.channels.fetch(
-      options.channel
+      options.channel,
     )) as TextChannel;
 
     const welcomeCard = urlcat("https://api.popcat.xyz/welcomecard", {
@@ -60,12 +60,12 @@ const dixtPluginJoin: DixtPlugin = (
       avatar: member.user.displayAvatarURL(),
       text1: options.messages?.line1?.replace(
         /%member%/g,
-        member.user.username
+        member.user.username,
       ),
       text2: options.messages?.line2,
       text3: options.messages?.line3?.replace(
         /%memberCount%/g,
-        member.guild.memberCount.toString()
+        member.guild.memberCount.toString(),
       ),
     });
 
@@ -77,7 +77,7 @@ const dixtPluginJoin: DixtPlugin = (
     const embed: APIEmbed = {
       description: options.messages?.content?.replace(
         /%member%/g,
-        `${member.user.username}#${member.user.discriminator}`
+        `${member.user.username}#${member.user.discriminator}`,
       ),
       image: {
         url: decodeURIComponent(welcomeCard),

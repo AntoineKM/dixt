@@ -20,7 +20,7 @@ const worktimeReminderTask = (_: dixt, controller: WorktimeController) => {
           });
           if (!worktime) {
             Log.info(
-              `**${member.guild}** - ${member.user} seems to have forgotten to start worktime, sending a reminder...`
+              `**${member.guild}** - ${member.user} seems to have forgotten to start worktime, sending a reminder...`,
             );
             try {
               member
@@ -43,7 +43,7 @@ const worktimeReminderTask = (_: dixt, controller: WorktimeController) => {
             }
           }
         }
-      })
+      }),
     );
   });
 };

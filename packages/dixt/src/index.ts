@@ -16,7 +16,7 @@ export type ClientOptions = Options;
 
 export type DixtPlugin<DixtPluginOptions extends object = object> = (
   _dixt: dixt,
-  _options?: DixtPluginOptions
+  _options?: DixtPluginOptions,
 ) => {
   name: string;
   commands?: DixtSlashCommandBuilder[];
@@ -75,7 +75,7 @@ class dixt {
 
   constructor(public options: DixtOptions = dixtDefaults) {
     this.client = new Client(
-      merge({}, dixtDefaults.clientOptions, options.clientOptions)
+      merge({}, dixtDefaults.clientOptions, options.clientOptions),
     );
     this.application = merge({}, dixtDefaults.application, options.application);
     this.plugins = options.plugins || [];

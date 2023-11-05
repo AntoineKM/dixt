@@ -32,7 +32,7 @@ const embedEmojis: {
 };
 
 const embedColors: {
-  [_K in LogType]: typeof Colors[keyof typeof Colors];
+  [_K in LogType]: (typeof Colors)[keyof typeof Colors];
 } = {
   wait: Colors.Yellow,
   error: Colors.Red,
@@ -44,7 +44,7 @@ const embedColors: {
 
 const dixtPluginLogs: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginLogsOptions
+  optionsValue?: DixtPluginLogsOptions,
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (!options.webhookUrl) {
@@ -69,7 +69,7 @@ const dixtPluginLogs: DixtPlugin = (
         const embed = new MessageBuilder();
         embed.setTimestamp();
         embed.setDescription(
-          reduceString(log.message.join(" ").toString(), 4096)
+          reduceString(log.message.join(" ").toString(), 4096),
         );
         embed.setFooter(embedEmojis[log.type as LogType]);
         embed.setColor(embedColors[log.type as LogType]);
@@ -85,7 +85,7 @@ const dixtPluginLogs: DixtPlugin = (
   instance.client.on(Events.MessageDelete, (message) => {
     if (message.author?.bot) return;
     Log.warn(
-      `**${message.guild}** - ${message.author} deleted a message in ${message.channel}:\n${message.cleanContent}`
+      `**${message.guild}** - ${message.author} deleted a message in ${message.channel}:\n${message.cleanContent}`,
     );
   });
 
@@ -95,7 +95,7 @@ const dixtPluginLogs: DixtPlugin = (
 
     if ((oldMessage.channel as TextChannel)?.name.startsWith("access")) return;
     Log.warn(
-      `**${oldMessage.guild}** - **${oldMessage.author}** edited a message in <#${oldMessage.channel.id}>:\n${oldMessage.cleanContent}\n⬇️\n${newMessage.cleanContent}`
+      `**${oldMessage.guild}** - **${oldMessage.author}** edited a message in <#${oldMessage.channel.id}>:\n${oldMessage.cleanContent}\n⬇️\n${newMessage.cleanContent}`,
     );
   });
 
@@ -114,15 +114,15 @@ const dixtPluginLogs: DixtPlugin = (
     if (oldState.channelId === newState.channelId) return;
     if (oldState.channelId === null) {
       Log.info(
-        `**${newState.guild}** - ${newState.member} has joined <#${newState.channelId}>`
+        `**${newState.guild}** - ${newState.member} has joined <#${newState.channelId}>`,
       );
     } else if (newState.channelId === null) {
       Log.info(
-        `**${oldState.guild}** - ${oldState.member} has left <#${oldState.channelId}>`
+        `**${oldState.guild}** - ${oldState.member} has left <#${oldState.channelId}>`,
       );
     } else {
       Log.info(
-        `**${newState.guild}** - ${newState.member} switch from <#${oldState.channelId}> to <#${newState.channelId}>`
+        `**${newState.guild}** - ${newState.member} switch from <#${oldState.channelId}> to <#${newState.channelId}>`,
       );
     }
   });
@@ -132,17 +132,17 @@ const dixtPluginLogs: DixtPlugin = (
     if (oldMember.roles.cache.size === newMember.roles.cache.size) return;
     if (oldMember.roles.cache.size > newMember.roles.cache.size) {
       const role = oldMember.roles.cache.find(
-        (role) => !newMember.roles.cache.has(role.id)
+        (role) => !newMember.roles.cache.has(role.id),
       );
       Log.info(
-        `**${newMember.guild}** - ${newMember.user} lost the role ${role}`
+        `**${newMember.guild}** - ${newMember.user} lost the role ${role}`,
       );
     } else {
       const role = newMember.roles.cache.find(
-        (role) => !oldMember.roles.cache.has(role.id)
+        (role) => !oldMember.roles.cache.has(role.id),
       );
       Log.info(
-        `**${newMember.guild}** - ${newMember.user} got the role ${role}`
+        `**${newMember.guild}** - ${newMember.user} got the role ${role}`,
       );
     }
   });
@@ -153,7 +153,7 @@ const dixtPluginLogs: DixtPlugin = (
     Log.info(
       `**${newMember.guild}** - ${newMember.user} changed his nickname from ${
         oldMember.nickname || oldMember.user.username
-      } to ${newMember.nickname || newMember.user.username}`
+      } to ${newMember.nickname || newMember.user.username}`,
     );
   });
 
@@ -165,7 +165,7 @@ const dixtPluginLogs: DixtPlugin = (
         reaction.message.guild
       }** - **${user}** reacted to ${`https://discord.com/channels/${reaction.message.guild?.id}/${reaction.message.channel.id}/${reaction.message.id}`} with ${
         reaction.emoji
-      }`
+      }`,
     );
   });
 
@@ -177,7 +177,7 @@ const dixtPluginLogs: DixtPlugin = (
         reaction.message.guild
       }** - **${user}** removed his reaction to ${`https://discord.com/channels/${reaction.message.guild?.id}/${reaction.message.channel.id}/${reaction.message.id}`} with ${
         reaction.emoji
-      }`
+      }`,
     );
   });
 
@@ -191,7 +191,7 @@ const dixtPluginLogs: DixtPlugin = (
           `/${interaction.commandName} ${interaction.options.data
             .map((option) => option.name + ":" + option.value)
             .join(" ")}` +
-          "`"
+          "`",
       );
     }
   });
@@ -206,7 +206,7 @@ const dixtPluginLogs: DixtPlugin = (
       });
     } else {
       Log.info(
-        `**${newState.guild}** - ${newState.member} has been undeafened`
+        `**${newState.guild}** - ${newState.member} has been undeafened`,
       );
     }
   });

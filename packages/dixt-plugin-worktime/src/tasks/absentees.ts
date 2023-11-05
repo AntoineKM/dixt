@@ -5,11 +5,11 @@ import WorktimeController from "../controllers/worktime";
 
 const worktimeAbsenteesTask = (
   instance: dixt,
-  controller: WorktimeController
+  controller: WorktimeController,
 ) => {
   schedule.scheduleJob(controller.options.tasks?.absentees || "", async () => {
     const absentees = await controller.getAbsentees(
-      controller.options.reports?.maximumDaysAbsent || 2
+      controller.options.reports?.maximumDaysAbsent || 2,
     );
     if (!absentees || absentees.length === 0) return;
     absentees.forEach((absentee) => {

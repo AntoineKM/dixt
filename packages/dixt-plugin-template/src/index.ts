@@ -18,7 +18,7 @@ export const optionsDefaults = {
 
 const dixtPluginTemplate: DixtPlugin<DixtPluginTemplateOptions> = (
   instance,
-  optionsValue
+  optionsValue,
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (!options.channel) {

@@ -22,7 +22,7 @@ export const optionsDefaults = {
 
 const dixtPluginReact: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginReactOptions
+  optionsValue?: DixtPluginReactOptions,
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (options.channels.length === 0) {
@@ -43,7 +43,7 @@ const dixtPluginReact: DixtPlugin = (
             message.react(channel.emoji);
           }
         }
-      }
+      },
     );
   });
 
