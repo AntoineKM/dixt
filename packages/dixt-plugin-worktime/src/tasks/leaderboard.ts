@@ -6,14 +6,14 @@ import Worktime from "../models/Worktime";
 
 const worktimeLeaderboardTask = (
   instance: dixt,
-  controller: WorktimeController
+  controller: WorktimeController,
 ) => {
   schedule.scheduleJob(
     controller.options.tasks?.leaderboard || "",
     async () => {
       const channel = getTextChannel(
         instance.client,
-        controller.options.channels?.leaderboard || ""
+        controller.options.channels?.leaderboard || "",
       );
 
       channel.send({
@@ -37,7 +37,7 @@ const worktimeLeaderboardTask = (
       });
 
       Log.info("worktimes has been resetted and restarted");
-    }
+    },
   );
 };
 

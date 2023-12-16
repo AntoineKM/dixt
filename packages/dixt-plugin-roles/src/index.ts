@@ -29,7 +29,7 @@ export const optionsDefaults = {
 
 const dixtPluginRoles: DixtPlugin<DixtPluginRolesOptions> = (
   instance,
-  optionsValue
+  optionsValue,
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   const controller = new RolesController(instance, options);
@@ -70,7 +70,7 @@ const dixtPluginRoles: DixtPlugin<DixtPluginRolesOptions> = (
           })
           .catch((e) => Log.error(interaction.member?.user, e));
       }
-    }
+    },
   );
 
   return {
