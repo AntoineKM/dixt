@@ -22,7 +22,7 @@ export const optionsDefaults = {
 
 const dixtPluginReact: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginReactOptions,
+  optionsValue?: DixtPluginReactOptions
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   if (options.channels.length === 0) {
@@ -35,7 +35,7 @@ const dixtPluginReact: DixtPlugin = (
         if (message.channel.id === channel.id) {
           if (channel.matchs && channel.matchs.length > 0) {
             channel.matchs.forEach((match) => {
-              if (message.content.includes(match)) {
+              if (message.content.toLowerCase().includes(match.toLowerCase())) {
                 message.react(channel.emoji);
               }
             });
@@ -43,7 +43,7 @@ const dixtPluginReact: DixtPlugin = (
             message.react(channel.emoji);
           }
         }
-      },
+      }
     );
   });
 
