@@ -6,7 +6,7 @@ import Worktime from "../models/Worktime";
 
 const worktimeReminderTask = (
   instance: dixt,
-  controller: WorktimeController,
+  controller: WorktimeController
 ) => {
   schedule.scheduleJob(controller.options.tasks?.end || "", async () => {
     const members = await controller.getMembersInWorkVoiceChannel();
@@ -21,7 +21,7 @@ const worktimeReminderTask = (
           if (!user) return;
           await controller.end(user);
         }
-      }),
+      })
     );
   });
 };

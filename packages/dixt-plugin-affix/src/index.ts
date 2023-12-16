@@ -23,7 +23,7 @@ export const optionsDefaults = {
 
 const DixtPluginAffix: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginAffixOptions,
+  optionsValue?: DixtPluginAffixOptions
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
 
@@ -55,7 +55,7 @@ const DixtPluginAffix: DixtPlugin = (
     if (prefixRole && options.prefix) {
       nickname = nickname.replace(
         /%prefix%/g,
-        options.prefix[prefixRole.id] || "",
+        options.prefix[prefixRole.id] || ""
       );
     } else {
       nickname = nickname.replace(options.prefixPattern, "");
@@ -68,7 +68,7 @@ const DixtPluginAffix: DixtPlugin = (
     if (suffixRole && options.suffix) {
       nickname = nickname.replace(
         /%suffix%/g,
-        options.suffix[suffixRole.id] || "",
+        options.suffix[suffixRole.id] || ""
       );
     } else {
       nickname = nickname.replace(options.suffixPattern, "");
@@ -78,7 +78,7 @@ const DixtPluginAffix: DixtPlugin = (
       await newMember.setNickname(reduceString(nickname, 32));
     } catch (error) {
       Log.error(
-        `${newMember} could not be renamed to ${nickname}, an error occured: ${error}`,
+        `${newMember} could not be renamed to ${nickname}, an error occured: ${error}`
       );
     }
   });

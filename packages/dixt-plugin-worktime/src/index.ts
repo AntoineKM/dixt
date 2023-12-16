@@ -115,7 +115,7 @@ export const optionsDefaults = {
 
 const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   instance,
-  optionsValue,
+  optionsValue
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   const controller = new WorktimeController(instance, options);
@@ -160,7 +160,7 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
           ) {
             try {
               const embed = await controller.start(
-                interaction.member.user as User,
+                interaction.member.user as User
               );
               await interaction.editReply({
                 embeds: [embed],
@@ -183,7 +183,7 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
               options.channels.workChannelNames.length > 0
             ) {
               Log.info(
-                `**${interaction.guild}** - ${interaction.member} tried to start worktime but is not in a work channel`,
+                `**${interaction.guild}** - ${interaction.member} tried to start worktime but is not in a work channel`
               );
               const workChannels = await controller.getWorkChannels();
               await interaction.editReply({
@@ -225,7 +225,7 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
           break;
         }
       }
-    },
+    }
   );
 
   instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {

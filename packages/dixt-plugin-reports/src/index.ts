@@ -20,7 +20,7 @@ export const optionsDefaults = {
 
 const DixtPluginReports: DixtPlugin<DixtPluginReportsOptions> = (
   instance,
-  optionsValue,
+  optionsValue
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
   const controller = new ReportController(instance, options);

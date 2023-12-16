@@ -13,10 +13,7 @@ class ReportController {
     },
   };
 
-  constructor(
-    public instance: dixt,
-    public options: DixtPluginReportsOptions,
-  ) {
+  constructor(public instance: dixt, public options: DixtPluginReportsOptions) {
     this.instance = instance;
     this.options = options;
 
@@ -30,7 +27,7 @@ class ReportController {
   public send = (message: string) => {
     const channel = getTextChannel(
       this.instance.client,
-      this.options.channel || "",
+      this.options.channel || ""
     );
 
     channel.send({

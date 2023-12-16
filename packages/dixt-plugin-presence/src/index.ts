@@ -34,7 +34,7 @@ export const optionsDefaults = {
 
 const DixtPluginPresence: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginPresenceOptions,
+  optionsValue?: DixtPluginPresenceOptions
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
 
@@ -42,19 +42,14 @@ const DixtPluginPresence: DixtPlugin = (
 
   if (options.presences && options.presences.length > 0) {
     // every 15 seconds it will change the activity
-    setInterval(
-      async () => {
-        await instance.client.user?.setPresence(
-          options.presences[presenceIndex] as PresenceData,
-        );
+    setInterval(async () => {
+      await instance.client.user?.setPresence(
+        options.presences[presenceIndex] as PresenceData
+      );
 
-        presenceIndex =
-          presenceIndex === options.presences.length - 1
-            ? 0
-            : presenceIndex + 1;
-      },
-      1000 * (options.interval >= 15 ? options.interval : 15),
-    );
+      presenceIndex =
+        presenceIndex === options.presences.length - 1 ? 0 : presenceIndex + 1;
+    }, 1000 * (options.interval >= 15 ? options.interval : 15));
   }
 
   return {

@@ -39,7 +39,7 @@ export const onlineStreamers: string[] = [];
 
 const dixtPluginTwitch: DixtPlugin = (
   instance,
-  optionsValue?: DixtPluginTwitchOptions,
+  optionsValue?: DixtPluginTwitchOptions
 ) => {
   const options = merge({}, optionsDefaults, optionsValue);
 
@@ -54,7 +54,7 @@ const dixtPluginTwitch: DixtPlugin = (
       // if newpresence is not streaming anymore and was in the onlineStreamers array before remove it
       if (
         newPresence.activities.every(
-          (activity) => activity.type !== ActivityType.Streaming,
+          (activity) => activity.type !== ActivityType.Streaming
         )
       ) {
         const index = onlineStreamers.indexOf(newPresence.userId);
@@ -93,8 +93,8 @@ const dixtPluginTwitch: DixtPlugin = (
             if (
               newPresence.member?.roles &&
               newPresence.member?.roles.cache.size > 0 &&
-              newPresence.member?.roles.cache.some(
-                (role) => options.roles?.includes(role.id),
+              newPresence.member?.roles.cache.some((role) =>
+                options.roles?.includes(role.id)
               )
             ) {
               onlineStreamers.push(newPresence.userId);
@@ -106,12 +106,12 @@ const dixtPluginTwitch: DixtPlugin = (
           }
 
           Log.info(
-            `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`,
+            `${newPresence.user} is streaming on ${activity.name} - ${activity.details} - ${activity.url}`
           );
 
           const channel = getTextChannel(
             instance.client,
-            options.channel || "",
+            options.channel || ""
           );
 
           const embed: APIEmbed = {
@@ -124,7 +124,7 @@ const dixtPluginTwitch: DixtPlugin = (
                     /%name%/g,
                     newPresence.member?.nickname ||
                       newPresence.user?.username ||
-                      "",
+                      ""
                   )
                   .replace(/%platform%/g, activity.name) || "",
               icon_url: newPresence.user?.avatarURL() || undefined,
@@ -132,9 +132,9 @@ const dixtPluginTwitch: DixtPlugin = (
             },
             color: Colors.Blurple,
             image: {
-              url: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${activity.url?.split(
-                "/",
-              )[3]}-1920x1080.jpg`,
+              url: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
+                activity.url?.split("/")[3]
+              }-1920x1080.jpg`,
             },
             fields: [
               {
@@ -169,7 +169,7 @@ const dixtPluginTwitch: DixtPlugin = (
           }
         }
       });
-    },
+    }
   );
 
   return {

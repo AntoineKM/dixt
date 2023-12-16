@@ -7,7 +7,7 @@ const worktimeIgnoreReminderSchema = new dixt.database.Schema({
 
 const WorktimeIgnoreReminder = dixt.database.model(
   "WorktimeIgnoreReminder",
-  worktimeIgnoreReminderSchema,
+  worktimeIgnoreReminderSchema
 );
 
 export default WorktimeIgnoreReminder;

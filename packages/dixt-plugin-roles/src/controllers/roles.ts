@@ -22,10 +22,7 @@ class RolesController {
     },
   };
 
-  constructor(
-    public instance: dixt,
-    public options: DixtPluginRolesOptions,
-  ) {
+  constructor(public instance: dixt, public options: DixtPluginRolesOptions) {
     this.instance = instance;
     this.options = options;
 
@@ -38,7 +35,7 @@ class RolesController {
 
   public async initialize(
     channel: Channel,
-    options: DixtPluginRolesOptionsChannel,
+    options: DixtPluginRolesOptionsChannel
   ): Promise<void> {
     if (channel?.type !== ChannelType.GuildText) return;
 
@@ -52,7 +49,7 @@ class RolesController {
           (r) =>
             `- ${r.emoji} - <@&${r.id}>${
               r.description ? ` - ${r.description}` : ""
-            }`,
+            }`
         )
         .join("\n")}`,
     };
@@ -65,13 +62,12 @@ class RolesController {
         message.embeds[0]?.title === instructionEmbed.title &&
         message.embeds[0]?.color === instructionEmbed.color &&
         message.embeds[0]?.footer?.text === instructionEmbed.footer?.text &&
-        message.embeds[0]?.footer?.iconURL ===
-          instructionEmbed.footer?.icon_url,
+        message.embeds[0]?.footer?.iconURL === instructionEmbed.footer?.icon_url
     );
 
     if (messagesWithSameContent.size === 0) {
       await Promise.all(
-        messages.map(async (message) => await message.delete()),
+        messages.map(async (message) => await message.delete())
       );
 
       // TODO: Replace these types by discord.js types
@@ -123,7 +119,7 @@ class RolesController {
   }
 
   public async handleRequest(
-    interaction: ButtonInteraction<CacheType>,
+    interaction: ButtonInteraction<CacheType>
   ): Promise<APIEmbed> {
     let embed: APIEmbed = {
       ...RolesController.baseEmbed,
@@ -134,7 +130,7 @@ class RolesController {
 
     // check if the role is in the options
     const isInRoleOption = this.options.channels?.some((channel) =>
-      channel.roles.some((r) => r.id === roleId),
+      channel.roles.some((r) => r.id === roleId)
     );
 
     const memberRoles = interaction.member?.roles as GuildMemberRoleManager;
@@ -158,7 +154,7 @@ class RolesController {
 
       const message = this.options.channels
         ?.find((channel) =>
-          channel.roles.find((r) => r.id === roleId && r.message),
+          channel.roles.find((r) => r.id === roleId && r.message)
         )
         ?.roles.find((r) => r.id === roleId)?.message;
 
