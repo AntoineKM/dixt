@@ -1,5 +1,11 @@
 # dixt-plugin-react
 
+## 2.1.10
+
+### Patch Changes
+
+- 844af5a: Fix match case
+
 ## 2.1.9
 
 ### Patch Changes
