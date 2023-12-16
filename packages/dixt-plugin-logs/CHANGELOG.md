@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.13
+
+### Patch Changes
+
+- 77302aa: Add logging options
+
 ## 2.1.12
 
 ### Patch Changes
