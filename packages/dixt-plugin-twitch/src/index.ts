@@ -17,6 +17,7 @@ dotenv.config({
 export type DixtPluginTwitchOptions = {
   channel?: string;
   roles?: string[];
+  titles?: string[];
   games?: string[];
   messages?: {
     isStreaming?: string;
@@ -85,6 +86,16 @@ const dixtPluginTwitch: DixtPlugin = (
             ) {
               return;
             }
+          }
+
+          if (
+            options.titles &&
+            activity.details &&
+            !options.titles.some((title) =>
+              activity.details.toLowerCase().includes(title.toLowerCase()),
+            )
+          ) {
+            return;
           }
 
           // check if roles are set
