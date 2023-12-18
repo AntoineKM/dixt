@@ -92,7 +92,7 @@ const dixtPluginTwitch: DixtPlugin = (
             options.titles &&
             activity.details &&
             !options.titles.some((title) =>
-              activity.details.toLowerCase().includes(title.toLowerCase()),
+              activity.details!.toLowerCase().includes(title.toLowerCase()),
             )
           ) {
             return;
