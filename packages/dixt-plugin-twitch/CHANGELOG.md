@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.15
+
+### Patch Changes
+
+- 466e441: Add titles filter
+
 ## 1.1.14
 
 ### Patch Changes
