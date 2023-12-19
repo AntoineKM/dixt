@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-logs",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "description": "Discord bot framework - logs plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

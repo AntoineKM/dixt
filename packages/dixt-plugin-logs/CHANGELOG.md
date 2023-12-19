@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.14
+
+### Patch Changes
+
+- beb5733: Revert p-queue version
+
 ## 2.1.13
 
 ### Patch Changes
