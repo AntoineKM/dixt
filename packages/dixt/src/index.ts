@@ -14,18 +14,15 @@ dotenv.config({
 
 export type ClientOptions = Options;
 
+export type DixtPluginReturn = {
+  name: string;
+  commands?: DixtSlashCommandBuilder[];
+};
+
 export type DixtPlugin<DixtPluginOptions extends object = object> = (
   _dixt: dixt,
   _options?: DixtPluginOptions,
-) =>
-  | {
-      name: string;
-      commands?: DixtSlashCommandBuilder[];
-    }
-  | Promise<{
-      name: string;
-      commands?: DixtSlashCommandBuilder[];
-    }>;
+) => DixtPluginReturn | Promise<DixtPluginReturn>;
 
 export type DixtOptions = {
   clientOptions?: ClientOptions;
