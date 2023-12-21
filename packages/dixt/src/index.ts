@@ -17,10 +17,15 @@ export type ClientOptions = Options;
 export type DixtPlugin<DixtPluginOptions extends object = object> = (
   _dixt: dixt,
   _options?: DixtPluginOptions,
-) => {
-  name: string;
-  commands?: DixtSlashCommandBuilder[];
-};
+) =>
+  | {
+      name: string;
+      commands?: DixtSlashCommandBuilder[];
+    }
+  | Promise<{
+      name: string;
+      commands?: DixtSlashCommandBuilder[];
+    }>;
 
 export type DixtOptions = {
   clientOptions?: ClientOptions;
@@ -112,13 +117,13 @@ class dixt {
       Log.info("skipping plugin loading, no plugins found");
     } else {
       Log.wait("loading plugins");
-      this.plugins.forEach((plugin) => {
+      this.plugins.forEach(async (plugin) => {
         if (Array.isArray(plugin)) {
           const [pluginModule, pluginOptions] = plugin;
-          const { name: pluginName } = pluginModule(this, pluginOptions);
+          const { name: pluginName } = await pluginModule(this, pluginOptions);
           Log.info(`loaded plugin ${pluginName}`);
         } else {
-          const { name: pluginName } = plugin(this);
+          const { name: pluginName } = await plugin(this);
           Log.info(`loaded plugin ${pluginName}`);
         }
       });
