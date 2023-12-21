@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.10
+
+### Patch Changes
+
+- 305d892: Add ability for plugins to be async
+
 ## 2.1.9
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # dixt-plugin-logs
 
+## 2.1.15
+
+### Patch Changes
+
+- Updated dependencies [305d892]
+  - dixt@2.1.10
+
 ## 2.1.14
 
 ### Patch Changes

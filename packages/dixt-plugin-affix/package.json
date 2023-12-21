@@ -1,6 +1,6 @@
 {
   "name": "dixt-plugin-affix",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Discord bot framework - presence plugin",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
