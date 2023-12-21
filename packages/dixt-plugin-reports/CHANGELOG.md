@@ -1,5 +1,12 @@
 # dixt-plugin-reports
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [305d892]
+  - dixt@2.1.10
+
 ## 1.0.2
 
 ### Patch Changes
