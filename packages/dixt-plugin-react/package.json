@@ -12,7 +12,7 @@
     "discord-webhook-node": "^1.1.8",
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^4.0.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",

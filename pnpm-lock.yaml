@@ -70,8 +70,8 @@ importers:
         specifier: ^14.9.0
         version: 14.9.0
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -120,8 +120,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0
@@ -148,8 +148,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
       p-queue:
         specifier: 6.6.2
         version: 6.6.2
@@ -198,8 +198,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -220,8 +220,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -242,8 +242,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -264,8 +264,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -286,8 +286,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
       '@types/dotenv-flow':
         specifier: ^3.2.0
@@ -314,8 +314,8 @@ importers:
         specifier: workspace:*
         version: link:../dixt
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.0.1
       node-schedule:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2959,21 +2959,16 @@ packages:
     resolution: {integrity: sha512-ilkD8YEnnGh1zJ240uJsW7AzE+2qpbOUYjacomn3AvJ6J4JhKGSZ2nh4wUIXPZrEPppaCLx5jFe8T89Rk8tQ7w==}
     dev: false
 
-  /dotenv-flow@3.2.0:
-    resolution: {integrity: sha512-GEB6RrR4AbqDJvNSFrYHqZ33IKKbzkvLYiD5eo4+9aFXr4Y4G+QaFrB/fNp0y6McWBmvaPn3ZNjIufnj8irCtg==}
-    engines: {node: '>= 8.0.0'}
+  /dotenv-flow@4.0.1:
+    resolution: {integrity: sha512-HuCQ487bSA43mtlxdWpyk5jt5Lljy+v1I8y/2l96gtjSve9p3OvJZCCOhQnz2hY4VhLogFfXpY20zBygMwaydA==}
+    engines: {node: '>= 12.0.0'}
     dependencies:
-      dotenv: 8.6.0
+      dotenv: 16.0.3
     dev: false
 
   /dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
-    dev: false
-
-  /dotenv@8.6.0:
-    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
-    engines: {node: '>=10'}
     dev: false
 
   /duplexer3@0.1.5:
