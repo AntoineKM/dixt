@@ -1,5 +1,11 @@
 # dixt-plugin-logs
 
+## 2.1.16
+
+### Patch Changes
+
+- 2ff2a33: Fix logs default options
+
 ## 2.1.15
 
 ### Patch Changes
