@@ -1,5 +1,11 @@
 # dixt-plugin-join
 
+## 2.1.13
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 2.1.12
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # dixt-plugin-react
 
+## 2.1.12
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 2.1.11
 
 ### Patch Changes
