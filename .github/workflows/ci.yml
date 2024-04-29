@@ -23,7 +23,6 @@ jobs:
         with:
           version: ${{ steps.extract_pnpm_version.outputs.pnpm_version }}
 
-
       - name: Use Node ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
