@@ -9,13 +9,17 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "discord.js": "^14.9.0",
-    "dixt": "workspace:*",
     "node-schedule": "^2.1.1"
   },
   "devDependencies": {
     "@types/node-schedule": "^2.1.0",
     "@types/node": "^20.0.0",
+    "discord.js": "^14.9.0",
+    "dixt": "workspace:*",
     "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "dixt": "^2.1.12",
+    "discord.js": "^14.9.0"
   }
 }
