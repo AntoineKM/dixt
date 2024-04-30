@@ -9,7 +9,7 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^4.0.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
