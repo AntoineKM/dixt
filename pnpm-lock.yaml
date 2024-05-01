@@ -34,7 +34,7 @@ importers:
     dependencies:
       '@fontsource/figtree':
         specifier: ^5.0.2
-        version: 5.0.2
+        version: 5.0.20
       next:
         specifier: ^14.0.0
         version: 14.0.1(react-dom@18.2.0)(react@18.2.0)
@@ -873,8 +873,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
-  /@fontsource/figtree@5.0.2:
-    resolution: {integrity: sha512-LV2pVDk/W5sXhWRN26LEStVpvHvkI7it28GmzpsoVExXyw9C6o9Y5JnWd2TsjH46UKNCA8NIh/0H8AQn8/mvyg==}
+  /@fontsource/figtree@5.0.20:
+    resolution: {integrity: sha512-Rn0xoiHUxSwAcpwPSoxGk0UVYKh+mnXODCRV94NnfRv/PCBPmzUsdfOL3oSU4/AfkicesejgQ1DZZ85WY4CSVA==}
     dev: false
 
   /@headlessui/react@1.7.18(react-dom@18.2.0)(react@18.2.0):
