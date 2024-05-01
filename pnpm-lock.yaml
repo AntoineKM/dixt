@@ -162,7 +162,7 @@ importers:
         version: 20.8.10
       '@types/node-schedule':
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -294,7 +294,7 @@ importers:
         version: 20.8.10
       '@types/node-schedule':
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -1582,7 +1582,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
     dev: false
 
   /@types/lodash@4.14.194:
@@ -1613,14 +1613,20 @@ packages:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: false
 
-  /@types/node-schedule@2.1.0:
-    resolution: {integrity: sha512-NiTwl8YN3v/1YCKrDFSmCTkVxFDylueEqsOFdgF+vPsm+AlyJKGAo5yzX1FiOxPsZiN6/r8gJitYx2EaSuBmmg==}
+  /@types/node-schedule@2.1.7:
+    resolution: {integrity: sha512-G7Z3R9H7r3TowoH6D2pkzUHPhcJrDF4Jz1JOQ80AX0K2DWTHoN9VC94XzFAPNMdbW9TBzMZ3LjpFi7RYdbxtXA==}
     dependencies:
       '@types/node': 20.8.10
     dev: true
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
+    dev: false
+
+  /@types/node@20.12.7:
+    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
+    dependencies:
+      undici-types: 5.26.5
     dev: false
 
   /@types/node@20.8.10:
@@ -1647,7 +1653,7 @@ packages:
   /@types/responselike@1.0.2:
     resolution: {integrity: sha512-/4YQT5Kp6HxUDb4yhRkm0bJ7TbjvTddqX7PZ5hz6qV3pxSo72f/6YPRo+Mu2DU307tm9IioO69l7uAwn5XNcFA==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
     dev: false
 
   /@types/scheduler@0.16.8:
