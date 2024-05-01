@@ -162,7 +162,7 @@ importers:
         version: 20.8.10
       '@types/node-schedule':
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -294,7 +294,7 @@ importers:
         version: 20.8.10
       '@types/node-schedule':
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -1639,8 +1639,8 @@ packages:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: false
 
-  /@types/node-schedule@2.1.0:
-    resolution: {integrity: sha512-NiTwl8YN3v/1YCKrDFSmCTkVxFDylueEqsOFdgF+vPsm+AlyJKGAo5yzX1FiOxPsZiN6/r8gJitYx2EaSuBmmg==}
+  /@types/node-schedule@2.1.7:
+    resolution: {integrity: sha512-G7Z3R9H7r3TowoH6D2pkzUHPhcJrDF4Jz1JOQ80AX0K2DWTHoN9VC94XzFAPNMdbW9TBzMZ3LjpFi7RYdbxtXA==}
     dependencies:
       '@types/node': 20.8.10
     dev: true
