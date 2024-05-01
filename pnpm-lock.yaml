@@ -56,7 +56,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       typescript:
         specifier: ^5.0.3
         version: 5.3.3
@@ -84,7 +84,7 @@ importers:
         version: 4.14.194
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       typescript:
         specifier: ^5.0.0
         version: 5.3.3
@@ -93,7 +93,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -115,7 +115,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -140,7 +140,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -159,7 +159,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       '@types/node-schedule':
         specifier: ^2.1.0
         version: 2.1.0
@@ -184,7 +184,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -203,7 +203,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -222,7 +222,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -241,7 +241,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -260,7 +260,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       discord.js:
         specifier: ^14.9.0
         version: 14.9.0
@@ -291,7 +291,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       '@types/node-schedule':
         specifier: ^2.1.0
         version: 2.1.0
@@ -343,13 +343,13 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.8.10
+        version: 20.12.7
       nodemon:
         specifier: ^3.0.0
         version: 3.0.0
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@types/node@20.8.10)(typescript@5.3.3)
+        version: 10.9.1(@types/node@20.12.7)(typescript@5.3.3)
       typescript:
         specifier: ^5.0.0
         version: 5.3.3
@@ -1582,7 +1582,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
     dev: false
 
   /@types/lodash@4.14.194:
@@ -1616,15 +1616,15 @@ packages:
   /@types/node-schedule@2.1.0:
     resolution: {integrity: sha512-NiTwl8YN3v/1YCKrDFSmCTkVxFDylueEqsOFdgF+vPsm+AlyJKGAo5yzX1FiOxPsZiN6/r8gJitYx2EaSuBmmg==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
     dev: true
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: false
 
-  /@types/node@20.8.10:
-    resolution: {integrity: sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==}
+  /@types/node@20.12.7:
+    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
     dependencies:
       undici-types: 5.26.5
 
@@ -1647,7 +1647,7 @@ packages:
   /@types/responselike@1.0.2:
     resolution: {integrity: sha512-/4YQT5Kp6HxUDb4yhRkm0bJ7TbjvTddqX7PZ5hz6qV3pxSo72f/6YPRo+Mu2DU307tm9IioO69l7uAwn5XNcFA==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
     dev: false
 
   /@types/scheduler@0.16.8:
@@ -1681,14 +1681,14 @@ packages:
   /@types/whatwg-url@8.2.2:
     resolution: {integrity: sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
       '@types/webidl-conversions': 7.0.0
     dev: false
 
   /@types/ws@8.5.4:
     resolution: {integrity: sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
 
   /@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0)(eslint@8.53.0)(typescript@5.4.5):
     resolution: {integrity: sha512-oy9+hTPCUFpngkEZUSzbf9MxI65wbKFoQYsgPdILTfbUldp5ovUuphZVe4i30emU9M/kP+T64Di0mxl7dSw3MA==}
@@ -8032,7 +8032,7 @@ packages:
   /ts-mixer@6.0.3:
     resolution: {integrity: sha512-k43M7uCG1AkTyxgnmI5MPwKoUvS/bRvLvUb7+Pgpdlmok8AoqmUaZxUUw8zKM5B1lqZrt41GjYgnvAi0fppqgQ==}
 
-  /ts-node@10.9.1(@types/node@20.8.10)(typescript@5.3.3):
+  /ts-node@10.9.1(@types/node@20.12.7)(typescript@5.3.3):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -8051,7 +8051,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 20.8.10
+      '@types/node': 20.12.7
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
