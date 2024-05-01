@@ -131,7 +131,6 @@ const dixtPluginLogs: DixtPlugin = (
 
   // handle when a guild member delete a message
   if (options.logging?.message?.delete) {
-    console.log("registering message delete event");
     instance.client.on(Events.MessageDelete, (message) => {
       if (message.author?.bot) return;
       Log.warn(
