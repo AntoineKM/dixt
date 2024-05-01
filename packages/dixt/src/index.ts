@@ -88,7 +88,7 @@ class dixt {
   public async start() {
     Log.wait("loading env files");
     dotenv
-      .listDotenvFiles(".", {
+      .listFiles({
         node_env: process.env.NODE_ENV,
       })
       .forEach((file: string) => Log.info(`loaded env from ${file}`));
