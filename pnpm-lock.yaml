@@ -70,8 +70,8 @@ importers:
         specifier: ^14.9.0
         version: 14.9.0
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -79,9 +79,6 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/lodash':
         specifier: ^4.14.194
         version: 4.14.194
@@ -94,9 +91,6 @@ importers:
 
   packages/dixt-plugin-affix:
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -113,15 +107,12 @@ importers:
   packages/dixt-plugin-join:
     dependencies:
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -141,15 +132,12 @@ importers:
         specifier: ^1.1.8
         version: 1.1.8
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
       p-queue:
         specifier: 6.6.2
         version: 6.6.2
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -191,12 +179,9 @@ importers:
         specifier: ^1.1.8
         version: 1.1.8
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -213,12 +198,9 @@ importers:
   packages/dixt-plugin-reports:
     dependencies:
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -235,12 +217,9 @@ importers:
   packages/dixt-plugin-roles:
     dependencies:
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -257,12 +236,9 @@ importers:
   packages/dixt-plugin-template:
     dependencies:
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -279,12 +255,9 @@ importers:
   packages/dixt-plugin-twitch:
     dependencies:
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -307,8 +280,8 @@ importers:
         specifier: ^1.11.7
         version: 1.11.7
       dotenv-flow:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^4.0.0
+        version: 4.1.0
       node-schedule:
         specifier: ^2.1.1
         version: 2.1.1
@@ -316,9 +289,6 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
     devDependencies:
-      '@types/dotenv-flow':
-        specifier: ^3.2.0
-        version: 3.2.0
       '@types/node':
         specifier: ^20.0.0
         version: 20.8.10
@@ -1564,10 +1534,6 @@ packages:
     dependencies:
       '@types/ms': 0.7.34
     dev: false
-
-  /@types/dotenv-flow@3.2.0:
-    resolution: {integrity: sha512-A79hbPwocbYkcTwGcDOFbKDuqyVo5mLAz/6Iq465YZ7R7Go5bT1PIM8I2jlPQkaD9u9fbotGVLkUPhX+9XUHfw==}
-    dev: true
 
   /@types/estree-jsx@1.0.5:
     resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
@@ -3068,21 +3034,16 @@ packages:
     resolution: {integrity: sha512-uyb4NDIvQ3hRn6NiC+SIFaP4mJ/MdXlvtunaqK9Bn6dD3RuB/1S/gasEjDHD8eiaqdSael2vBv+hOs7Y+jhYOQ==}
     dev: false
 
-  /dotenv-flow@3.2.0:
-    resolution: {integrity: sha512-GEB6RrR4AbqDJvNSFrYHqZ33IKKbzkvLYiD5eo4+9aFXr4Y4G+QaFrB/fNp0y6McWBmvaPn3ZNjIufnj8irCtg==}
-    engines: {node: '>= 8.0.0'}
+  /dotenv-flow@4.1.0:
+    resolution: {integrity: sha512-0cwP9jpQBQfyHwvE0cRhraZMkdV45TQedA8AAUZMsFzvmLcQyc1HPv+oX0OOYwLFjIlvgVepQ+WuQHbqDaHJZg==}
+    engines: {node: '>= 12.0.0'}
     dependencies:
-      dotenv: 8.6.0
+      dotenv: 16.0.3
     dev: false
 
   /dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
-    dev: false
-
-  /dotenv@8.6.0:
-    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
-    engines: {node: '>=10'}
     dev: false
 
   /duplexer3@0.1.5:

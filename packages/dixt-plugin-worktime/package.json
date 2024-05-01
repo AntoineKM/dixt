@@ -11,12 +11,11 @@
   "dependencies": {
     "chart.js": "^4.2.1",
     "dayjs": "^1.11.7",
-    "dotenv-flow": "^3.2.0",
+    "dotenv-flow": "^4.0.0",
     "node-schedule": "^2.1.1",
     "quickchart-js": "^3.1.2"
   },
   "devDependencies": {
-    "@types/dotenv-flow": "^3.2.0",
     "@types/node": "^20.0.0",
     "@types/node-schedule": "^2.1.0",
     "discord.js": "^14.9.0",
@@ -24,7 +23,7 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "dixt": "^2.1.12",
-    "discord.js": "^14.9.0"
+    "discord.js": "^14.9.0",
+    "dixt": "^2.1.12"
   }
 }
