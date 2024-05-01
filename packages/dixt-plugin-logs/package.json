@@ -14,14 +14,13 @@
     "p-queue": "6.6.2"
   },
   "devDependencies": {
-    "@types/dotenv-flow": "^3.2.0",
     "@types/node": "^20.0.0",
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "dixt": "^2.1.12",
-    "discord.js": "^14.9.0"
+    "discord.js": "^14.9.0",
+    "dixt": "^2.1.12"
   }
 }
