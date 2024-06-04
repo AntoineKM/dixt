@@ -27,8 +27,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0(typescript@5.4.5)
       turbo:
-        specifier: ^1.10.16
-        version: 1.10.16
+        specifier: ^2.0.0
+        version: 2.0.1
 
   docs:
     dependencies:
@@ -3277,7 +3277,7 @@ packages:
       has-property-descriptors: 1.0.1
       has-proto: 1.0.1
       has-symbols: 1.0.3
-      hasown: 2.0.0
+      hasown: 2.0.2
       internal-slot: 1.0.6
       is-array-buffer: 3.0.2
       is-callable: 1.2.7
@@ -3401,7 +3401,7 @@ packages:
     dependencies:
       get-intrinsic: 1.2.2
       has-tostringtag: 1.0.0
-      hasown: 2.0.0
+      hasown: 2.0.2
     dev: false
 
   /es-set-tostringtag@2.0.3:
@@ -3489,7 +3489,7 @@ packages:
       eslint: 8.53.0
       eslint-config-next: 14.2.3(eslint@8.53.0)(typescript@5.4.5)
       eslint-config-prettier: 9.1.0(eslint@8.53.0)
-      eslint-config-turbo: 1.13.3(eslint@8.53.0)
+      eslint-config-turbo: 2.0.1(eslint@8.53.0)
       eslint-config-universe: 12.0.1(eslint@8.53.0)(prettier@3.0.3)(typescript@5.4.5)
       eslint-plugin-prettier: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.53.0)(prettier@3.0.3)
       eslint-plugin-react: 7.33.2(eslint@8.53.0)
@@ -3545,13 +3545,13 @@ packages:
       eslint: 8.53.0
     dev: false
 
-  /eslint-config-turbo@1.13.3(eslint@8.53.0):
-    resolution: {integrity: sha512-if/QtwEiWZ5b7Bg8yZBPSvS0TeCG2Zvfa/+XBYANS7uSYucjmW+BBC8enJB0PqpB/YLGGOumeo3x7h1Nuba9iw==}
+  /eslint-config-turbo@2.0.1(eslint@8.53.0):
+    resolution: {integrity: sha512-Z/TjALEtWvFmi7c2pszuyU8VMrp7KH1q3I4eNBLzlit5kybYDJhacUDYRDyIdGqXg6XljdyDpxNIOKQByScknw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.53.0
-      eslint-plugin-turbo: 1.13.3(eslint@8.53.0)
+      eslint-plugin-turbo: 2.0.1(eslint@8.53.0)
     dev: false
 
   /eslint-config-universe@12.0.1(eslint@8.53.0)(prettier@3.0.3)(typescript@5.4.5):
@@ -3899,8 +3899,8 @@ packages:
       string.prototype.matchall: 4.0.11
     dev: false
 
-  /eslint-plugin-turbo@1.13.3(eslint@8.53.0):
-    resolution: {integrity: sha512-RjmlnqYsEqnJ+U3M3IS5jLJDjWv5NsvReCpsC61n5pJ4JMHTZ/lU0EIoL1ccuL1L5wP0APzdXdByBxERcPQ+Nw==}
+  /eslint-plugin-turbo@2.0.1(eslint@8.53.0):
+    resolution: {integrity: sha512-qe3WlGQXVKIZyWlONjvd3+YbtptK6KvfoLb6TrVzkT+mNYbDpjjbGZ3z12Oj0kUNW31n5Me3EVnrgxeyyw1V3g==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -4851,7 +4851,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       get-intrinsic: 1.2.2
-      hasown: 2.0.0
+      hasown: 2.0.2
       side-channel: 1.0.4
     dev: false
 
@@ -4955,7 +4955,7 @@ packages:
   /is-core-module@2.13.1:
     resolution: {integrity: sha512-hHrIjvZsftOsvKSn2TRYl63zvxsgE0K+0mYMoH6gD4omR5IWB2KynivBQczo3+wF1cCkjzvptnI9Q0sPU66ilw==}
     dependencies:
-      hasown: 2.0.0
+      hasown: 2.0.2
     dev: false
 
   /is-data-view@1.0.1:
@@ -8135,65 +8135,64 @@ packages:
       yargs: 17.7.2
     dev: false
 
-  /turbo-darwin-64@1.10.16:
-    resolution: {integrity: sha512-+Jk91FNcp9e9NCLYlvDDlp2HwEDp14F9N42IoW3dmHI5ZkGSXzalbhVcrx3DOox3QfiNUHxzWg4d7CnVNCuuMg==}
+  /turbo-darwin-64@2.0.1:
+    resolution: {integrity: sha512-GO391pUmI6c6l/EpUIaXNzwbVDWRvYahm5oLB176dAWRYKYO+Osqs/XBdOM0G3l7ZFdR6nUtRJc8qinJp7qDUQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo-darwin-arm64@1.10.16:
-    resolution: {integrity: sha512-jqGpFZipIivkRp/i+jnL8npX0VssE6IAVNKtu573LXtssZdV/S+fRGYA16tI46xJGxSAivrZ/IcgZrV6Jk80bw==}
+  /turbo-darwin-arm64@2.0.1:
+    resolution: {integrity: sha512-rmjJoxeq7nmH/F2aWKapahrDE2zE2Uc15rvs4Rz6qHOzSqC8R5uyLpQyTKIPIZ95O/z9nKfLfVPyiRENuk5vpw==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo-linux-64@1.10.16:
-    resolution: {integrity: sha512-PpqEZHwLoizQ6sTUvmImcRmACyRk9EWLXGlqceogPZsJ1jTRK3sfcF9fC2W56zkSIzuLEP07k5kl+ZxJd8JMcg==}
+  /turbo-linux-64@2.0.1:
+    resolution: {integrity: sha512-vwTOc4v4jm6tM+9WlsiDlN+zwHP8A2wlsAYiNqz2u0DZL55aCWaVdivh2VpVLN36Mr9HgREGH0Fw+jx6ObcNRg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo-linux-arm64@1.10.16:
-    resolution: {integrity: sha512-TMjFYz8to1QE0fKVXCIvG/4giyfnmqcQIwjdNfJvKjBxn22PpbjeuFuQ5kNXshUTRaTJihFbuuCcb5OYFNx4uw==}
+  /turbo-linux-arm64@2.0.1:
+    resolution: {integrity: sha512-DkVt76fjwY940DfmqznWhpYIlKYduvKAoTtylkERrDlcWUpDYWwqNbcf9PRRIbnjnv9lIxvuom1KZmMY+cw/Ig==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo-windows-64@1.10.16:
-    resolution: {integrity: sha512-+jsf68krs0N66FfC4/zZvioUap/Tq3sPFumnMV+EBo8jFdqs4yehd6+MxIwYTjSQLIcpH8KoNMB0gQYhJRLZzw==}
+  /turbo-windows-64@2.0.1:
+    resolution: {integrity: sha512-XskV34kYuXVIHbRbgH8jr35Y8uA6kJOQ0LJStU4jFk7piiyk0a4n2GNDymMtvIwAxYdbuTe+pKuPCThFdirHBQ==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo-windows-arm64@1.10.16:
-    resolution: {integrity: sha512-sKm3hcMM1bl0B3PLG4ifidicOGfoJmOEacM5JtgBkYM48ncMHjkHfFY7HrJHZHUnXM4l05RQTpLFoOl/uIo2HQ==}
+  /turbo-windows-arm64@2.0.1:
+    resolution: {integrity: sha512-R2/RmKr2uQxkOCtXK5LNxdD3Iv7lUm56iy2FrDwTDgPI7X7K6WRjrxdirmFIu/fABYE5n6EampU3ejbG5mmGtg==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: false
     optional: true
 
-  /turbo@1.10.16:
-    resolution: {integrity: sha512-2CEaK4FIuSZiP83iFa9GqMTQhroW2QryckVqUydmg4tx78baftTOS0O+oDAhvo9r9Nit4xUEtC1RAHoqs6ZEtg==}
+  /turbo@2.0.1:
+    resolution: {integrity: sha512-sJhxfBaN14pYj//xxAG6zAyStkE2j4HI9JVXVMob35SGob6dz/HuSqV/4QlVqw0uKAkwc1lXIsnykbe8RLmOOw==}
     hasBin: true
-    requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.16
-      turbo-darwin-arm64: 1.10.16
-      turbo-linux-64: 1.10.16
-      turbo-linux-arm64: 1.10.16
-      turbo-windows-64: 1.10.16
-      turbo-windows-arm64: 1.10.16
+      turbo-darwin-64: 2.0.1
+      turbo-darwin-arm64: 2.0.1
+      turbo-linux-64: 2.0.1
+      turbo-linux-arm64: 2.0.1
+      turbo-windows-64: 2.0.1
+      turbo-windows-arm64: 2.0.1
     dev: false
 
   /type-check@0.4.0:
