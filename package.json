@@ -26,7 +26,7 @@
     "eslint-config-antoine": "^1.0.13",
     "prettier": "^3.0.3",
     "tsup": "^8.0.0",
-    "turbo": "^1.10.16"
+    "turbo": "^2.0.0"
   },
   "preconstruct": {
     "packages": [
