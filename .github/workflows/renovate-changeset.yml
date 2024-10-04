@@ -15,5 +15,4 @@ jobs:
         uses: mscharley/dependency-changesets-action@v1.0.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          use-conventional-commits: true
           commit-message: '📝 add changes'
