@@ -15,4 +15,5 @@ jobs:
         uses: mscharley/dependency-changesets-action@v1.0.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          use-semantic-commits: false
           commit-message: '📝 add changes'
