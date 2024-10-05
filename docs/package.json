@@ -10,8 +10,8 @@
     "@fontsource/figtree": "^5.0.2",
     "next": "^14.0.0",
     "next-themes": "^0.3.0",
-    "nextra": "^2.13.2",
-    "nextra-theme-docs": "^2.7.0",
+    "nextra": "^3.0.0",
+    "nextra-theme-docs": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
