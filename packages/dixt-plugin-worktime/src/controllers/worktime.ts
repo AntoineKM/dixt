@@ -476,7 +476,7 @@ class WorktimeController {
 
     let leaderboardEmbed: APIEmbed = {
       ...WorktimeController.baseEmbed,
-      title: "Classement",
+      title: "Leaderboard",
     };
 
     if (endWorktimes && endWorktimes.length > 0) {
@@ -487,7 +487,7 @@ class WorktimeController {
 
       // create a map with the total worktime of each user
       const worktimeMap = new Map<string, number>();
-      // dont use forEach because it's async and we need to wait for the result, so use map
+      // don't use forEach because it's async and we need to wait for the result, so use map
       await Promise.all(
         endWorktimes.map(async (worktime) => {
           const totalWorktime = worktimeMap.get(worktime.userId) || 0;
@@ -594,7 +594,7 @@ class WorktimeController {
         labels,
         datasets: [
           {
-            label: "EMS par heure",
+            label: "Employees per hour",
             data: labels.map((label) => {
               return dayAndHourMap.get(label) || 0;
             }),
@@ -605,7 +605,7 @@ class WorktimeController {
             backgroundColor: "rgba(88, 101, 242, 0.2)",
           },
           {
-            label: "Moyenne d'EMS par heure",
+            label: "Average employees per hour",
             data: labels.map(() => statsAverageUserCountPerHour),
             borderColor: "rgb(235, 69, 158)",
             pointRadius: 0,
@@ -622,7 +622,7 @@ class WorktimeController {
           },
           title: {
             display: true,
-            text: "EMS par heure",
+            text: "Employees per hour",
             color: "white",
           },
         },
@@ -658,9 +658,9 @@ class WorktimeController {
       leaderboardEmbed = {
         ...leaderboardEmbed,
         description:
-          `Voici le classement des membres de l'équipe pour la semaine du ${dayjs()
+          `Here is the team leaderboard for the week from ${dayjs()
             .subtract(1, "week")
-            .format("DD/MM/YYYY")} au ${dayjs().format("DD/MM/YYYY")}\n\n` +
+            .format("DD/MM/YYYY")} to ${dayjs().format("DD/MM/YYYY")}\n\n` +
           [...sortedWorktimeMap.entries()]
             .map(
               ([userId, totalWorktime], index) =>
@@ -669,15 +669,15 @@ class WorktimeController {
                 )}\` - <@${userId}>`,
             )
             .join("\n") +
-          "\n\n**Statistiques**",
+          "\n\n**Statistics**",
         fields: [
           {
-            name: "Nombre de prises de services",
+            name: "Number of service entries",
             value: `${statsWorktimesCount}`,
             inline: true,
           },
           {
-            name: "Temps total de travail",
+            name: "Total work time",
             inline: true,
             value: `${pad(
               Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
@@ -688,27 +688,27 @@ class WorktimeController {
             )}`,
           },
           {
-            name: "Moyenne d'EMS par heure",
+            name: "Average employees per hour",
             inline: true,
             value: `${statsAverageUserCountPerHour.toFixed(2)}`,
           },
           {
-            name: "Heure d'affluence",
+            name: "Peak hour",
             value: statsBusiestHour,
             inline: true,
           },
           {
-            name: "Heure de carence",
+            name: "Quietest hour",
             value: statsQuietestHour,
             inline: true,
           },
           {
-            name: "Jour d'affluence",
+            name: "Peak day",
             value: capitalize(statsBusiestDay),
             inline: true,
           },
           {
-            name: "Jour de carence",
+            name: "Quietest day",
             value: capitalize(statsQuietestDay),
             inline: true,
           },
@@ -720,8 +720,7 @@ class WorktimeController {
     } else {
       leaderboardEmbed = {
         ...leaderboardEmbed,
-        description:
-          "Il n'y a pas assez de données pour afficher le classement.",
+        description: "There is not enough data to display the leaderboard.",
       };
     }
 
