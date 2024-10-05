@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.18
+
+### Patch Changes
+
+- 6fa4504: Fix worktime leaderboard typo
+
 ## 2.1.17
 
 ### Patch Changes
