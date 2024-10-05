@@ -16,4 +16,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-semantic-commits: false
-          commit-message: '📝 add changes'
+          commit-message: '📝 add dependencies changes'
