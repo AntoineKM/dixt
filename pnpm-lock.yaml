@@ -77,7 +77,7 @@ importers:
         version: 4.17.21
       mongoose:
         specifier: ^8.0.0
-        version: 8.7.0
+        version: 8.7.1
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.194
@@ -5812,8 +5812,8 @@ packages:
       mongodb-connection-string-url: 3.0.1
     dev: false
 
-  /mongoose@8.7.0:
-    resolution: {integrity: sha512-rUCSF1mMYQXjXYdqEQLLlMD3xbcj2j1/hRn+9VnVj7ipzru/UoUZxlj/hWmteKMAh4EFnDZ+BIrmma9l/0Hi1g==}
+  /mongoose@8.7.1:
+    resolution: {integrity: sha512-RpNMyhyzLVCVbf8xTVbrf/18G3MqQzNw5pJdvOJ60fzbCa3cOZzz9L+8XpqzBXtRlgZGWv0T7MmOtvrT8ocp1Q==}
     engines: {node: '>=16.20.1'}
     dependencies:
       bson: 6.8.0
