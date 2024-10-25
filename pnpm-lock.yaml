@@ -77,7 +77,7 @@ importers:
         version: 4.17.21
       mongoose:
         specifier: ^8.0.0
-        version: 8.7.2
+        version: 8.7.3
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.194
@@ -2261,8 +2261,8 @@ packages:
     dependencies:
       fill-range: 7.1.1
 
-  /bson@6.8.0:
-    resolution: {integrity: sha512-iOJg8pr7wq2tg/zSlCCHMi3hMm5JTOxLTagf3zxhcenHsFp+c6uOs6K7W5UE7A4QIJGtqh/ZovFNMP4mOPJynQ==}
+  /bson@6.9.0:
+    resolution: {integrity: sha512-X9hJeyeM0//Fus+0pc5dSUMhhrrmWwQUtdavaQeF3Ta6m69matZkGWV/MrBcnwUeLC8W9kwwc2hfkZgUuCX3Ig==}
     engines: {node: '>=16.20.1'}
     dev: false
 
@@ -5684,15 +5684,15 @@ packages:
         optional: true
     dependencies:
       '@mongodb-js/saslprep': 1.1.9
-      bson: 6.8.0
+      bson: 6.9.0
       mongodb-connection-string-url: 3.0.1
     dev: false
 
-  /mongoose@8.7.2:
-    resolution: {integrity: sha512-Ok4VzMds9p5G3ZSUhmvBm1GdxanbzhS29jpSn02SPj+IXEVFnIdfwAlHHXWkyNscZKlcn8GuMi68FH++jo0flg==}
+  /mongoose@8.7.3:
+    resolution: {integrity: sha512-Xl6+dzU5ZpEcDoJ8/AyrIdAwTY099QwpolvV73PIytpK13XqwllLq/9XeVzzLEQgmyvwBVGVgjmMrKbuezxrIA==}
     engines: {node: '>=16.20.1'}
     dependencies:
-      bson: 6.8.0
+      bson: 6.9.0
       kareem: 2.6.3
       mongodb: 6.9.0
       mpath: 0.9.0
