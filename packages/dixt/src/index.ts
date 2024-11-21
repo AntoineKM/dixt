@@ -21,7 +21,7 @@ export type DixtPluginReturn = {
 
 export type DixtPlugin<DixtPluginOptions = object> = (
   _dixt: dixt,
-  _options?: DixtPluginOptions
+  _options?: DixtPluginOptions,
 ) => DixtPluginReturn | Promise<DixtPluginReturn>;
 
 export type DixtOptions = {
@@ -77,7 +77,7 @@ class dixt {
 
   constructor(public options: DixtOptions = dixtDefaults) {
     this.client = new Client(
-      merge({}, dixtDefaults.clientOptions, options.clientOptions)
+      merge({}, dixtDefaults.clientOptions, options.clientOptions),
     );
     this.application = merge({}, dixtDefaults.application, options.application);
     this.plugins = options.plugins || [];
