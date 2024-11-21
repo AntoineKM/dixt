@@ -1,5 +1,11 @@
 # dixt-plugin-twitch
 
+## 1.1.17
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 1.1.16
 
 ### Patch Changes

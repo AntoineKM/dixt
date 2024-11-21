@@ -1,5 +1,17 @@
 # dixt-plugin-worktime
 
+## 2.1.18
+
+### Patch Changes
+
+- 6fa4504: Fix worktime leaderboard typo
+
+## 2.1.17
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 2.1.16
 
 ### Patch Changes

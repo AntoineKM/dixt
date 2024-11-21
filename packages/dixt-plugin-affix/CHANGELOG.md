@@ -1,5 +1,11 @@
 # dixt-plugin-affix
 
+## 1.0.9
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 1.0.8
 
 ### Patch Changes

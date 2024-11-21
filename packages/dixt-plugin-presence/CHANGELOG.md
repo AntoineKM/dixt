@@ -1,5 +1,11 @@
 # dixt-plugin-presence
 
+## 1.0.11
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 1.0.10
 
 ### Patch Changes

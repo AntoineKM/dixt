@@ -8,11 +8,11 @@
     "start": "turbo start",
     "build": "turbo build",
     "build:core": "turbo run build --filter=dixt",
-    "build:plugins": "turbo run build --filter='dixt-plugin-*'",
+    "build:plugins": "turbo run build --filter='dixt-plugin-*' --parallel",
     "build:docs": "turbo run build --filter=docs",
     "dev": "turbo dev",
     "dev:core": "turbo run dev --filter=dixt",
-    "dev:plugins": "turbo run dev --filter='dixt-plugin-*'",
+    "dev:plugins": "turbo run dev --filter='dixt-plugin-*' --parallel",
     "dev:docs": "turbo run dev --filter=docs",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@changesets/cli": "^2.26.2",
-    "@manypkg/cli": "^0.21.0",
+    "@manypkg/cli": "^0.23.0",
     "eslint": "^8.53.0",
     "eslint-config-antoine": "^1.0.13",
     "prettier": "^3.0.3",
@@ -33,5 +33,5 @@
       "packages/*"
     ]
   },
-  "packageManager": "pnpm@8.12.1"
+  "packageManager": "pnpm@8.15.9"
 }

@@ -14,18 +14,15 @@ dotenv.config({
 
 export type ClientOptions = Options;
 
+export type DixtPluginReturn = {
+  name: string;
+  commands?: DixtSlashCommandBuilder[];
+};
+
 export type DixtPlugin<DixtPluginOptions = object> = (
   _dixt: dixt,
-  _options?: DixtPluginOptions,
-) =>
-  | {
-      name: string;
-      commands?: DixtSlashCommandBuilder[];
-    }
-  | Promise<{
-      name: string;
-      commands?: DixtSlashCommandBuilder[];
-    }>;
+  _options?: DixtPluginOptions
+) => DixtPluginReturn | Promise<DixtPluginReturn>;
 
 export type DixtOptions = {
   clientOptions?: ClientOptions;
@@ -80,7 +77,7 @@ class dixt {
 
   constructor(public options: DixtOptions = dixtDefaults) {
     this.client = new Client(
-      merge({}, dixtDefaults.clientOptions, options.clientOptions),
+      merge({}, dixtDefaults.clientOptions, options.clientOptions)
     );
     this.application = merge({}, dixtDefaults.application, options.application);
     this.plugins = options.plugins || [];
@@ -91,7 +88,7 @@ class dixt {
   public async start() {
     Log.wait("loading env files");
     dotenv
-      .listDotenvFiles(".", {
+      .listFiles({
         node_env: process.env.NODE_ENV,
       })
       .forEach((file: string) => Log.info(`loaded env from ${file}`));

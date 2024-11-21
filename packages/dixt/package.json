@@ -11,12 +11,11 @@
   "dependencies": {
     "chalk": "4.1.2",
     "discord.js": "^14.9.0",
-    "dotenv-flow": "^3.2.0",
+    "dotenv-flow": "^4.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^8.0.0"
   },
   "devDependencies": {
-    "@types/dotenv-flow": "^3.2.0",
     "@types/lodash": "^4.14.194",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"

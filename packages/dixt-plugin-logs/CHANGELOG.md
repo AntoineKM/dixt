@@ -1,5 +1,17 @@
 # dixt-plugin-logs
 
+## 2.1.17
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
+## 2.1.16
+
+### Patch Changes
+
+- 2ff2a33: Fix logs default options
+
 ## 2.1.15
 
 ### Patch Changes

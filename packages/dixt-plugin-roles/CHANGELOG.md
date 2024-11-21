@@ -1,5 +1,11 @@
 # dixt-plugin-roles
 
+## 1.0.6
+
+### Patch Changes
+
+- f8d5604: Move core to peer dependencies
+
 ## 1.0.5
 
 ### Patch Changes

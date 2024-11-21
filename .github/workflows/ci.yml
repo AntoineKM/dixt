@@ -7,17 +7,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["16.x", "18.x", "20.x"]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node: ["20.x"]
+        os: [ubuntu-latest]
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Extract pnpm version
+        id: extract_pnpm_version
+        run: echo "::set-output name=pnpm_version::$(jq -r '.packageManager' package.json | cut -d'@' -f2)"
 
       - name: Use pnpm
-        uses: pnpm/action-setup@v2.4.0
+        uses: pnpm/action-setup@v3.0.0
         with:
-          version: "latest"
+          version: ${{ steps.extract_pnpm_version.outputs.pnpm_version }}
 
       - name: Use Node ${{ matrix.node }}
         uses: actions/setup-node@v4

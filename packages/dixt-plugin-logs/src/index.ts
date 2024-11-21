@@ -130,7 +130,7 @@ const dixtPluginLogs: DixtPlugin = (
   });
 
   // handle when a guild member delete a message
-  if (optionsValue?.logging?.message?.delete) {
+  if (options.logging?.message?.delete) {
     instance.client.on(Events.MessageDelete, (message) => {
       if (message.author?.bot) return;
       Log.warn(
@@ -140,7 +140,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when a guild member edit a message
-  if (optionsValue?.logging?.message?.edit) {
+  if (options.logging?.message?.edit) {
     instance.client.on(Events.MessageUpdate, (oldMessage, newMessage) => {
       if (oldMessage.author?.bot) return;
 
@@ -153,21 +153,21 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when a guild member join the server
-  if (optionsValue?.logging?.guild?.join) {
+  if (options.logging?.guild?.join) {
     instance.client.on(Events.GuildMemberAdd, (member) => {
       Log.info(`**${member.guild}** - ${member} has joined the server`);
     });
   }
 
   // handle when a guild member leave the server
-  if (optionsValue?.logging?.guild?.leave) {
+  if (options.logging?.guild?.leave) {
     instance.client.on(Events.GuildMemberRemove, (member) => {
       Log.info(`**${member.guild}** - ${member} has left the server`);
     });
   }
 
   // handle when a member join a voice channel
-  if (optionsValue?.logging?.voice?.join) {
+  if (options.logging?.voice?.join) {
     instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
       if (oldState.channelId === newState.channelId) return;
       if (oldState.channelId === null) {
@@ -187,7 +187,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone change the role of someone
-  if (optionsValue?.logging?.guild?.roleChange) {
+  if (options.logging?.guild?.roleChange) {
     instance.client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
       if (oldMember.roles.cache.size === newMember.roles.cache.size) return;
       if (oldMember.roles.cache.size > newMember.roles.cache.size) {
@@ -209,7 +209,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone change the nickname of someone
-  if (optionsValue?.logging?.member?.nicknameChange) {
+  if (options.logging?.member?.nicknameChange) {
     instance.client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
       if (oldMember.nickname === newMember.nickname) return;
       Log.info(
@@ -221,7 +221,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone react to a message
-  if (optionsValue?.logging?.message?.react?.add) {
+  if (options.logging?.message?.react?.add) {
     instance.client.on(Events.MessageReactionAdd, (reaction, user) => {
       if (user.bot) return;
       Log.info(
@@ -235,7 +235,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone remove a reaction from a message
-  if (optionsValue?.logging?.message?.react?.remove) {
+  if (options.logging?.message?.react?.remove) {
     instance.client.on(Events.MessageReactionRemove, (reaction, user) => {
       if (user.bot) return;
       Log.info(
@@ -249,7 +249,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone use a slash command
-  if (optionsValue?.logging?.member?.slashCommand) {
+  if (options.logging?.member?.slashCommand) {
     instance.client.on(Events.InteractionCreate, (interaction) => {
       if (interaction.isCommand()) {
         Log.info(
@@ -266,7 +266,7 @@ const dixtPluginLogs: DixtPlugin = (
   }
 
   // handle when someone deafen
-  if (optionsValue?.logging?.voice?.deafen) {
+  if (options.logging?.voice?.deafen) {
     instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
       if (oldState.deaf === newState.deaf) return;
       if (newState.deaf) {
