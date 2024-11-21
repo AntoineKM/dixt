@@ -1,11 +1,11 @@
-import { Client, Events, GatewayIntentBits, Options } from "discord.js";
+import { Client, Events, GatewayIntentBits, type Options } from "discord.js";
 import dotenv from "dotenv-flow";
 import EventEmiter from "events";
 import { merge } from "lodash";
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { type Mongoose } from "mongoose";
 import process from "process";
 
-import { DixtClient, DixtSlashCommandBuilder } from "./types";
+import type { DixtClient, DixtSlashCommandBuilder } from "./types";
 import Log from "./utils/log";
 
 dotenv.config({
@@ -19,9 +19,9 @@ export type DixtPluginReturn = {
   commands?: DixtSlashCommandBuilder[];
 };
 
-export type DixtPlugin<DixtPluginOptions extends object = object> = (
+export type DixtPlugin<DixtPluginOptions = object> = (
   _dixt: dixt,
-  _options?: DixtPluginOptions,
+  _options?: DixtPluginOptions
 ) => DixtPluginReturn | Promise<DixtPluginReturn>;
 
 export type DixtOptions = {
@@ -77,7 +77,7 @@ class dixt {
 
   constructor(public options: DixtOptions = dixtDefaults) {
     this.client = new Client(
-      merge({}, dixtDefaults.clientOptions, options.clientOptions),
+      merge({}, dixtDefaults.clientOptions, options.clientOptions)
     );
     this.application = merge({}, dixtDefaults.application, options.application);
     this.plugins = options.plugins || [];
@@ -161,6 +161,6 @@ export { default as pad } from "./utils/pad";
 export { default as progressIndicator } from "./utils/progressIndicator";
 export { default as reduceString } from "./utils/reduceString";
 
-export { type DixtClient, type DixtSlashCommandBuilder } from "./types";
+export type { DixtClient, DixtSlashCommandBuilder } from "./types";
 
 export default dixt;
