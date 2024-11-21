@@ -1,5 +1,11 @@
 # dixt
 
+## 2.1.11
+
+### Patch Changes
+
+- 1c819f9: Fix use of dixtplugin type generic
+
 ## 2.1.10
 
 ### Patch Changes
