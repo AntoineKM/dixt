@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.1.19
+
+### Patch Changes
+
+- 3905780: Instead of requiring users to click buttons to track their worktime, now automatically starts tracking when joining a work voice channel and stops when leaving it. Removes the instruction message and buttons.
+
 ## 2.1.18
 
 ### Patch Changes
