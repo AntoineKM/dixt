@@ -1,8 +1,8 @@
 import dixt, { DixtPlugin, Log, merge } from "dixt";
 import dotenv from "dotenv-flow";
 
-import ReportController from "./controllers/report";
 import { name } from "../package.json";
+import ReportController from "./controllers/report";
 
 dotenv.config({
   silent: true,

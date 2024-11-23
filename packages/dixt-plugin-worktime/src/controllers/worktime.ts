@@ -2,7 +2,6 @@ import { ChartOptions, ChartData, ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import {
   APIEmbed,
-  Channel,
   ChannelType,
   Collection,
   Colors,
@@ -135,8 +134,7 @@ class WorktimeController {
     let totalWorktime = 0;
     worktimes.forEach((worktime) => {
       if (worktime.startAt && worktime.endAt) {
-        totalWorktime +=
-          worktime.endAt.getTime() - worktime.startAt.getTime();
+        totalWorktime += worktime.endAt.getTime() - worktime.startAt.getTime();
       }
     });
 
@@ -144,8 +142,7 @@ class WorktimeController {
     const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
     const percentage =
       higherRoleWithQuota && this.options.quotas
-        ? (totalWorktimeInHours /
-            this.options.quotas[higherRoleWithQuota.id]) *
+        ? (totalWorktimeInHours / this.options.quotas[higherRoleWithQuota.id]) *
           100
         : 0;
 

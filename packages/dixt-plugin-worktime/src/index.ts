@@ -1,16 +1,12 @@
-import {
-  Events,
-  User,
-  VoiceState,
-} from "discord.js";
+import { Events, User, VoiceState } from "discord.js";
 import dixt, { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
 
+import { name } from "../package.json";
 import WorktimeController from "./controllers/worktime";
 import worktimeAbsenteesTask from "./tasks/absentees";
 import worktimeEndTask from "./tasks/end";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
-import { name } from "../package.json";
 
 dotenv.config({
   silent: true,
@@ -91,34 +87,57 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   const options = { ...optionsDefaults, ...optionsValue };
   const controller = new WorktimeController(instance, options);
 
-  instance.client.on(Events.VoiceStateUpdate, async (oldState: VoiceState, newState: VoiceState) => {
-    // Handle member joining a work channel
-    if (isJoiningWorkChannel(oldState, newState, options.channels?.workChannelNames || [])) {
-      try {
-        const embed = await controller.start(newState.member?.user as User);
-        newState.member?.user.send({ embeds: [embed] }).catch(e => Log.error(newState.member?.user, e));
-      } catch (e) {
-        Log.error(`Failed to start worktime for ${newState.member?.user}: ${e}`);
+  instance.client.on(
+    Events.VoiceStateUpdate,
+    async (oldState: VoiceState, newState: VoiceState) => {
+      // Handle member joining a work channel
+      if (
+        isJoiningWorkChannel(
+          oldState,
+          newState,
+          options.channels?.workChannelNames || [],
+        )
+      ) {
+        try {
+          const embed = await controller.start(newState.member?.user as User);
+          newState.member?.user
+            .send({ embeds: [embed] })
+            .catch((e) => Log.error(newState.member?.user, e));
+        } catch (e) {
+          Log.error(
+            `Failed to start worktime for ${newState.member?.user}: ${e}`,
+          );
+        }
       }
-    }
-    
-    // Handle member leaving a work channel
-    if (isLeavingWorkChannel(oldState, newState, options.channels?.workChannelNames || [])) {
-      try {
-        const embed = await controller.end(oldState.member?.user as User);
-        oldState.member?.user.send({ embeds: [embed] }).catch(e => Log.error(oldState.member?.user, e));
-      } catch (e) {
-        Log.error(`Failed to end worktime for ${oldState.member?.user}: ${e}`);
-      }
-    }
 
-    // Handle deafened state
-    if (oldState.deaf !== newState.deaf && newState.deaf) {
-      dixt.events.emit("report", {
-        message: `${newState.member} has been deafened.`,
-      });
-    }
-  });
+      // Handle member leaving a work channel
+      if (
+        isLeavingWorkChannel(
+          oldState,
+          newState,
+          options.channels?.workChannelNames || [],
+        )
+      ) {
+        try {
+          const embed = await controller.end(oldState.member?.user as User);
+          oldState.member?.user
+            .send({ embeds: [embed] })
+            .catch((e) => Log.error(oldState.member?.user, e));
+        } catch (e) {
+          Log.error(
+            `Failed to end worktime for ${oldState.member?.user}: ${e}`,
+          );
+        }
+      }
+
+      // Handle deafened state
+      if (oldState.deaf !== newState.deaf && newState.deaf) {
+        dixt.events.emit("report", {
+          message: `${newState.member} has been deafened.`,
+        });
+      }
+    },
+  );
 
   // tasks
   worktimeAbsenteesTask(instance, controller);
@@ -130,29 +149,53 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   };
 };
 
-function isJoiningWorkChannel(oldState: VoiceState, newState: VoiceState, workChannelNames: string[]): boolean {
+function isJoiningWorkChannel(
+  oldState: VoiceState,
+  newState: VoiceState,
+  workChannelNames: string[],
+): boolean {
   // Check if user wasn't in a work channel before and is now joining one
-  const wasInWorkChannel = oldState.channel !== null && workChannelNames.some(name => 
-    oldState.channel?.name.toLowerCase().includes(name.toLowerCase())
-  ) || false;
-  
-  const isJoiningWorkChannel = newState.channel !== null && workChannelNames.some(name => 
-    newState.channel?.name.toLowerCase().includes(name.toLowerCase())
-  ) || false;
-  
+  const wasInWorkChannel =
+    (oldState.channel !== null &&
+      workChannelNames.some(
+        (name) =>
+          oldState.channel?.name.toLowerCase().includes(name.toLowerCase()),
+      )) ||
+    false;
+
+  const isJoiningWorkChannel =
+    (newState.channel !== null &&
+      workChannelNames.some(
+        (name) =>
+          newState.channel?.name.toLowerCase().includes(name.toLowerCase()),
+      )) ||
+    false;
+
   return !wasInWorkChannel && isJoiningWorkChannel;
 }
 
-function isLeavingWorkChannel(oldState: VoiceState, newState: VoiceState, workChannelNames: string[]): boolean {
+function isLeavingWorkChannel(
+  oldState: VoiceState,
+  newState: VoiceState,
+  workChannelNames: string[],
+): boolean {
   // Check if user was in a work channel and is now leaving it
-  const wasInWorkChannel = oldState.channel !== null && workChannelNames.some(name => 
-    oldState.channel?.name.toLowerCase().includes(name.toLowerCase())
-  ) || false;
-  
-  const isJoiningWorkChannel = newState.channel !== null && workChannelNames.some(name => 
-    newState.channel?.name.toLowerCase().includes(name.toLowerCase())
-  ) || false;
-  
+  const wasInWorkChannel =
+    (oldState.channel !== null &&
+      workChannelNames.some(
+        (name) =>
+          oldState.channel?.name.toLowerCase().includes(name.toLowerCase()),
+      )) ||
+    false;
+
+  const isJoiningWorkChannel =
+    (newState.channel !== null &&
+      workChannelNames.some(
+        (name) =>
+          newState.channel?.name.toLowerCase().includes(name.toLowerCase()),
+      )) ||
+    false;
+
   return wasInWorkChannel && !isJoiningWorkChannel;
 }
 

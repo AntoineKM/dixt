@@ -1,8 +1,8 @@
 import { CacheType, Events, Interaction, User } from "discord.js";
 import { DixtPlugin, Log, getTextChannel, merge } from "dixt";
 
-import RolesController from "./controllers/roles";
 import { name } from "../package.json";
+import RolesController from "./controllers/roles";
 
 export type DixtPluginRolesOptionsChannelRole = {
   id: string;

@@ -9,8 +9,8 @@ import { DixtPlugin, Log, merge, isString } from "dixt";
 import dotenv from "dotenv-flow";
 import urlcat from "urlcat";
 
-import convertHexColortoNumber from "./utils/convertHexColortoNumber";
 import { name } from "../package.json";
+import convertHexColortoNumber from "./utils/convertHexColortoNumber";
 
 dotenv.config({
   silent: true,
