@@ -6,6 +6,7 @@ import {
   Collection,
   Colors,
   GuildMember,
+  Message,
   NonThreadGuildBasedChannel,
   Role,
   User,
@@ -16,6 +17,7 @@ import dixt, {
   formatDuration,
   progressIndicator,
   pad,
+  getTextChannel,
 } from "dixt";
 import QuickChart from "quickchart-js";
 
@@ -23,6 +25,10 @@ import { DixtPluginWorktimeOptions } from "..";
 import Worktime from "../models/Worktime";
 
 class WorktimeController {
+  private currentLeaderboardMessage: Message<boolean> | null | undefined = null;
+  private leaderboardUpdateInterval: NodeJS.Timeout | null = null;
+  private readonly UPDATE_INTERVAL = 30000; // 30 seconds
+
   public static baseEmbed = {
     title: "",
     color: Colors.White,
@@ -50,6 +56,8 @@ class WorktimeController {
       this.instance.application?.name || "";
     WorktimeController.baseEmbed.footer.icon_url =
       this.instance.application?.logo || "";
+
+    this.initializeLiveLeaderboard();
   }
 
   public async start(user: User): Promise<APIEmbed> {
@@ -189,6 +197,167 @@ class WorktimeController {
     }
 
     return embed;
+  }
+
+  private async initializeLiveLeaderboard() {
+    // Wait for client to be ready
+    if (!this.instance.client.isReady()) {
+      this.instance.client.once("ready", () => {
+        this.initializeLiveLeaderboard();
+      });
+      return;
+    }
+
+    // Check if leaderboard channel is configured
+    if (!this.options.channels?.leaderboard) {
+      Log.warn("leaderboard channel is not configured");
+      return;
+    }
+
+    try {
+      const channel = getTextChannel(
+        this.instance.client,
+        this.options.channels.leaderboard,
+      );
+
+      if (!channel) {
+        Log.warn(
+          `leaderboard channel ${this.options.channels.leaderboard} not found`,
+        );
+        return;
+      }
+
+      // Verify bot has necessary permissions
+      const permissions = channel.permissionsFor(this.instance.client.user!);
+      if (!permissions?.has(["ViewChannel", "SendMessages", "EmbedLinks"])) {
+        Log.warn(`missing required permissions in channel ${channel.name}`);
+        return;
+      }
+
+      // Try to find the last message in the channel
+      const messages = await channel.messages
+        .fetch({ limit: 10 })
+        .catch((error) => {
+          Log.error("failed to fetch messages:", error);
+          return null;
+        });
+
+      if (!messages) {
+        return;
+      }
+
+      // Look for an existing live leaderboard message
+      const existingLiveMessage = messages.find(
+        (msg) =>
+          msg.author.id === this.instance.client.user?.id &&
+          msg.embeds[0]?.title === "Leaderboard 🔴",
+      );
+
+      if (existingLiveMessage) {
+        this.currentLeaderboardMessage = existingLiveMessage;
+      } else {
+        // Create new live leaderboard message
+        const embed = await this.getLeaderboardEmbed(true);
+        this.currentLeaderboardMessage = await channel.send({
+          embeds: [embed],
+        });
+      }
+
+      // Start the update interval
+      this.startLiveLeaderboardUpdates();
+
+      // Clean up when the bot disconnects
+      this.instance.client.on("disconnect", () => {
+        this.stopLiveLeaderboardUpdates();
+      });
+
+      Log.info(`live leaderboard initialized in channel ${channel.name}`);
+    } catch (error) {
+      Log.error("failed to initialize live leaderboard:", error);
+    }
+  }
+
+  private async startLiveLeaderboardUpdates() {
+    if (this.leaderboardUpdateInterval) {
+      clearInterval(this.leaderboardUpdateInterval);
+    }
+
+    this.leaderboardUpdateInterval = setInterval(async () => {
+      await this.updateLiveLeaderboard();
+    }, this.UPDATE_INTERVAL);
+  }
+
+  private async updateLiveLeaderboard() {
+    if (!this.currentLeaderboardMessage) {
+      await this.initializeLiveLeaderboard();
+      return;
+    }
+
+    try {
+      const embed = await this.getLeaderboardEmbed(true);
+      await this.currentLeaderboardMessage.edit({ embeds: [embed] });
+    } catch (error) {
+      Log.error("failed to update live leaderboard:", error);
+      this.currentLeaderboardMessage = null; // Reset message reference if edit fails
+    }
+  }
+
+  public stopLiveLeaderboardUpdates() {
+    if (this.leaderboardUpdateInterval) {
+      clearInterval(this.leaderboardUpdateInterval);
+      this.leaderboardUpdateInterval = null;
+    }
+  }
+
+  public async handleWeeklyReset() {
+    const channel = getTextChannel(
+      this.instance.client,
+      this.options.channels?.leaderboard || "",
+    );
+
+    if (!channel) {
+      Log.error("failed to find leaderboard channel");
+      return;
+    }
+
+    try {
+      // Stop live updates temporarily
+      this.stopLiveLeaderboardUpdates();
+
+      // Convert current live leaderboard to summary if it exists
+      if (this.currentLeaderboardMessage) {
+        const summaryEmbed = await this.getLeaderboardEmbed(false);
+        await this.currentLeaderboardMessage.edit({ embeds: [summaryEmbed] });
+        this.currentLeaderboardMessage = null;
+      }
+
+      // Create new live leaderboard message
+      const liveEmbed = await this.getLeaderboardEmbed(true);
+      this.currentLeaderboardMessage = await channel.send({
+        embeds: [liveEmbed],
+      });
+
+      // Reset worktimes
+      const currentWorktimes = await Worktime.find({ endAt: undefined });
+      await Worktime.deleteMany({});
+
+      // Restart current worktimes
+      for (const worktime of currentWorktimes) {
+        await Worktime.create({
+          userId: worktime.userId,
+          startAt: new Date(),
+        });
+      }
+
+      // Restart live updates
+      this.startLiveLeaderboardUpdates();
+
+      Log.info(
+        "weekly reset completed - worktimes have been reset and restarted",
+      );
+    } catch (error) {
+      Log.error("failed to handle weekly reset:", error);
+    }
   }
 
   public async isInWorkChannel(member: GuildMember): Promise<boolean> {
@@ -377,7 +546,7 @@ class WorktimeController {
     return results;
   }
 
-  public async getLeaderboardEmbed(): Promise<APIEmbed> {
+  public async getLeaderboardEmbed(isLive: boolean = false): Promise<APIEmbed> {
     const now = new Date();
     const nowTimestamp = now.getTime();
 
@@ -394,7 +563,7 @@ class WorktimeController {
 
     let leaderboardEmbed: APIEmbed = {
       ...WorktimeController.baseEmbed,
-      title: "Leaderboard",
+      title: isLive ? "Leaderboard 🔴" : "Leaderboard",
     };
 
     if (endWorktimes && endWorktimes.length > 0) {
@@ -405,14 +574,13 @@ class WorktimeController {
 
       // create a map with the total worktime of each user
       const worktimeMap = new Map<string, number>();
-      // don't use forEach because it's async and we need to wait for the result, so use map
+
+      // Calculate active time per user
       await Promise.all(
         endWorktimes.map(async (worktime) => {
           const totalWorktime = worktimeMap.get(worktime.userId) || 0;
-          worktimeMap.set(
-            worktime.userId,
-            totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt)),
-          );
+          const duration = dayjs(worktime.endAt).diff(dayjs(worktime.startAt));
+          worktimeMap.set(worktime.userId, totalWorktime + duration);
         }),
       );
 
@@ -421,8 +589,31 @@ class WorktimeController {
         [...worktimeMap.entries()].sort((a, b) => b[1] - a[1]),
       );
 
+      // Prepare the leaderboard entries with progress indicators
+      const leaderboardEntries = await Promise.all(
+        [...sortedWorktimeMap.entries()].map(
+          async ([userId, totalWorktime], index) => {
+            // Get the user's quota role
+            const user = await this.instance.client.users.fetch(userId);
+            const higherRoleWithQuota = await this.getHigherRoleWithQuota(user);
+
+            let progressText = "";
+            if (this.options.quotas && higherRoleWithQuota) {
+              const quota = this.options.quotas[higherRoleWithQuota.id];
+              const totalWorktimeInHours = totalWorktime / (1000 * 60 * 60);
+              const percentage = (totalWorktimeInHours / quota) * 100;
+              progressText = progressIndicator(percentage);
+            }
+
+            return `\`${pad(index + 1, 2)}. ${formatDuration(
+              totalWorktime,
+            )}\` - ${progressText} - <@${userId}>`;
+          },
+        ),
+      );
+
       // calculate additional statistics
-      const statsWorktimesCount = worktimes.length;
+      const statsWorktimesCount = worktimes.length; // Number of sessions
       const statsWorktimesDuration = [...worktimeMap.values()].reduce(
         (a, b) => a + b,
         0,
@@ -441,24 +632,6 @@ class WorktimeController {
         }
       });
 
-      // find the busiest and quietest hour
-      const statsBusiestHour =
-        hourMap.size > 0
-          ? dayjs(
-              `1970-01-01T${
-                [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-              }:00.000`,
-            ).format("HH:mm")
-          : "N/A";
-      const statsQuietestHour =
-        hourMap.size > 0
-          ? dayjs(
-              `1970-01-01T${
-                [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-              }:00.000`,
-            ).format("HH:mm")
-          : "N/A";
-
       // create a map of the number of users working on each day
       const dayMap = new Map<string, number>();
       endWorktimes.forEach((worktime) => {
@@ -474,10 +647,37 @@ class WorktimeController {
         [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0],
       ).format("dddd");
 
-      const totalHours =
-        (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
-      const totalUsers = [...sortedWorktimeMap.keys()].length;
-      const statsAverageUserCountPerHour = totalHours / totalUsers;
+      // Create a map for active users per hour
+      const hourlyActiveUsers = new Map<string, Set<string>>();
+      endWorktimes.forEach((worktime) => {
+        const start = dayjs(worktime.startAt);
+
+        // Get the hour of the worktime (no need to loop through all hours if it's within the same hour)
+        const hourKey = start.format("HH:00");
+        if (!hourlyActiveUsers.has(hourKey)) {
+          hourlyActiveUsers.set(hourKey, new Set());
+        }
+        hourlyActiveUsers.get(hourKey)?.add(worktime.userId);
+      });
+
+      const statsBusiestHour =
+        hourlyActiveUsers.size > 0
+          ? [...hourlyActiveUsers.entries()].sort(
+              (a, b) => b[1].size - a[1].size,
+            )[0][0]
+          : "N/A";
+
+      const statsQuietestHour =
+        hourlyActiveUsers.size > 0
+          ? [...hourlyActiveUsers.entries()].sort(
+              (a, b) => a[1].size - b[1].size,
+            )[0][0]
+          : "N/A";
+
+      // Calculate average users per hour
+      const totalWorkHours = statsWorktimesDuration / (1000 * 60 * 60);
+      const statsAverageUserCountPerHour =
+        sortedWorktimeMap.size / Math.max(Math.ceil(totalWorkHours), 1);
 
       const dayAndHourMap = new Map<string, number>();
       endWorktimes.forEach((worktime) => {
@@ -576,17 +776,10 @@ class WorktimeController {
       leaderboardEmbed = {
         ...leaderboardEmbed,
         description:
-          `Here is the team leaderboard for the week from ${dayjs()
-            .subtract(1, "week")
-            .format("DD/MM/YYYY")} to ${dayjs().format("DD/MM/YYYY")}\n\n` +
-          [...sortedWorktimeMap.entries()]
-            .map(
-              ([userId, totalWorktime], index) =>
-                `\`${pad(index + 1, 2)}. ${formatDuration(
-                  totalWorktime,
-                )}\` - <@${userId}>`,
-            )
-            .join("\n") +
+          `Here is the team leaderboard from ${dayjs(
+            firstWorktime.startAt,
+          ).format("DD/MM/YYYY")} to ${dayjs(now).format("DD/MM/YYYY")}\n\n` +
+          leaderboardEntries.join("\n") +
           "\n\n**Statistics**",
         fields: [
           {
@@ -634,11 +827,19 @@ class WorktimeController {
         image: {
           url: await chart.getShortUrl(),
         },
+        footer: {
+          ...leaderboardEmbed.footer,
+          text: `Last updated at ${dayjs().format("HH:mm:ss")}`,
+        },
       };
     } else {
       leaderboardEmbed = {
         ...leaderboardEmbed,
         description: "There is not enough data to display the leaderboard.",
+        footer: {
+          ...leaderboardEmbed.footer,
+          text: `Last updated at ${dayjs().format("HH:mm:ss")}`,
+        },
       };
     }
 

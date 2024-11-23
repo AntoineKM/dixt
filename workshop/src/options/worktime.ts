@@ -11,6 +11,10 @@ const dixtPluginWorktimeOptions: DixtPluginWorktimeOptions = {
     [ROLES.MAINTAINER]: 2,
     [ROLES.CONTRIBUTOR]: 1,
   },
+  tasks: {
+    // every sunday at 12:00
+    leaderboard: "0 12 * * 0",
+  },
 };
 
 export default dixtPluginWorktimeOptions;
