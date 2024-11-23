@@ -1,19 +1,15 @@
 import {
-  CacheType,
-  Colors,
   Events,
-  GuildMember,
-  Interaction,
   User,
+  VoiceState,
 } from "discord.js";
-import dixt, { DixtPlugin, Log, merge, getTextChannel } from "dixt";
+import dixt, { DixtPlugin, Log } from "dixt";
 import dotenv from "dotenv-flow";
 
 import WorktimeController from "./controllers/worktime";
 import worktimeAbsenteesTask from "./tasks/absentees";
 import worktimeEndTask from "./tasks/end";
 import worktimeLeaderboardTask from "./tasks/leaderboard";
-import worktimeReminderTask from "./tasks/reminder";
 import { name } from "../package.json";
 
 dotenv.config({
@@ -23,7 +19,6 @@ dotenv.config({
 export type DixtPluginWorktimeOptions = {
   title?: string;
   channels?: {
-    main?: string | string[];
     leaderboard?: string;
     workChannelNames?: string[];
   };
@@ -33,7 +28,6 @@ export type DixtPluginWorktimeOptions = {
   tasks?: {
     absentees?: string;
     end?: string;
-    reminder?: string;
     leaderboard?: string;
   };
   reports?: {
@@ -41,17 +35,10 @@ export type DixtPluginWorktimeOptions = {
     maximumDaysAbsent?: number;
   };
   messages?: {
-    main?: {
-      instructions?: string;
-      startButton?: string;
-      endButton?: string;
-    };
     start?: {
-      alreadyStarted?: string;
       success?: string;
     };
     end?: {
-      notStarted?: string;
       success?: string;
       progress?: string;
       noQuota?: string;
@@ -63,10 +50,9 @@ export type DixtPluginWorktimeOptions = {
   };
 };
 
-export const optionsDefaults = {
+export const optionsDefaults: DixtPluginWorktimeOptions = {
   title: "Worktime",
   channels: {
-    main: process.env.DIXT_PLUGIN_WORKTIME_MAIN_CHANNEL_ID || "",
     leaderboard: process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_CHANNEL_ID || "",
     workChannelNames:
       process.env.DIXT_PLUGIN_WORKTIME_WORKTIME_CHANNEL_NAMES?.split(",") || [],
@@ -75,7 +61,6 @@ export const optionsDefaults = {
     absentees:
       process.env.DIXT_PLUGIN_WORKTIME_ABSENTEES_TASK || "0 12 * * 2-7",
     end: process.env.DIXT_PLUGIN_WORKTIME_END_TASK || "*/10 * * * *",
-    reminder: process.env.DIXT_PLUGIN_WORKTIME_REMINDER_TASK || "*/10 * * * *",
     leaderboard:
       process.env.DIXT_PLUGIN_WORKTIME_LEADERBOARD_TASK || "0 12 * * 0",
   },
@@ -84,26 +69,12 @@ export const optionsDefaults = {
     maximumDaysAbsent: 2,
   },
   messages: {
-    main: {
-      instructions:
-        "Worktime of the team members.\n\n" +
-        "**Start service**\n" +
-        "Click on the **Start service** button to point your arrival.\n\n" +
-        "**End service**\n" +
-        "Click on the **End service** button to point your departure.\n\n" +
-        "**Warning**\n" +
-        "Make sure to connect to a **work** voice channel to make sure your service is taken into account.",
-      startButton: "✨ Start service",
-      endButton: "🚪 End service",
-    },
     start: {
-      alreadyStarted: "You have already started your service at %time%.",
-      success: "Your service has been validated at %time%.",
+      success: "Your worktime has started at %time%.",
     },
     end: {
-      notStarted: "You have not started your service yet.",
       success:
-        "Your end of service has been validated at %time%. \n\n**Time worked this week:** %total_time%.%progress%",
+        "Your worktime has ended at %time%. \n\n**Time worked this week:** %total_time%.%progress%",
       progress: "\n**Progression:** %progress%",
       noQuota: "You don't have a quota.",
     },
@@ -117,120 +88,32 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   instance,
   optionsValue,
 ) => {
-  const options = merge({}, optionsDefaults, optionsValue);
+  const options = { ...optionsDefaults, ...optionsValue };
   const controller = new WorktimeController(instance, options);
-  if (!options.channels.main) {
-    Log.error(`${name} - channels.main is required`);
-    throw new Error(`${name} - channels.main is required`);
-  }
 
-  instance.client.on(Events.ClientReady, async () => {
-    if (!options.channels.main) {
-      Log.error(`${name} - channels.main is required`);
-      throw new Error(`${name} - channels.main is required`);
-    }
-
-    if (Array.isArray(options.channels.main)) {
-      options.channels.main.forEach((channelId) => {
-        const channel = getTextChannel(instance.client, channelId);
-        controller.initialize(channel);
-      });
-    } else {
-      const channel = getTextChannel(instance.client, options.channels.main);
-      controller.initialize(channel);
-    }
-  });
-
-  instance.client.on(
-    Events.InteractionCreate,
-    async (interaction: Interaction<CacheType>) => {
-      if (!interaction.isButton()) return;
-      if (!interaction.customId.startsWith("worktime_")) return;
-      if (!interaction.guild) return;
-      if (!interaction.member || !interaction.member.user) return;
-
-      switch (interaction.customId) {
-        case "worktime_start": {
-          await interaction.deferReply({
-            ephemeral: true,
-          });
-
-          if (
-            await controller.isInWorkChannel(interaction.member as GuildMember)
-          ) {
-            try {
-              const embed = await controller.start(
-                interaction.member.user as User,
-              );
-              await interaction.editReply({
-                embeds: [embed],
-              });
-            } catch (e) {
-              await interaction.editReply({
-                embeds: [
-                  {
-                    ...WorktimeController.baseEmbed,
-                    color: Colors.Red,
-                    description: `${interaction.member}, ${instance.messages?.error?.dmBlocked}`,
-                  },
-                ],
-              });
-              Log.error(`${interaction.member} - ${e}`);
-            }
-          } else {
-            if (
-              options.channels.workChannelNames &&
-              options.channels.workChannelNames.length > 0
-            ) {
-              Log.info(
-                `**${interaction.guild}** - ${interaction.member} tried to start worktime but is not in a work channel`,
-              );
-              const workChannels = await controller.getWorkChannels();
-              await interaction.editReply({
-                embeds: [
-                  {
-                    ...WorktimeController.baseEmbed,
-                    description: `Connectez-vous au salon ${workChannels[0]} pour pointer votre arrivée.`,
-                    color: Colors.Red,
-                  },
-                ],
-              });
-            }
-          }
-          break;
-        }
-
-        case "worktime_end": {
-          await interaction.deferReply({
-            ephemeral: true,
-          });
-
-          try {
-            const embed = await controller.end(interaction.member.user as User);
-            await interaction.editReply({
-              embeds: [embed],
-            });
-          } catch (e) {
-            await interaction.editReply({
-              embeds: [
-                {
-                  ...WorktimeController.baseEmbed,
-                  color: Colors.Red,
-                  description: `${interaction.member}, ${instance.messages?.error?.dmBlocked}`,
-                },
-              ],
-            });
-            Log.error(`${interaction.member} - ${e}`);
-          }
-          break;
-        }
+  instance.client.on(Events.VoiceStateUpdate, async (oldState: VoiceState, newState: VoiceState) => {
+    // Handle member joining a work channel
+    if (isJoiningWorkChannel(oldState, newState, options.channels?.workChannelNames || [])) {
+      try {
+        const embed = await controller.start(newState.member?.user as User);
+        newState.member?.user.send({ embeds: [embed] }).catch(e => Log.error(newState.member?.user, e));
+      } catch (e) {
+        Log.error(`Failed to start worktime for ${newState.member?.user}: ${e}`);
       }
-    },
-  );
+    }
+    
+    // Handle member leaving a work channel
+    if (isLeavingWorkChannel(oldState, newState, options.channels?.workChannelNames || [])) {
+      try {
+        const embed = await controller.end(oldState.member?.user as User);
+        oldState.member?.user.send({ embeds: [embed] }).catch(e => Log.error(oldState.member?.user, e));
+      } catch (e) {
+        Log.error(`Failed to end worktime for ${oldState.member?.user}: ${e}`);
+      }
+    }
 
-  instance.client.on(Events.VoiceStateUpdate, (oldState, newState) => {
-    if (oldState.deaf === newState.deaf) return;
-    if (newState.deaf) {
+    // Handle deafened state
+    if (oldState.deaf !== newState.deaf && newState.deaf) {
       dixt.events.emit("report", {
         message: `${newState.member} has been deafened.`,
       });
@@ -241,12 +124,37 @@ const dixtPluginWorktime: DixtPlugin<DixtPluginWorktimeOptions> = (
   worktimeAbsenteesTask(instance, controller);
   worktimeEndTask(instance, controller);
   worktimeLeaderboardTask(instance, controller);
-  worktimeReminderTask(instance, controller);
 
   return {
     name,
   };
 };
+
+function isJoiningWorkChannel(oldState: VoiceState, newState: VoiceState, workChannelNames: string[]): boolean {
+  // Check if user wasn't in a work channel before and is now joining one
+  const wasInWorkChannel = oldState.channel !== null && workChannelNames.some(name => 
+    oldState.channel?.name.toLowerCase().includes(name.toLowerCase())
+  ) || false;
+  
+  const isJoiningWorkChannel = newState.channel !== null && workChannelNames.some(name => 
+    newState.channel?.name.toLowerCase().includes(name.toLowerCase())
+  ) || false;
+  
+  return !wasInWorkChannel && isJoiningWorkChannel;
+}
+
+function isLeavingWorkChannel(oldState: VoiceState, newState: VoiceState, workChannelNames: string[]): boolean {
+  // Check if user was in a work channel and is now leaving it
+  const wasInWorkChannel = oldState.channel !== null && workChannelNames.some(name => 
+    oldState.channel?.name.toLowerCase().includes(name.toLowerCase())
+  ) || false;
+  
+  const isJoiningWorkChannel = newState.channel !== null && workChannelNames.some(name => 
+    newState.channel?.name.toLowerCase().includes(name.toLowerCase())
+  ) || false;
+  
+  return wasInWorkChannel && !isJoiningWorkChannel;
+}
 
 export { default as WorktimeController } from "./controllers/worktime";
 export default dixtPluginWorktime;

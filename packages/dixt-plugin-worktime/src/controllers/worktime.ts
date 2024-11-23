@@ -2,7 +2,6 @@ import { ChartOptions, ChartData, ChartConfiguration } from "chart.js";
 import dayjs from "dayjs";
 import {
   APIEmbed,
-  ButtonStyle,
   Channel,
   ChannelType,
   Collection,
@@ -54,56 +53,6 @@ class WorktimeController {
       this.instance.application?.logo || "";
   }
 
-  public async initialize(channel: Channel): Promise<void> {
-    if (channel?.type !== ChannelType.GuildText) return;
-
-    const instructionEmbed: APIEmbed = {
-      ...WorktimeController.baseEmbed,
-      description: this.options.messages?.main?.instructions || "",
-    };
-
-    const messages = await channel.messages.fetch();
-
-    const messagesWithSameContent = messages.filter(
-      (message) =>
-        message.embeds[0]?.description === instructionEmbed.description &&
-        message.embeds[0]?.title === instructionEmbed.title &&
-        message.embeds[0]?.color === instructionEmbed.color &&
-        message.embeds[0]?.footer?.text === instructionEmbed.footer?.text &&
-        message.embeds[0]?.footer?.iconURL ===
-          instructionEmbed.footer?.icon_url,
-    );
-
-    if (messagesWithSameContent.size === 0) {
-      await Promise.all(
-        messages.map(async (message) => await message.delete()),
-      );
-
-      await channel.send({
-        embeds: [instructionEmbed],
-        components: [
-          {
-            type: 1,
-            components: [
-              {
-                type: 2,
-                style: ButtonStyle.Primary,
-                label: this.options.messages?.main?.startButton || "",
-                custom_id: "worktime_start",
-              },
-              {
-                type: 2,
-                style: ButtonStyle.Danger,
-                label: this.options.messages?.main?.endButton || "",
-                custom_id: "worktime_end",
-              },
-            ],
-          },
-        ],
-      });
-    }
-  }
-
   public async start(user: User): Promise<APIEmbed> {
     const currentWorktime = await Worktime.findOne({
       userId: user.id,
@@ -119,22 +68,14 @@ class WorktimeController {
         ...WorktimeController.baseEmbed,
         color: Colors.Red,
         description:
-          this.options.messages?.start?.alreadyStarted?.replace(
+          this.options.messages?.start?.success?.replace(
             /%time%/g,
             `<t:${Math.floor(currentWorktime.startAt.getTime() / 1000)}:t>`,
           ) || "",
       };
 
-      user
-        .send({
-          embeds: [embed],
-        })
-        .catch((e) => Log.error(user, e));
-
       Log.info(
-        `${user} tried to start his service twice at <t:${Math.floor(
-          Date.now() / 1000,
-        )}:t> but he already started his service at <t:${Math.floor(
+        `${user} is already in a work channel since <t:${Math.floor(
           currentWorktime.startAt.getTime() / 1000,
         )}:t>`,
       );
@@ -154,14 +95,8 @@ class WorktimeController {
           ) || "",
       };
 
-      user
-        .send({
-          embeds: [embed],
-        })
-        .catch((e) => Log.error(user, e));
-
       Log.info(
-        `${user} validated his service at <t:${Math.floor(
+        `${user} joined a work channel at <t:${Math.floor(
           Date.now() / 1000,
         )}:t>`,
       );
@@ -181,93 +116,79 @@ class WorktimeController {
     };
 
     if (!currentWorktime) {
-      embed = {
-        ...WorktimeController.baseEmbed,
-        color: Colors.Red,
-        description: this.options.messages?.end?.notStarted || "",
-      };
-      user
-        .send({
-          embeds: [embed],
-        })
-        .catch((e) => Log.error(user, e));
+      // No need to notify the user if they weren't in a work session
       Log.info(
-        `${user} tried to end his service at <t:${Math.floor(
+        `${user} left voice channel at <t:${Math.floor(
           Date.now() / 1000,
-        )}:t> but he didn't start his service`,
+        )}:t> but had no active work session`,
       );
-    } else {
-      currentWorktime.endAt = new Date();
-      await currentWorktime.save();
+      return embed;
+    }
 
-      const worktimes = await Worktime.find({
-        userId: user.id,
-      });
+    currentWorktime.endAt = new Date();
+    await currentWorktime.save();
 
-      let totalWorktime = 0;
-      worktimes.forEach((worktime) => {
-        if (worktime.startAt && worktime.endAt) {
-          totalWorktime +=
-            worktime.endAt.getTime() - worktime.startAt.getTime();
-        }
-      });
+    const worktimes = await Worktime.find({
+      userId: user.id,
+    });
 
-      const higherRoleWithQuota = await this.getHigherRoleWithQuota(user);
-      const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
-      const percentage =
-        higherRoleWithQuota && this.options.quotas
-          ? (totalWorktimeInHours /
-              this.options.quotas[higherRoleWithQuota.id]) *
-            100
-          : 0;
-
-      embed = {
-        ...WorktimeController.baseEmbed,
-        color: Colors.Green,
-        description: this.options.messages?.end?.success
-          ?.replace(/%time%/g, `<t:${Math.floor(Date.now() / 1000)}:t>`)
-          .replace(/%total_time%/g, formatDuration(totalWorktime))
-          .replace(
-            /%progress%/g,
-            `${
-              higherRoleWithQuota !== undefined
-                ? higherRoleWithQuota !== null
-                  ? this.options.messages?.end?.progress?.replace(
-                      /%progress%/g,
-                      progressIndicator(percentage),
-                    )
-                  : this.options.messages?.end?.noQuota || ""
-                : ""
-            }`,
-          ),
-      };
-
-      user
-        .send({
-          embeds: [embed],
-        })
-        .catch((e) => Log.error(user, e));
-
-      Log.info(
-        `${user} validated his end of service at <t:${Math.floor(
-          Date.now() / 1000,
-        )}:t> - ${formatDuration(totalWorktime)} - ${
-          higherRoleWithQuota !== undefined
-            ? higherRoleWithQuota !== null
-              ? progressIndicator(percentage)
-              : "no quota"
-            : ""
-        }`,
-      );
-
-      if (
-        currentWorktime.endAt.getTime() - currentWorktime.startAt.getTime() <
-        (this.options.reports?.minimumTime || 30) * 60 * 1000
-      ) {
-        dixt.events.emit("report", {
-          message: `${user} service was less than 30 minutes.`,
-        });
+    let totalWorktime = 0;
+    worktimes.forEach((worktime) => {
+      if (worktime.startAt && worktime.endAt) {
+        totalWorktime +=
+          worktime.endAt.getTime() - worktime.startAt.getTime();
       }
+    });
+
+    const higherRoleWithQuota = await this.getHigherRoleWithQuota(user);
+    const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
+    const percentage =
+      higherRoleWithQuota && this.options.quotas
+        ? (totalWorktimeInHours /
+            this.options.quotas[higherRoleWithQuota.id]) *
+          100
+        : 0;
+
+    embed = {
+      ...WorktimeController.baseEmbed,
+      color: Colors.Green,
+      description: this.options.messages?.end?.success
+        ?.replace(/%time%/g, `<t:${Math.floor(Date.now() / 1000)}:t>`)
+        .replace(/%total_time%/g, formatDuration(totalWorktime))
+        .replace(
+          /%progress%/g,
+          `${
+            higherRoleWithQuota !== undefined
+              ? higherRoleWithQuota !== null
+                ? this.options.messages?.end?.progress?.replace(
+                    /%progress%/g,
+                    progressIndicator(percentage),
+                  )
+                : this.options.messages?.end?.noQuota || ""
+              : ""
+          }`,
+        ),
+    };
+
+    Log.info(
+      `${user} left work channel at <t:${Math.floor(
+        Date.now() / 1000,
+      )}:t> - ${formatDuration(totalWorktime)} - ${
+        higherRoleWithQuota !== undefined
+          ? higherRoleWithQuota !== null
+            ? progressIndicator(percentage)
+            : "no quota"
+          : ""
+      }`,
+    );
+
+    if (
+      currentWorktime.endAt.getTime() - currentWorktime.startAt.getTime() <
+      (this.options.reports?.minimumTime || 30) * 60 * 1000
+    ) {
+      dixt.events.emit("report", {
+        message: `${user} work session was less than 30 minutes.`,
+      });
     }
 
     return embed;
