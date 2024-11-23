@@ -1,5 +1,11 @@
 # dixt-plugin-worktime
 
+## 2.2.0
+
+### Minor Changes
+
+- a45582b: Added progress indicator bars to each entry in the worktime leaderboard. Each user's progress toward their role-based quota is now visually displayed using a 10-segment progress bar and percentage.
+
 ## 2.1.19
 
 ### Patch Changes
