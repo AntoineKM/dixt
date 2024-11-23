@@ -22,5 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-conventional-commits: true
+          author-name: Renovate Changesets
+          author-email: github+renovate@scharley.me
           changeset-folder: '.changeset'
           commit-message: '📝 add dependencies changes'
