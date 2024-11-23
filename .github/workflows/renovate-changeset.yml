@@ -11,9 +11,16 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'dependencies')
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
       - name: Update PR
         uses: mscharley/dependency-changesets-action@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          use-semantic-commits: false
+          use-conventional-commits: false
+          changeset-folder: '.changeset'
           commit-message: '📝 add dependencies changes'
