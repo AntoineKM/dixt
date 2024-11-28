@@ -56,7 +56,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       typescript:
         specifier: ^5.0.3
         version: 5.7.2
@@ -84,7 +84,7 @@ importers:
         version: 4.17.13
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       typescript:
         specifier: ^5.0.0
         version: 5.7.2
@@ -93,7 +93,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -115,7 +115,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -140,7 +140,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -159,7 +159,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       '@types/node-schedule':
         specifier: ^2.1.0
         version: 2.1.0
@@ -184,7 +184,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -203,7 +203,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -222,7 +222,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -241,7 +241,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -260,7 +260,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       discord.js:
         specifier: ^14.9.0
         version: 14.16.3
@@ -291,7 +291,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       '@types/node-schedule':
         specifier: ^2.1.0
         version: 2.1.0
@@ -343,13 +343,13 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.17.8
+        version: 20.17.9
       nodemon:
         specifier: ^3.0.0
         version: 3.1.7
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.17.8)(typescript@5.7.2)
+        version: 10.9.2(@types/node@20.17.9)(typescript@5.7.2)
       typescript:
         specifier: ^5.0.0
         version: 5.7.2
@@ -1669,15 +1669,15 @@ packages:
   /@types/node-schedule@2.1.0:
     resolution: {integrity: sha512-NiTwl8YN3v/1YCKrDFSmCTkVxFDylueEqsOFdgF+vPsm+AlyJKGAo5yzX1FiOxPsZiN6/r8gJitYx2EaSuBmmg==}
     dependencies:
-      '@types/node': 20.17.8
+      '@types/node': 20.17.9
     dev: true
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: false
 
-  /@types/node@20.17.8:
-    resolution: {integrity: sha512-ahz2g6/oqbKalW9sPv6L2iRbhLnojxjYWspAqhjvqSWBgGebEJT5GvRmk0QXPj3sbC6rU0GTQjPLQkmR8CObvA==}
+  /@types/node@20.17.9:
+    resolution: {integrity: sha512-0JOXkRyLanfGPE2QRCwgxhzlBAvaRdCNMcvbd7jFfpmD4eEXll7LRwy5ymJmyeZqk7Nh7eD2LeUyQ68BbndmXw==}
     dependencies:
       undici-types: 6.19.8
 
@@ -1717,7 +1717,7 @@ packages:
   /@types/ws@8.5.12:
     resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
     dependencies:
-      '@types/node': 20.17.8
+      '@types/node': 20.17.9
 
   /@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0)(eslint@8.57.1)(typescript@5.7.2):
     resolution: {integrity: sha512-oy9+hTPCUFpngkEZUSzbf9MxI65wbKFoQYsgPdILTfbUldp5ovUuphZVe4i30emU9M/kP+T64Di0mxl7dSw3MA==}
@@ -3109,7 +3109,7 @@ packages:
       typed-array-byte-offset: 1.0.3
       typed-array-length: 1.0.7
       unbox-primitive: 1.0.2
-      which-typed-array: 1.1.15
+      which-typed-array: 1.1.16
     dev: false
 
   /es-define-property@1.0.0:
@@ -3254,7 +3254,7 @@ packages:
       eslint: 8.57.1
       eslint-config-next: 15.0.3(eslint@8.57.1)(typescript@5.7.2)
       eslint-config-prettier: 9.1.0(eslint@8.57.1)
-      eslint-config-turbo: 2.3.2(eslint@8.57.1)
+      eslint-config-turbo: 2.3.3(eslint@8.57.1)
       eslint-config-universe: 12.0.1(eslint@8.57.1)(prettier@3.0.3)(typescript@5.7.2)
       eslint-plugin-prettier: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.57.1)(prettier@3.0.3)
       eslint-plugin-react: 7.33.2(eslint@8.57.1)
@@ -3313,13 +3313,13 @@ packages:
       eslint: 8.57.1
     dev: false
 
-  /eslint-config-turbo@2.3.2(eslint@8.57.1):
-    resolution: {integrity: sha512-gIH/BQdbfWNa9uw/Obo7PZa/NNilZNP8STD0ppVKd8ekSVFONm2GebvOxNiSr5zHregRzokfynnHjZfB5ngJig==}
+  /eslint-config-turbo@2.3.3(eslint@8.57.1):
+    resolution: {integrity: sha512-cM9wSBYowQIrjx2MPCzFE6jTnG4vpTPJKZ/O+Ps3CqrmGK/wtNOsY6WHGMwLtKY/nNbgRahAJH6jGVF6k2coOg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.57.1
-      eslint-plugin-turbo: 2.3.2(eslint@8.57.1)
+      eslint-plugin-turbo: 2.3.3(eslint@8.57.1)
     dev: false
 
   /eslint-config-universe@12.0.1(eslint@8.57.1)(prettier@3.0.3)(typescript@5.7.2):
@@ -3380,7 +3380,7 @@ packages:
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@7.8.0)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
-      is-bun-module: 1.2.1
+      is-bun-module: 1.3.0
       is-glob: 4.0.3
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
@@ -3682,8 +3682,8 @@ packages:
       string.prototype.repeat: 1.0.0
     dev: false
 
-  /eslint-plugin-turbo@2.3.2(eslint@8.57.1):
-    resolution: {integrity: sha512-NoGxnaFi/8KotvKdbwR+VJOB3nVvIOjS193qCjHz2eBKhnO+Wr3cFgw9IZvk1rBIqg3a6VtJQmxkwNIYo2yWOw==}
+  /eslint-plugin-turbo@2.3.3(eslint@8.57.1):
+    resolution: {integrity: sha512-j8UEA0Z+NNCsjZep9G5u5soDQHcXq/x4amrwulk6eHF1U91H2qAjp5I4jQcvJewmccCJbVp734PkHHTRnosjpg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -4526,8 +4526,8 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /is-bun-module@1.2.1:
-    resolution: {integrity: sha512-AmidtEM6D6NmUiLOvvU7+IePxjEjOzra2h0pSrsfSAcXwl/83zLLXDByafUJy9k/rKK0pvXMLdwKwGHlX2Ke6Q==}
+  /is-bun-module@1.3.0:
+    resolution: {integrity: sha512-DgXeu5UWI0IsMQundYb5UAOzm6G2eVnarJ0byP6Tm55iZNKceD59LNPA2L4VvsScTtHcw0yEkVwSf7PC+QoLSA==}
     dependencies:
       semver: 7.6.3
     dev: false
@@ -4703,7 +4703,7 @@ packages:
     resolution: {integrity: sha512-uZ25/bUAlUY5fR4OKT4rZQEBrzQWYV9ZJYGGsUmEJ6thodVJ1HX64ePQ6Z0qPWP+m+Uq6e9UugrE38jeYsDSMw==}
     engines: {node: '>= 0.4'}
     dependencies:
-      which-typed-array: 1.1.15
+      which-typed-array: 1.1.16
     dev: false
 
   /is-weakmap@2.0.2:
@@ -7223,7 +7223,7 @@ packages:
   /ts-mixer@6.0.4:
     resolution: {integrity: sha512-ufKpbmrugz5Aou4wcr5Wc1UUFWOLhq+Fm6qa6P0w0K5Qw2yhaUoiWszhCVuNQyNwrlGiscHOmqYoAox1PtvgjA==}
 
-  /ts-node@10.9.2(@types/node@20.17.8)(typescript@5.7.2):
+  /ts-node@10.9.2(@types/node@20.17.9)(typescript@5.7.2):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
@@ -7242,7 +7242,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.17.8
+      '@types/node': 20.17.9
       acorn: 8.12.1
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -7757,7 +7757,7 @@ packages:
       isarray: 2.0.5
       which-boxed-primitive: 1.0.2
       which-collection: 1.0.2
-      which-typed-array: 1.1.15
+      which-typed-array: 1.1.16
     dev: false
 
   /which-collection@1.0.2:
@@ -7770,8 +7770,8 @@ packages:
       is-weakset: 2.0.3
     dev: false
 
-  /which-typed-array@1.1.15:
-    resolution: {integrity: sha512-oV0jmFtUky6CXfkqehVvBP/LSWJ2sy4vWMioiENyJLePrBO/yKyV9OyJySfAKosh+RYkIl5zJCNZ8/4JncrpdA==}
+  /which-typed-array@1.1.16:
+    resolution: {integrity: sha512-g+N+GAWiRj66DngFwHvISJd+ITsyphZvD1vChfVg6cEdnzy53GzB3oy0fUNlvhz7H7+MiqhYr26qxQShCpKTTQ==}
     engines: {node: '>= 0.4'}
     dependencies:
       available-typed-arrays: 1.0.7
