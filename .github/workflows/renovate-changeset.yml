@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Update PR
-        uses: mscharley/dependency-changesets-action@v1.1.1
+        uses: mscharley/dependency-changesets-action@v1.1.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-conventional-commits: true
