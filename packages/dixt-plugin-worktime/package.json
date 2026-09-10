@@ -20,7 +20,7 @@
     "@types/node-schedule": "^2.1.0",
     "discord.js": "^14.9.0",
     "dixt": "workspace:*",
-    "typescript": "^5.0.0"
+    "typescript": "^7.0.0"
   },
   "peerDependencies": {
     "discord.js": "^14.9.0",
